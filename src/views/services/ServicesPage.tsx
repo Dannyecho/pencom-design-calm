@@ -11,7 +11,6 @@ import {
 import {
   ArrowLeftRight,
   ArrowRight,
-  ArrowUpRight,
   Award,
   Banknote,
   BadgeCheck,
@@ -39,6 +38,7 @@ import {
 import { Link, useLocation } from "@/lib/router";
 import { cn } from "@/lib/utils";
 import { scrollToId } from "@/views/about/primitives";
+import { openChat } from "@/views/home/SiteSearch";
 import Headline from "@/views/theme/Headline";
 import {
   FramedPanel,
@@ -49,16 +49,16 @@ import {
   ease,
   focus,
   sectionCls,
-  spot,
 } from "@/views/theme/ui";
 import Calculator from "./Calculator";
 import { anchorAlias, journeys, portals, type Journey } from "./data";
 
 /**
- * Services, showcase theme (brief §6.2; templates "Guided service journey" and "Online services hub";
- * DES-25, DES-26). Hero with an "I want to…" picker and service tiles → step-by-step journeys (who it's
- * for, eligibility check, what you need, steps, where to go next) → pension calculator → online portals,
- * each with a "before you leave this site" screen → help. Old links (/services#pcc, #ppp, #rsa-transfer,
+ * Services, calm theme (brief §6.2; templates "Guided service journey" and "Online services hub";
+ * DES-25, DES-26). Light hero with an "I want to…" picker and service tiles → step-by-step journeys (who it's
+ * for, eligibility check, what you need, steps as gold number tiles, where to go next) → pension calculator
+ * (the page's one green inset panel) → online portals as calm task cards, each with a "before you leave this
+ * site" screen → help cards in the homepage TalkToUs style. Old links (/services#pcc, #ppp, #rsa-transfer,
  * #micro, #ehub …) open the matching journey or section.
  */
 
@@ -79,20 +79,37 @@ const portalIcons: Record<string, LucideIcon> = {
   ppp: Store,
 };
 
-/** Soft green spotlight for white cards, and the theme's hover lift. */
-const glowLight =
-  "[background-image:radial-gradient(420px_circle_at_var(--x,50%)_var(--y,0%),rgba(46,145,61,0.10),transparent_45%)]";
-const lift =
-  "transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_60px_-30px_rgba(4,20,10,0.35)]";
-const darkBtn =
-  "group inline-flex min-h-11 items-center gap-2 rounded-full bg-[#0B1F10] py-1.5 pl-5 pr-1.5 text-sm font-semibold text-white transition hover:bg-[#117F21]";
+/** The calm card: white, thin ring; on hover it lifts 4 px, gets a green ring and a soft green shadow. */
+const calmCard =
+  "group relative overflow-hidden rounded-3xl bg-white ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)] hover:ring-2 hover:ring-[#117F21]";
+/** Large gold primary and green outline buttons. */
+const goldBtn =
+  "group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-[#F4D27A] px-6 text-lg font-semibold text-[#1A1206] shadow-[0_14px_30px_-18px_rgba(122,82,0,0.8)] transition hover:bg-[#FFE08F]";
+const outlineBtn =
+  "inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border-2 border-[#117F21] bg-white px-6 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#117F21] hover:text-white";
 
-/** Gold circular arrow chip used at the end of dark buttons. */
-function Chip({ children }: { children: ReactNode }) {
+/** Dark-green icon tile with a gold icon that tips on card hover. */
+function IconTile({ icon: Icon, small = false }: { icon: LucideIcon; small?: boolean }) {
   return (
-    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#F4D27A] text-[#1A1206] transition-transform duration-300 group-hover:rotate-[-45deg]">
-      {children}
+    <span
+      aria-hidden="true"
+      className={cn(
+        "relative flex shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-[-6deg]",
+        small ? "h-12 w-12" : "h-16 w-16",
+      )}
+    >
+      <Icon className={small ? "h-6 w-6" : "h-8 w-8"} />
     </span>
+  );
+}
+
+/** Small uppercase label above each part of a journey. */
+function Label({ children, icon: Icon }: { children: ReactNode; icon?: LucideIcon }) {
+  return (
+    <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-[0.16em] text-[#0A4A13]">
+      {Icon && <Icon className="h-4 w-4" aria-hidden="true" />}
+      {children}
+    </h4>
   );
 }
 
@@ -149,7 +166,7 @@ export default function ServicesPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-white text-[#0B1F10]">
+      <div className="bg-[#FBF8F1] text-[#14261A]">
         <Hero onPick={(a) => choose(a, true)} />
         <SectionNav sections={onThisPage} pillId="svc-nav-pill" />
         <Journeys
@@ -184,55 +201,53 @@ function Hero({ onPick }: { onPick: (anchor: string) => void }) {
             e.preventDefault();
             onPick(pick);
           }}
-          className="flex flex-col gap-2 rounded-2xl bg-white p-2 shadow-[0_20px_40px_-28px_rgba(10,74,19,0.6)] ring-1 ring-black/10 sm:flex-row sm:items-center"
+          className="max-w-xl rounded-3xl bg-white p-3 shadow-[0_20px_40px_-28px_rgba(10,74,19,0.6)] ring-1 ring-black/10 sm:p-4"
         >
           <label
             htmlFor="svc-pick"
-            className="shrink-0 pl-3 font-semibold text-[#0A4A13]"
+            className="block px-1 text-lg font-semibold text-[#0A4A13]"
           >
             I want to
           </label>
-          <span className="relative min-w-0 flex-1">
-            <select
-              id="svc-pick"
-              value={pick}
-              onChange={(e) => setPick(e.target.value)}
-              className={cn(
-                "min-h-12 w-full appearance-none truncate rounded-xl bg-[#F2F6F0] pl-3 pr-9 font-semibold text-[#0B1F10] ring-1 ring-black/10",
-                focus,
-              )}
-            >
-              {journeys.map((j) => (
-                <option key={j.anchor} value={j.anchor}>
-                  {verbs[j.anchor] ?? j.short}
-                </option>
-              ))}
-            </select>
-            <ArrowRight
-              aria-hidden="true"
-              className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 rotate-90 text-gray-500"
-            />
-          </span>
-          <button
-            type="submit"
-            className={cn(
-              "group inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-[#0B1F10] px-5 font-semibold text-white transition hover:bg-[#117F21]",
-              focus,
-            )}
-          >
-            Show me how
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#F4D27A] text-[#1A1206] transition-transform duration-300 group-hover:rotate-[-45deg]">
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          <div className="mt-2 flex flex-col gap-3 sm:flex-row">
+            <span className="relative min-w-0 flex-1">
+              <select
+                id="svc-pick"
+                value={pick}
+                onChange={(e) => setPick(e.target.value)}
+                className={cn(
+                  "min-h-14 w-full appearance-none truncate rounded-2xl bg-[#FBF8F1] pl-4 pr-11 text-lg font-semibold text-[#14261A] ring-1 ring-black/15",
+                  focus,
+                )}
+              >
+                {journeys.map((j) => (
+                  <option key={j.anchor} value={j.anchor}>
+                    {verbs[j.anchor] ?? j.short}
+                  </option>
+                ))}
+              </select>
+              <ArrowRight
+                aria-hidden="true"
+                className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 rotate-90 text-[#117F21]"
+              />
             </span>
-          </button>
+            <button type="submit" className={cn(goldBtn, "shrink-0", focus)}>
+              Show me how
+              <ArrowRight
+                className="h-5 w-5 transition-transform group-hover:translate-x-1"
+                aria-hidden="true"
+              />
+            </button>
+          </div>
         </form>
       }
       aside={
-        <FramedPanel className="p-4 sm:p-5">
-          <p className="px-1 text-xs font-bold uppercase tracking-[0.18em] text-[#0A4A13]">
+        <FramedPanel className="hidden p-5 sm:block sm:p-6">
+          {/* Hidden on phones: the picker beside it and the journey rail below offer the same choices. */}
+          <p className="px-1 text-sm font-bold uppercase tracking-[0.18em] text-[#0A4A13]">
             Most used services
           </p>
-          <ul className="mt-3 grid grid-cols-2 gap-2.5">
+          <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
             {journeys.map((j, i) => {
               const Icon = icons[j.icon] ?? UserPlus;
               return (
@@ -246,18 +261,16 @@ function Hero({ onPick }: { onPick: (anchor: string) => void }) {
                     type="button"
                     onClick={() => onPick(j.anchor)}
                     className={cn(
-                      "group flex h-full w-full items-start gap-3 rounded-2xl bg-[#F2F6F0] p-3 text-left ring-1 ring-black/10 transition duration-300 hover:-translate-y-0.5 hover:bg-[#0B1F10] hover:text-white",
+                      "group flex h-full min-h-16 w-full items-center gap-3 rounded-2xl bg-[#FBF8F1] p-3 text-left ring-1 ring-black/10 transition duration-300 hover:-translate-y-0.5 hover:bg-[#E8F5E9] hover:ring-2 hover:ring-[#117F21]",
                       focus,
                     )}
                   >
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-[#117F21] shadow-sm transition group-hover:bg-[#F4D27A] group-hover:text-[#1A1206]">
-                      <Icon className="h-5 w-5" aria-hidden="true" />
-                    </span>
+                    <IconTile icon={Icon} small />
                     <span className="min-w-0">
-                      <span className="block text-sm font-bold leading-snug">
+                      <span className="block text-lg font-bold leading-snug text-[#14261A]">
                         {j.short}
                       </span>
-                      <span className="block text-xs text-gray-600 transition group-hover:text-white/75">
+                      <span className="block text-base text-gray-700">
                         {j.audience}
                       </span>
                     </span>
@@ -281,19 +294,19 @@ function Eligibility({ j }: { j: Journey }) {
   const done = ans.every((a) => a !== null);
   const ok = done && ans.every(Boolean);
   return (
-    <div className="rounded-3xl bg-[#F2F6F0] p-5 ring-1 ring-black/10">
-      <p className="flex items-center gap-2 font-bold">
-        <CircleHelp className="h-5 w-5 text-[#117F21]" aria-hidden="true" />
+    <div className="rounded-3xl bg-[#F1EFE8] p-5 sm:p-6">
+      <p className="flex items-center gap-2 text-lg font-bold">
+        <CircleHelp className="h-6 w-6 shrink-0 text-[#117F21]" aria-hidden="true" />
         {j.eligibility!.intro}
       </p>
-      <ol className="mt-4 space-y-2.5">
+      <ol className="mt-4 space-y-3">
         {j.eligibility!.questions.map((q, i) => (
           <li key={q}>
-            <fieldset className="flex flex-col gap-2 rounded-2xl bg-white p-3.5 ring-1 ring-black/10 sm:flex-row sm:items-center">
+            <fieldset className="flex flex-col gap-3 rounded-2xl bg-white p-4 ring-1 ring-black/10 sm:flex-row sm:items-center">
               <legend className="sr-only">{q}</legend>
               <span
                 aria-hidden="true"
-                className="flex-1 text-sm font-medium text-gray-800"
+                className="flex-1 text-lg leading-snug text-[#14261A]"
               >
                 {q}
               </span>
@@ -302,12 +315,12 @@ function Eligibility({ j }: { j: Journey }) {
                   <label
                     key={String(v)}
                     className={cn(
-                      "flex min-h-11 min-w-16 cursor-pointer items-center justify-center rounded-full px-4 text-sm font-semibold ring-1 transition has-[:focus-visible]:outline has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-[#FFD84D]",
+                      "flex min-h-12 min-w-20 cursor-pointer items-center justify-center gap-1.5 rounded-2xl px-4 text-lg font-semibold ring-1 transition has-[:focus-visible]:outline has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-[#FFD84D]",
                       ans[i] === v
                         ? v
-                          ? "bg-[#0B1F10] text-[#F4D27A] ring-[#0B1F10]"
+                          ? "bg-[#0A4A13] text-[#F4D27A] ring-[#0A4A13]"
                           : "bg-[#B52026] text-white ring-[#B52026]"
-                        : "text-gray-700 ring-black/10 hover:ring-black/30",
+                        : "bg-white text-[#14261A] ring-black/20 hover:ring-2 hover:ring-[#117F21]",
                     )}
                   >
                     <input
@@ -319,6 +332,12 @@ function Eligibility({ j }: { j: Journey }) {
                         setAns((a) => a.map((x, k) => (k === i ? v : x)))
                       }
                     />
+                    {ans[i] === v &&
+                      (v ? (
+                        <Check className="h-5 w-5" strokeWidth={3} aria-hidden="true" />
+                      ) : (
+                        <X className="h-5 w-5" strokeWidth={3} aria-hidden="true" />
+                      ))}
                     {v ? "Yes" : "No"}
                   </label>
                 ))}
@@ -336,19 +355,16 @@ function Eligibility({ j }: { j: Journey }) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               className={cn(
-                "mt-4 flex gap-3 rounded-2xl p-4 text-sm font-medium",
+                "mt-4 flex gap-3 rounded-2xl p-4 text-lg font-medium ring-1",
                 ok
-                  ? "bg-gradient-to-br from-[#0B1F10] to-[#0A4A13] text-white"
-                  : "bg-[#FDE8E8] text-[#5C1013]",
+                  ? "bg-[#E8F5E9] text-[#0A4A13] ring-[#117F21]/30"
+                  : "bg-[#FDE8E8] text-[#5C1013] ring-[#B52026]/25",
               )}
             >
               {ok ? (
-                <BadgeCheck
-                  className="h-5 w-5 shrink-0 text-[#F4D27A]"
-                  aria-hidden="true"
-                />
+                <BadgeCheck className="mt-0.5 h-6 w-6 shrink-0" aria-hidden="true" />
               ) : (
-                <X className="h-5 w-5 shrink-0" aria-hidden="true" />
+                <X className="mt-0.5 h-6 w-6 shrink-0" aria-hidden="true" />
               )}
               {ok ? j.eligibility!.yes : j.eligibility!.no}
             </motion.p>
@@ -376,74 +392,57 @@ function Panel({
       exit={{ opacity: 0, y: reduce ? 0 : -16 }}
       transition={{ duration: 0.35, ease }}
       aria-labelledby={`${j.anchor}-title`}
-      className="overflow-hidden rounded-[1.75rem] bg-white shadow-[0_40px_80px_-50px_rgba(4,20,10,0.55)] ring-1 ring-black/10"
+      className="overflow-hidden rounded-[2rem] bg-white shadow-[0_30px_60px_-36px_rgba(10,74,19,0.45)] ring-1 ring-black/10"
     >
-      <header
-        onMouseMove={spot}
-        className="relative isolate flex flex-col gap-5 overflow-hidden p-6 text-white [background-image:radial-gradient(420px_circle_at_var(--x,80%)_var(--y,0%),rgba(244,210,122,0.22),transparent_45%),linear-gradient(135deg,#0B1F10,#0A4A13)] sm:flex-row sm:p-8"
-      >
-        <Icon
+      {/* Green header: the journey's name, who it's for, where and how long */}
+      <header className="relative isolate flex flex-col gap-5 overflow-hidden bg-[#0A4A13] p-6 text-white sm:flex-row sm:p-8">
+        <div
           aria-hidden="true"
-          className="pointer-events-none absolute -bottom-10 -right-6 -z-10 h-48 w-48 text-white/[0.06]"
+          className="pointer-events-none absolute -right-20 -top-24 -z-10 h-64 w-64 rounded-full bg-[#CB9615]/20 blur-3xl"
         />
-        <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-[#F4D27A] ring-1 ring-white/15">
+        <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[#F4D27A] text-[#1A1206]">
           <Icon className="h-8 w-8" aria-hidden="true" />
         </span>
         <div className="min-w-0">
-          <p className="inline-flex rounded-full bg-[#F4D27A] px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-[#1A1206]">
+          <p className="inline-flex rounded-full bg-white px-3 py-1 text-sm font-bold uppercase tracking-[0.14em] text-[#0A4A13]">
             For {j.audience.toLowerCase()}
           </p>
           <h3
             id={`${j.anchor}-title`}
-            className="mt-3 text-2xl font-black leading-tight tracking-tight sm:text-[2.1rem]"
+            className="mt-3 text-2xl font-bold leading-tight tracking-tight sm:text-3xl"
           >
             {j.title}
           </h3>
-          <p className="mt-2 max-w-2xl leading-relaxed text-white/80">
+          <p className="mt-2 max-w-2xl text-lg leading-relaxed text-white/90">
             {j.intro}
           </p>
-          <div className="mt-4 flex flex-wrap gap-2 text-sm">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 font-medium ring-1 ring-white/15">
-              <MapPin
-                className="h-3.5 w-3.5 text-[#F4D27A]"
-                aria-hidden="true"
-              />
+          <ul className="mt-4 flex flex-wrap gap-2 text-base">
+            <li className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 font-medium ring-1 ring-white/20">
+              <MapPin className="h-4 w-4 text-[#F4D27A]" aria-hidden="true" />
               {j.where}
-            </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 font-medium ring-1 ring-white/15">
-              <Clock
-                className="h-3.5 w-3.5 text-[#F4D27A]"
-                aria-hidden="true"
-              />
+            </li>
+            <li className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 font-medium ring-1 ring-white/20">
+              <Clock className="h-4 w-4 text-[#F4D27A]" aria-hidden="true" />
               {j.standard ?? j.time}
-            </span>
-          </div>
+            </li>
+          </ul>
         </div>
       </header>
 
-      <div className="grid grid-cols-1 gap-8 p-6 sm:p-8 xl:grid-cols-[1fr_1.15fr]">
-        <div className="space-y-6">
+      <div className="grid grid-cols-1 gap-10 p-6 sm:p-8 xl:grid-cols-[1fr_1.15fr]">
+        <div className="space-y-7">
           <div>
-            <h4 className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-gray-600">
-              <Users className="h-4 w-4" aria-hidden="true" />
-              Who it’s for
-            </h4>
-            <p className="mt-2 text-gray-700">{j.forWho}</p>
+            <Label icon={Users}>Who it’s for</Label>
+            <p className="mt-2 text-lg leading-relaxed text-gray-700">{j.forWho}</p>
           </div>
           {j.eligibility && <Eligibility key={j.anchor} j={j} />}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-[0.16em] text-gray-600">
-              What you need
-            </h4>
-            <ul className="mt-3 space-y-2">
+            <Label>What you need</Label>
+            <ul className="mt-3 space-y-2.5">
               {j.needs.map((n) => (
-                <li key={n} className="flex items-start gap-3 text-gray-700">
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-[#E8F5E9] text-[#117F21]">
-                    <Check
-                      className="h-3.5 w-3.5"
-                      strokeWidth={3}
-                      aria-hidden="true"
-                    />
+                <li key={n} className="flex items-start gap-3 text-lg leading-snug text-gray-800">
+                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-[#E8F5E9] text-[#117F21]">
+                    <Check className="h-4 w-4" strokeWidth={3} aria-hidden="true" />
                   </span>
                   {n}
                 </li>
@@ -453,16 +452,14 @@ function Panel({
         </div>
 
         <div>
-          <h4 className="text-xs font-bold uppercase tracking-[0.16em] text-gray-600">
-            Steps
-          </h4>
-          <ol className="relative mt-4 space-y-5 pl-12">
+          <Label>Steps</Label>
+          <ol className="relative mt-4 space-y-6">
             <motion.span
               aria-hidden="true"
               initial={{ scaleY: reduce ? 1 : 0 }}
               animate={{ scaleY: 1 }}
               transition={{ duration: 0.8, delay: 0.2, ease }}
-              className="absolute bottom-3 left-[19px] top-3 w-[3px] origin-top rounded-full bg-gradient-to-b from-[#117F21] to-[#CB9615]"
+              className="absolute bottom-4 left-[27px] top-4 w-0.5 origin-top rounded-full bg-gradient-to-b from-[#117F21] to-[#CB9615]"
             />
             {j.steps.map((s, i) => (
               <motion.li
@@ -470,40 +467,40 @@ function Panel({
                 initial={{ opacity: 0, y: reduce ? 0 : 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35, delay: 0.15 + i * 0.08, ease }}
-                className="relative"
+                className="relative flex gap-4"
               >
-                <span className="absolute -left-12 flex h-10 w-10 items-center justify-center rounded-full bg-[#0B1F10] font-mono font-bold text-[#F4D27A] ring-4 ring-white">
+                <span className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#F4D27A] text-xl font-bold text-[#1A1206] ring-4 ring-white">
                   {i + 1}
                 </span>
-                <p className="pt-1.5 font-bold">{s.title}</p>
-                <p className="mt-1 text-sm leading-relaxed text-gray-600">
-                  {s.body}
-                </p>
+                <span className="min-w-0 pt-1">
+                  <span className="block text-xl font-bold leading-snug">{s.title}</span>
+                  <span className="mt-1 block text-lg leading-relaxed text-gray-700">
+                    {s.body}
+                  </span>
+                </span>
               </motion.li>
             ))}
           </ol>
 
-          <div className="relative mt-8 overflow-hidden rounded-3xl bg-[#F2F6F0] p-5 pl-6 ring-1 ring-black/10">
+          <div className="relative mt-8 overflow-hidden rounded-3xl bg-[#F1EFE8] p-6 pl-7">
             <span
               aria-hidden="true"
-              className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-[#F4D27A] to-[#CB9615]"
+              className="absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-[#F4D27A] to-[#CB9615]"
             />
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#7F5A04]">
+            <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#7A5200]">
               Where to go next
             </p>
             {portal ? (
               <>
-                <p className="mt-2 font-semibold">{portal.full}</p>
-                <p className="text-sm text-gray-700">{portal.use}</p>
+                <p className="mt-2 text-xl font-bold">{portal.full}</p>
+                <p className="mt-1 text-lg text-gray-700">{portal.use}</p>
                 <button
                   type="button"
                   onClick={() => onHandoff(portal.key)}
-                  className={cn("mt-4", darkBtn, focus)}
+                  className={cn("mt-5", goldBtn, focus)}
                 >
                   Go to {portal.name}
-                  <Chip>
-                    <ExternalLink className="h-4 w-4" aria-hidden="true" />
-                  </Chip>
+                  <ExternalLink className="h-5 w-5" aria-hidden="true" />
                 </button>
               </>
             ) : (
@@ -513,12 +510,13 @@ function Panel({
                     ? `/services${j.link.href}`
                     : j.link.href
                 }
-                className={cn("mt-3", darkBtn, focus)}
+                className={cn("mt-4", goldBtn, focus)}
               >
                 {j.link.label}
-                <Chip>
-                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                </Chip>
+                <ArrowRight
+                  className="h-5 w-5 transition-transform group-hover:translate-x-1"
+                  aria-hidden="true"
+                />
               </Link>
             )}
           </div>
@@ -542,7 +540,7 @@ function Journeys({
     <section
       id="journeys"
       aria-labelledby="journeys-title"
-      className={sectionCls}
+      className={cn(sectionCls, "bg-white")}
     >
       {/* Old links: /services#pcc, #ppp, #rsa-transfer … */}
       {journeys.map((x) => (
@@ -556,7 +554,6 @@ function Journeys({
       <div className="mx-auto max-w-7xl">
         <Headline
           id="journeys-title"
-          n="01"
           kicker="Step-by-step services"
           title="Choose a service and we’ll guide you through it"
           mark="guide you through it"
@@ -565,7 +562,7 @@ function Journeys({
         <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-12">
           <LayoutGroup id="svc-rail">
             <nav aria-label="Services" className="lg:col-span-4 xl:col-span-3">
-              <ul className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] lg:sticky lg:top-[170px] lg:mx-0 lg:flex-col lg:overflow-visible lg:px-0 [&::-webkit-scrollbar]:hidden">
+              <ul className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] lg:sticky lg:top-[170px] lg:mx-0 lg:flex-col lg:overflow-visible lg:rounded-3xl lg:bg-[#FBF8F1] lg:p-2 lg:ring-1 lg:ring-black/10 [&::-webkit-scrollbar]:hidden">
                 {journeys.map((x) => {
                   const I = icons[x.icon] ?? UserPlus;
                   const on = x.anchor === j.anchor;
@@ -576,17 +573,17 @@ function Journeys({
                         aria-current={on ? "true" : undefined}
                         onClick={() => onChoose(x.anchor)}
                         className={cn(
-                          "relative isolate flex min-h-14 w-full items-center gap-3 rounded-2xl px-3 text-left text-sm font-semibold transition-colors",
+                          "relative isolate flex min-h-16 w-full items-center gap-3 rounded-2xl px-3 text-left text-lg font-semibold transition-colors",
                           on
                             ? "text-white"
-                            : "bg-white text-gray-800 ring-1 ring-black/10 hover:bg-[#F2F6F0] lg:bg-transparent lg:ring-0",
+                            : "bg-white text-[#14261A] ring-1 ring-black/10 hover:bg-[#E8F5E9] lg:bg-transparent lg:ring-0",
                           focus,
                         )}
                       >
                         {on && (
                           <motion.span
                             layoutId="svc-rail-pill"
-                            className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-br from-[#0B1F10] to-[#0A4A13] shadow-[0_18px_36px_-16px_rgba(4,20,10,0.9)]"
+                            className="absolute inset-0 -z-10 rounded-2xl bg-[#0A4A13] shadow-[0_18px_36px_-18px_rgba(10,74,19,0.8)]"
                             transition={{
                               type: "spring",
                               stiffness: 380,
@@ -596,26 +593,26 @@ function Journeys({
                         )}
                         <span
                           className={cn(
-                            "flex h-9 w-9 shrink-0 items-center justify-center rounded-xl",
+                            "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl",
                             on
-                              ? "bg-white/10 text-[#F4D27A]"
-                              : "bg-[#E8F5E9] text-[#117F21]",
+                              ? "bg-[#F4D27A] text-[#1A1206]"
+                              : "bg-[#E8F5E9] text-[#0A4A13]",
                           )}
                         >
                           <I className="h-5 w-5" aria-hidden="true" />
                         </span>
-                        <span className="whitespace-nowrap lg:whitespace-normal">
-                          {x.short}
-                        </span>
-                        <span
-                          className={cn(
-                            "ml-auto hidden rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider lg:inline",
-                            on
-                              ? "bg-[#F4D27A] text-[#1A1206]"
-                              : "bg-[#F2F6F0] text-gray-600",
-                          )}
-                        >
-                          {x.audience}
+                        <span className="min-w-0">
+                          <span className="block whitespace-nowrap leading-snug lg:whitespace-normal">
+                            {x.short}
+                          </span>
+                          <span
+                            className={cn(
+                              "hidden text-base font-normal lg:block",
+                              on ? "text-[#F4D27A]" : "text-gray-700",
+                            )}
+                          >
+                            {x.audience}
+                          </span>
                         </span>
                       </button>
                     </li>
@@ -637,57 +634,16 @@ function Journeys({
 
 /* ─────────────────────────── Online services ─────────────────────────── */
 
-/** Dark portal card with the home page's 3D tilt and gold pointer spotlight (tilt off under reduced motion). */
-function TiltButton({
-  children,
-  onClick,
-  className,
-}: {
-  children: ReactNode;
-  onClick: () => void;
-  className?: string;
-}) {
-  const reduce = useReducedMotion();
-  const [r, setR] = useState({ x: 0, y: 0 });
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      onMouseMove={(e) => {
-        spot(e);
-        if (reduce) return;
-        const b = e.currentTarget.getBoundingClientRect();
-        setR({
-          x: ((e.clientY - b.top) / b.height - 0.5) * -10,
-          y: ((e.clientX - b.left) / b.width - 0.5) * 12,
-        });
-      }}
-      onMouseLeave={() => setR({ x: 0, y: 0 })}
-      style={{
-        transform: `perspective(900px) rotateX(${r.x}deg) rotateY(${r.y}deg)`,
-      }}
-      className={cn(
-        "block w-full text-left transition-transform duration-200 ease-out [transform-style:preserve-3d]",
-        className,
-        focus,
-      )}
-    >
-      {children}
-    </button>
-  );
-}
-
 function Portals({ onHandoff }: { onHandoff: (key: string) => void }) {
   return (
     <section
       id="portals"
       aria-labelledby="portals-title"
-      className={sectionCls}
+      className={cn(sectionCls, "bg-white")}
     >
       <div className="mx-auto max-w-7xl">
         <Headline
           id="portals-title"
-          n="03"
           kicker="Online services"
           title="Which portal do you need?"
           mark="portal"
@@ -698,43 +654,46 @@ function Portals({ onHandoff }: { onHandoff: (key: string) => void }) {
             const I = portalIcons[p.key] ?? ExternalLink;
             return (
               <li key={p.key}>
-                <Rise delay={(i % 3) * 0.07} className="h-full">
-                  <TiltButton
+                <Rise delay={(i % 3) * 0.06} className="h-full">
+                  <button
+                    type="button"
                     onClick={() => onHandoff(p.key)}
-                    className="group relative flex h-full flex-col overflow-hidden rounded-3xl p-7 text-white shadow-[0_30px_60px_-34px_rgba(4,20,10,0.9)] [background-image:radial-gradient(360px_circle_at_var(--x,50%)_var(--y,0%),rgba(244,210,122,0.22),transparent_45%),linear-gradient(135deg,#0B1F10,#0A4A13)]"
+                    className={cn(
+                      calmCard,
+                      "flex h-full w-full items-start gap-5 p-6 text-left sm:p-7",
+                      focus,
+                    )}
                   >
-                    <span className="flex items-start justify-between [transform:translateZ(30px)]">
-                      <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-[#F4D27A] ring-1 ring-white/15 transition duration-500 group-hover:rotate-6">
-                        <I className="h-6 w-6" aria-hidden="true" />
+                    <span
+                      aria-hidden="true"
+                      className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#E8F5E9] transition-transform duration-500 group-hover:scale-150"
+                    />
+                    <IconTile icon={I} />
+                    <span className="relative flex min-w-0 flex-1 flex-col self-stretch">
+                      <span className="block text-2xl font-bold tracking-tight text-[#14261A]">
+                        {p.name}
                       </span>
-                      <ArrowUpRight
-                        className="h-6 w-6 text-white/60 transition group-hover:-translate-y-1 group-hover:text-[#F4D27A]"
-                        aria-hidden="true"
-                      />
+                      <span className="mt-0.5 block text-base text-gray-600">
+                        {p.full}
+                      </span>
+                      <span className="mt-3 block text-lg leading-snug text-gray-700">
+                        {p.use}
+                      </span>
+                      <span className="mt-auto inline-flex items-center gap-2 pt-5 text-lg font-semibold text-[#117F21]">
+                        Before you go
+                        <ArrowRight
+                          className="h-5 w-5 transition-transform group-hover:translate-x-1"
+                          aria-hidden="true"
+                        />
+                      </span>
                     </span>
-                    <span className="mt-8 block text-3xl font-black tracking-tight [transform:translateZ(40px)]">
-                      {p.name}
-                    </span>
-                    <span className="mt-1 block text-xs text-white/70">
-                      {p.full}
-                    </span>
-                    <span className="mt-3 block leading-relaxed text-white/80">
-                      {p.use}
-                    </span>
-                    <span className="mt-auto flex items-center gap-2 pt-6 text-sm font-semibold text-[#F4D27A]">
-                      Before you go
-                      <ArrowRight
-                        className="h-4 w-4 transition-transform group-hover:-translate-y-0.5"
-                        aria-hidden="true"
-                      />
-                    </span>
-                  </TiltButton>
+                  </button>
                 </Rise>
               </li>
             );
           })}
         </ul>
-        <p className="mt-6 text-sm text-gray-600">
+        <p className="mt-6 text-base text-gray-600">
           Descriptions to be confirmed by each portal’s owner before launch.
         </p>
       </div>
@@ -761,65 +720,61 @@ function Handoff({
     >
       {p && (
         <>
-          <div className="relative isolate overflow-hidden bg-gradient-to-br from-[#04140A] via-[#0B1F10] to-[#0A4A13] p-7 pr-16 text-white">
+          <div className="relative isolate overflow-hidden bg-[#E8F5E9] p-7">
             <div
               aria-hidden="true"
-              className="absolute inset-0 -z-10 bg-[radial-gradient(70%_80%_at_100%_0%,rgba(203,150,21,0.30),transparent)]"
+              className="absolute -right-16 -top-16 -z-10 h-48 w-48 rounded-full bg-[#F4D27A]/40 blur-3xl"
             />
-            <I
-              aria-hidden="true"
-              className="absolute -bottom-8 -right-6 -z-10 h-40 w-40 text-white/[0.07]"
-            />
-            <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-[#F4D27A]">
-              <LogOut className="h-4 w-4" aria-hidden="true" />
-              You’re about to leave this site
-            </p>
-            <h2
-              id="handoff-title"
-              className="mt-3 text-2xl font-black tracking-tight"
-            >
-              {p.full}
-            </h2>
-            <p className="mt-2 text-white/80">{p.use}</p>
+            <div className="flex items-start gap-4">
+              <IconTile icon={I} small />
+              <div className="min-w-0">
+                <p className="flex items-center gap-2 text-sm font-bold uppercase tracking-[0.16em] text-[#0A4A13]">
+                  <LogOut className="h-4 w-4" aria-hidden="true" />
+                  You’re about to leave this site
+                </p>
+                <h2
+                  id="handoff-title"
+                  className="mt-2 text-2xl font-bold leading-tight tracking-tight text-[#14261A]"
+                >
+                  {p.full}
+                </h2>
+              </div>
+            </div>
+            <p className="mt-3 text-lg text-gray-800">{p.use}</p>
           </div>
-          <div className="space-y-5 p-7">
+          <div className="space-y-6 p-7">
             {p.prepare ? (
               <div>
-                <h3 className="text-xs font-bold uppercase tracking-[0.16em] text-gray-600">
-                  Have these ready
-                </h3>
-                <ul className="mt-3 space-y-2">
+                <Label>Have these ready</Label>
+                <ul className="mt-3 space-y-2.5">
                   {p.prepare.map((x) => (
-                    <li key={x} className="flex gap-3 text-sm text-gray-700">
-                      <Check
-                        className="mt-0.5 h-4 w-4 shrink-0 text-[#117F21]"
-                        aria-hidden="true"
-                      />
+                    <li key={x} className="flex gap-3 text-lg leading-snug text-gray-800">
+                      <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-[#E8F5E9] text-[#117F21]">
+                        <Check className="h-4 w-4" strokeWidth={3} aria-hidden="true" />
+                      </span>
                       {x}
                     </li>
                   ))}
                 </ul>
               </div>
             ) : (
-              <p className="rounded-2xl bg-[#F2F6F0] p-3 text-sm text-gray-600">
+              <p className="rounded-2xl bg-[#F1EFE8] p-4 text-lg text-gray-700">
                 A checklist for this portal will be added by its owner.
               </p>
             )}
             {p.next && (
               <div>
-                <h3 className="text-xs font-bold uppercase tracking-[0.16em] text-gray-600">
-                  What happens next
-                </h3>
-                <p className="mt-2 text-sm text-gray-700">{p.next}</p>
+                <Label>What happens next</Label>
+                <p className="mt-2 text-lg text-gray-800">{p.next}</p>
               </div>
             )}
-            <p className="relative flex gap-2 overflow-hidden rounded-2xl bg-[#F2F6F0] p-3 pl-4 text-xs text-[#0B1F10] ring-1 ring-black/10">
+            <p className="relative flex gap-3 overflow-hidden rounded-2xl bg-[#F1EFE8] p-4 pl-5 text-base text-[#14261A]">
               <span
                 aria-hidden="true"
-                className="absolute inset-y-0 left-0 w-1 bg-[#CB9615]"
+                className="absolute inset-y-0 left-0 w-1.5 bg-[#CB9615]"
               />
               <ShieldCheck
-                className="h-4 w-4 shrink-0 text-[#117F21]"
+                className="mt-0.5 h-5 w-5 shrink-0 text-[#117F21]"
                 aria-hidden="true"
               />
               Check the address bar shows a pencom.gov.ng address before you
@@ -832,26 +787,21 @@ function Handoff({
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={onClose}
-                  className={cn(darkBtn, focus)}
+                  className={cn(goldBtn, focus)}
                 >
                   Continue to {p.name}
-                  <Chip>
-                    <ExternalLink className="h-4 w-4" aria-hidden="true" />
-                  </Chip>
+                  <ExternalLink className="h-5 w-5" aria-hidden="true" />
                   <span className="sr-only">(opens in a new tab)</span>
                 </a>
               ) : (
-                <span className="inline-flex min-h-11 items-center rounded-full bg-[#F2F6F0] px-5 text-sm font-semibold text-gray-600">
+                <span className="inline-flex min-h-14 items-center rounded-2xl bg-[#F1EFE8] px-5 text-lg font-semibold text-gray-700">
                   Portal link to be confirmed
                 </span>
               )}
               <button
                 type="button"
                 onClick={onClose}
-                className={cn(
-                  "min-h-11 rounded-full px-5 text-sm font-semibold text-gray-700 ring-1 ring-black/10 transition hover:bg-[#F2F6F0]",
-                  focus,
-                )}
+                className={cn(outlineBtn, focus)}
               >
                 Stay here
               </button>
@@ -872,7 +822,7 @@ function Help() {
       title: "Ask PenCom Assistant",
       body: "Quick answers in plain language, from our published guidance.",
       chat: true,
-      tone: "dark",
+      tone: "green",
     },
     {
       icon: MessageSquareWarning,
@@ -893,88 +843,66 @@ function Help() {
     <section
       id="help"
       aria-labelledby="help-title"
-      className={cn(sectionCls, "bg-[#F2F6F0] pb-24")}
+      className={cn(sectionCls, "pb-24")}
     >
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-7xl rounded-[2rem] bg-[#F1EFE8] p-6 sm:p-10 lg:p-14">
         <Headline
           id="help-title"
-          n="04"
           kicker="Get help"
           title="Still not sure? We’ll help"
           mark="We’ll help"
+          center
         />
-        <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
+        <ul className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
           {cards.map((c, i) => {
-            const dark = c.tone === "dark";
             const cls = cn(
-              "group relative flex h-full w-full flex-col overflow-hidden rounded-3xl p-7 text-left",
-              lift,
-              dark
-                ? "text-white shadow-[0_30px_60px_-30px_rgba(4,20,10,0.8)] [background-image:radial-gradient(380px_circle_at_var(--x,50%)_var(--y,0%),rgba(244,210,122,0.22),transparent_45%),linear-gradient(135deg,#0B1F10,#0A4A13)]"
-                : cn("bg-white ring-1 ring-black/10", glowLight),
+              "group flex h-full w-full flex-col items-center rounded-3xl bg-white p-7 text-center ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)] hover:ring-2 hover:ring-[#117F21]",
               focus,
             );
             const inner = (
               <>
                 <span
                   className={cn(
-                    "flex h-12 w-12 items-center justify-center rounded-2xl transition duration-500 group-hover:rotate-6",
-                    dark
-                      ? "bg-white/10 text-[#F4D27A] ring-1 ring-white/15"
-                      : c.tone === "red"
-                        ? "bg-[#FCEBEB] text-[#B52026]"
-                        : "bg-[#E8F5E9] text-[#117F21]",
+                    "flex h-16 w-16 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110",
+                    c.tone === "red"
+                      ? "bg-[#B52026] text-white"
+                      : "bg-[#0A4A13] text-[#F4D27A]",
                   )}
                 >
-                  <c.icon className="h-6 w-6" aria-hidden="true" />
+                  <c.icon className="h-8 w-8" aria-hidden="true" />
                 </span>
-                <span className="mt-6 block text-2xl font-black tracking-tight">
+                <span className="mt-5 block text-xl font-bold text-[#14261A]">
                   {c.title}
                 </span>
-                <span
-                  className={cn(
-                    "mt-2 block leading-relaxed",
-                    dark ? "text-white/80" : "text-gray-600",
-                  )}
-                >
+                <span className="mt-2 block text-lg leading-relaxed text-gray-700">
                   {c.body}
                 </span>
-                <span className="mt-auto block pt-7">
-                  <span
-                    className={cn(
-                      "flex h-10 w-10 items-center justify-center rounded-full transition-transform duration-300 group-hover:rotate-[-45deg]",
-                      dark
-                        ? "bg-[#F4D27A] text-[#1A1206]"
-                        : "bg-[#0B1F10] text-[#F4D27A]",
-                    )}
-                  >
-                    <ArrowRight className="h-5 w-5" aria-hidden="true" />
-                  </span>
+                <span className="mt-auto inline-flex items-center gap-2 pt-5 text-lg font-semibold text-[#117F21]">
+                  {"chat" in c ? "Ask a question" : "Open"}
+                  <ArrowRight
+                    className="h-5 w-5 transition-transform group-hover:translate-x-1"
+                    aria-hidden="true"
+                  />
                 </span>
               </>
             );
             return (
-              <Rise key={c.title} delay={i * 0.07} className="h-full">
-                {"chat" in c ? (
-                  <button
-                    type="button"
-                    onMouseMove={spot}
-                    onClick={() =>
-                      document.getElementById("chat-trigger")?.click()
-                    }
-                    className={cls}
-                  >
-                    {inner}
-                  </button>
-                ) : (
-                  <Link to={c.to} onMouseMove={spot} className={cls}>
-                    {inner}
-                  </Link>
-                )}
-              </Rise>
+              <li key={c.title}>
+                <Rise delay={i * 0.06} className="h-full">
+                  {"chat" in c ? (
+                    <button type="button" onClick={openChat} className={cls}>
+                      {inner}
+                    </button>
+                  ) : (
+                    <Link to={c.to} className={cls}>
+                      {inner}
+                    </Link>
+                  )}
+                </Rise>
+              </li>
             );
           })}
-        </div>
+        </ul>
       </div>
     </section>
   );
