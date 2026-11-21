@@ -40,8 +40,8 @@ If a page feels busy, take an effect away.
 
 ## Status
 
-In progress. C0 (scaffold) done on 21 November 2026: the project is still a straight copy of showcase (homepage,
-kit and pages look like showcase). The sections below about the kit, home folder and pitfalls describe the
+In progress. C0 (scaffold) and C1 (calm homepage) done on 21 November 2026; the kit, chrome and inner pages still
+look like showcase. The sections below about the kit, home folder and pitfalls describe the
 **showcase code as copied**; C1 (homepage) and C2 (kit) rewrite them. Progress: `SESSIONS.md`.
 
 ## Run
@@ -60,13 +60,13 @@ Stack: Next.js 16 (App Router, Turbopack), React 19, Tailwind 3, framer-motion 1
 
 ```
 src/app/                 routes only: each page.tsx exports metadata and renders a view
-  page.tsx               home  → views/HomeShowcase
+  page.tsx               home  → views/HomeCalm
   [...slug]/page.tsx     "being redesigned" placeholder for pages not built yet (sections map; now only mobile, admin)
   news/[slug], regulations/doc/[id]   generateStaticParams + generateMetadata (Next 16: params is a Promise)
   resources/chronicles   redirect("/chronicles")
 src/views/<page>/        everything for one page: <Name>Page.tsx (client), sections, data
 src/views/theme/         the theme's look, shared by every inner page: ui.tsx, Headline.tsx, heading.tsx, Ghost.tsx
-src/views/homeshowcase/  the home page: Banner, Sections (dock, search, alerts, circulars, portals, news, figures, help), Title
+src/views/homecalm/      the home page: Showcase (slider), Sections (welcome, tasks, retiree steps, notices, news, help), Title (calm heading; C2 moves it into the kit)
 src/views/docs/kit.tsx   document pages (Act, regulation docs, Q1 report, forms): DocHero, Toc, ReadingBar, PdfCard…
 src/views/about/primitives.tsx   scrollToId + sectionAliases (old anchors), CountUp, Spotlight, Tilt, reveal
 src/components/          site chrome: layout/Layout, Header, Footer, NoticesBell, PromoPopup, CookieConsent,

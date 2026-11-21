@@ -1,6 +1,6 @@
-import HomeShowcase from "@/views/HomeShowcase";
+import HomeCalm from "@/views/HomeCalm";
 
-/** Home: the "showcase" theme (cinematic banner, expanding audience cards, spotlight effects). */
+/** Home: the "calm" theme (built first for older readers and retirees: large type, labelled controls, fewer choices). */
 export default function HomePage() {
-  return <HomeShowcase />;
+  return <HomeCalm />;
 }

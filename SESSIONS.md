@@ -76,7 +76,7 @@ Paths below are relative to `src/views/` unless they start with `src/`.
 | ID | Page / route | Files in scope | Status |
 | --- | --- | --- | --- |
 | C0 | Scaffold `themes/calm` from showcase | root files, `CLAUDE.md` | done (2026-11-21): showcase copied (no `.git`, `node_modules`, `.next`); package `pencom-theme-calm`, dev port 3013; install, typecheck and build pass (197 doc pages); `CLAUDE.md` has the calm Look and status; README updated; git baseline |
-| C1 | Homepage `/` | `HomeCalm.tsx`, `homecalm/*`, `src/app/page.tsx` | pending |
+| C1 | Homepage `/` | `HomeCalm.tsx`, `homecalm/*`, `src/app/page.tsx` | done (2026-11-21): calm homepage ported (WelcomeBar, slider, TopTasks, RetireeSteps, notices, news, help) with a local calm title in `homecalm/Title.tsx`; `HomeShowcase` + `homeshowcase/` removed; 44 px targets on slide numbers, search button and notice links |
 | C2 | Theme kit (heading, hero, panels, dialogs, document kit) | `theme/*`, `docs/kit.tsx`, `about/primitives.tsx` | pending |
 | C3 | Site chrome, placeholder, 404 | `src/components/**`, `src/app/not-found.tsx`, `src/app/[...slug]/page.tsx` | pending |
 | C4 | Baseline audit, all routes | none edited | pending |
@@ -123,6 +123,13 @@ For now, give the homepage a local copy of the calm `SectionHeading` in `homecal
 Wire `src/app/page.tsx` to `HomeCalm`. Show the AccessibilityWidget (text size) on the home route as the original
 does. Remove `HomeShowcase.tsx` and `homeshowcase/` only once nothing imports them (`theme/Headline.tsx` and `Ghost.tsx`
 may: leave them for C2). Check that the images used (`pencom-retiree-family-*`) exist in `public/images/opt`. Verify `/`.
+Result: all homepage strings were already in the dictionaries (no i18n pass needed). `Title.tsx` ends the light highlight
+gradient on `#9A6B00` (not `#CB9615`) so the phrase keeps 3:1 on white; C2 should carry that into the theme heading, and
+its eyebrow is 13–14 px rather than the original 11 px. Nothing imported `homeshowcase/`, so it is gone; `Ghost.tsx` and
+`Headline.tsx` stay for C2. **For C3:** the PromoPopup opens over the slider on a first visit and locks scrolling, the
+Notices panel also opens by itself, the cookie banner's close button and the popup's "Show banner" dots are under 44 px,
+and header/footer are still showcase. Browser checks used Playwright from the npx cache with `/usr/bin/google-chrome`
+(Python Playwright is not installed; the Chrome extension was not connected).
 
 **C2 Theme kit (setup).** This makes every inner page take on the calm look in one pass. **Keep all props and export
 names** so the pages still compile.
