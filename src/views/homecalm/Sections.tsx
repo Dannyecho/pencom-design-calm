@@ -10,7 +10,7 @@ import {
 import { useI18n } from "@/i18n/context";
 import { siteNotices, type NoticeType } from "@/lib/alerts";
 import { cn } from "@/lib/utils";
-import SectionHeading from "./Title";
+import { SectionHeading } from "@/views/theme/heading";
 import { headOffice } from "@/views/connect/data";
 import { news, newsPath } from "@/views/news/data";
 import SiteSearch, { openChat } from "@/views/home/SiteSearch";

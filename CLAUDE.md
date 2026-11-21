@@ -40,9 +40,8 @@ If a page feels busy, take an effect away.
 
 ## Status
 
-In progress. C0 (scaffold) and C1 (calm homepage) done on 21 November 2026; the kit, chrome and inner pages still
-look like showcase. The sections below about the kit, home folder and pitfalls describe the
-**showcase code as copied**; C1 (homepage) and C2 (kit) rewrite them. Progress: `SESSIONS.md`.
+In progress. C0 (scaffold), C1 (calm homepage) and C2 (theme kit) done on 21 November 2026; the chrome and inner
+pages still carry showcase styling of their own (page sessions C3–C16 fix them). Progress: `SESSIONS.md`.
 
 ## Run
 
@@ -65,8 +64,8 @@ src/app/                 routes only: each page.tsx exports metadata and renders
   news/[slug], regulations/doc/[id]   generateStaticParams + generateMetadata (Next 16: params is a Promise)
   resources/chronicles   redirect("/chronicles")
 src/views/<page>/        everything for one page: <Name>Page.tsx (client), sections, data
-src/views/theme/         the theme's look, shared by every inner page: ui.tsx, Headline.tsx, heading.tsx, Ghost.tsx
-src/views/homecalm/      the home page: Showcase (slider), Sections (welcome, tasks, retiree steps, notices, news, help), Title (calm heading; C2 moves it into the kit)
+src/views/theme/         the theme's look, shared by every page: ui.tsx, Headline.tsx, heading.tsx (Ghost.tsx is a no-op)
+src/views/homecalm/      the home page: Showcase (slider), Sections (welcome, tasks, retiree steps, notices, news, help); section titles come from theme/heading
 src/views/docs/kit.tsx   document pages (Act, regulation docs, Q1 report, forms): DocHero, Toc, ReadingBar, PdfCard…
 src/views/about/primitives.tsx   scrollToId + sectionAliases (old anchors), CountUp, Spotlight, Tilt, reveal
 src/components/          site chrome: layout/Layout, Header, Footer, NoticesBell, PromoPopup, CookieConsent,
@@ -98,35 +97,36 @@ Ported pages keep react-router code. Import from `@/lib/router`, never `react-ro
 ## The theme kit (what makes a page look like this theme)
 
 `src/views/theme/ui.tsx`
-- `PageHero({ id, crumbs, pill: {icon,label}, title, mark, intro, actions?, aside? })`: dark cinematic hero
-  (`#04140A`, `DarkBackdrop` glows + grid), gold pill tag, `font-black` title with the `mark` phrase in the light-gold
-  gradient, and the pill label as a drifting ghost word along the bottom. It translates the whole title and then finds
-  the translated mark in it (case-insensitive). `actions` and `aside` default to dark ink (`text-[#0B1F10]`), so white
-  cards in them read correctly; loose text in `actions` must set its own light colour (`text-white/70`).
-- `FramedPanel`: white `rounded-[1.75rem]` card floating on the hero, thin gold-to-green edge, pointer spotlight.
-- `DarkBackdrop`, `spot`: the near-black band background and the pointer-spotlight handler.
-- `SectionNav({ sections, pillId })`: sticky rounded pill bar; active pill `#0B1F10` with gold text. About uses it too.
-- `Modal`, `Drawer`: accessible dialogs (focus in and back, Escape, scroll lock).
-- `Rise` (26px), `ease`, `focus` (yellow focus ring), `sectionCls` (`py-20 sm:py-28`, `overflow-x-clip`).
+- `PageHero({ id, crumbs, pill: {icon,label}, title, mark, intro, actions?, aside? })`: the light calm hero on cream
+  (soft mint blur in the corner), `Crumbs`, the `EyebrowPill` with the pill icon in its green dot, a `font-bold` h1 whose
+  `mark` phrase gets `DrawnMark` (green→gold gradient + drawn gold underline), 18 px intro. It translates the whole title
+  and then finds the translated mark in it (case-insensitive). `actions` and `aside` sit on cream in ink text.
+- `FramedPanel`: white `rounded-[2rem]` card, `ring-1 ring-black/10`, soft green shadow.
+- `DarkBackdrop`: the page's one green panel background (solid `#0A4A13` + one gold blur). `animate` is ignored.
+- `spot`: no-op (pointer spotlight retired).
+- `SectionNav({ sections, pillId })`: sticky white pill bar, `min-h-12`, 18 px labels on desktop, active pill `#0A4A13` with gold text.
+- `Modal`, `Drawer`: accessible dialogs (focus in and back, Escape, scroll lock) with a sticky cream header bar holding a
+  large labelled "Close" button (focus lands on it).
+- `Rise` (24 px), `ease`, `focus` (yellow focus ring), `sectionCls` (`py-16 sm:py-20`, `scroll-mt-[170px]`, `overflow-x-clip`).
 
-`src/views/theme/Headline.tsx` + `heading.tsx` + `Ghost.tsx`
-- `SectionHeading({ id, eyebrow, title, highlight?, intro?, action?, dark?, stacked?, n? })` → `theme/Headline`:
-  ghost word, pill tag, heavy title, green→gold gradient highlight (light gold on `dark`). **No numbers**: `n` is
-  accepted and ignored. Put a section's controls in `action`. Use `stacked` in narrow columns.
-- `Ghost({ word, dark?, clip? })`: the outlined drifting word. Clipped to its own box by default so it can't widen the
-  page; the home page passes `clip={false}` (its sections clip). `ghostWord(kicker)` maps long kickers to one word
-  (`ghostFor` table); short kickers are used as they are. Ghost words go through `t()`.
+`src/views/theme/Headline.tsx` + `heading.tsx`
+- `Headline({ id, kicker, title, mark?, intro?, action?, dark?, stacked?, center?, n? })` and
+  `SectionHeading({ id, eyebrow, title, highlight?, ... })` (same, old prop names) render the calm section title: eyebrow pill
+  with the pulsing dot and one shimmer, ink title, `DrawnMark` on the highlight (or a short green→gold bar when there is none),
+  18 px intro. `dark` = light gold on the green panel; `center`; `action` sits to the right on desktop (below when
+  `stacked`/`center`). **No numbers**: `n` is accepted and ignored. The homepage uses this one.
+- `Ghost.tsx`: no-op `Ghost` and identity `ghostWord`, kept only so old imports compile.
 
-`src/views/docs/kit.tsx`: `DocHero` is the dark hero for documents (print stays white), meta in a floating white
-grid; `PrimaryBtn` gold pill, `GhostBtn` white pill; `ReadingBar` at the very top of the window.
+`src/views/docs/kit.tsx`: `DocHero` light (cream, crumbs, eyebrow pill, bold title + growing bar, meta in a white
+`rounded-[2rem]` grid; print stays white). `PrimaryBtn` gold `rounded-2xl min-h-14`, `GhostBtn` green outline;
+`ArrowChip` a plain arrow tile (arrow moves 4 px); `darkCard` = `bg-[#0A4A13]`; `glowLight` = "" (retired);
+`ReadingBar` green→gold line at the top; `Toc`, `DocTools`, `PdfCard`, `VerifyNote` in calm tokens.
 
-Colours: near-black `#04140A` (heroes, dark bands), ink `#0B1F10`, dark green `#0A4A13`, green `#117F21`,
-gold `#CB9615`, light gold `#F4D27A`, page white, soft band `#F2F6F0`, mint `#E8F5E9`, focus `#FFD84D`.
+`src/views/about/primitives.tsx`: `scrollToId`, `sectionAliases`, `reveal`, `CountUp` (one per page at most);
+`SectionHeading` → calm Headline (`center` works); `Spotlight`/`Tilt` render children without effects; `GridBackdrop` renders nothing.
 
-Page pattern: `<MotionConfig reducedMotion="user"><div className="bg-white text-[#0B1F10]"> dark Hero → SectionNav →
-ghost-word sections (alternating white and #F2F6F0, one near-black #04140A band per page at most, with the glow and
-grid layers) </div></MotionConfig>`.
-Exceptions on purpose: news stories keep a dark photo header; Chronicles has a hand-built serif masthead.
+Colours: cream `#FBF8F1`, ink `#14261A`, dark green `#0A4A13`, green `#117F21`, gold `#CB9615`, light gold `#F4D27A`,
+gold text on light `#7A5200`, warm panel `#F1EFE8`, mint `#E8F5E9`, focus `#FFD84D`.
 
 ## Conventions and pitfalls (each one bit us once)
 

@@ -66,10 +66,12 @@ If a page feels busy, take an effect away.
 Run it on the files in scope for each session. It should print nothing:
 
 ```bash
-grep -nE '#04140A|#0B1F10|#F2F6F0|#0E2414|#0A2E10|#FBFCF9|#F6F8F3|DarkBackdrop|Ghost|<Tilt|\{spot\}|glowDark|font-black|ring-black/5|scroll-mt-\[160px\]' <files>
+grep -nE '#04140A|#0B1F10|#F2F6F0|#0E2414|#0A2E10|#FBFCF9|#F6F8F3|DarkBackdrop|Ghost|<Tilt|<Spotlight|GridBackdrop|glowLight|\{spot\}|glowDark|font-black|ring-black/5|scroll-mt-\[160px\]' <files>
 ```
 
-C2 may rename or retire kit helpers. When it does, add their old names to this grep.
+C2 retired `Spotlight`, `GridBackdrop` and `glowLight` (added above). In the kit files themselves the only hits are the
+no-op compat exports (`Ghost`, `DarkBackdrop`, `spot`) and `GhostBtn`; those are expected. `DarkBackdrop` is still the
+right call for a page's one green panel (it paints `#0A4A13` + the gold blur), so page sessions may keep it there.
 
 Paths below are relative to `src/views/` unless they start with `src/`.
 
@@ -77,7 +79,7 @@ Paths below are relative to `src/views/` unless they start with `src/`.
 | --- | --- | --- | --- |
 | C0 | Scaffold `themes/calm` from showcase | root files, `CLAUDE.md` | done (2026-11-21): showcase copied (no `.git`, `node_modules`, `.next`); package `pencom-theme-calm`, dev port 3013; install, typecheck and build pass (197 doc pages); `CLAUDE.md` has the calm Look and status; README updated; git baseline |
 | C1 | Homepage `/` | `HomeCalm.tsx`, `homecalm/*`, `src/app/page.tsx` | done (2026-11-21): calm homepage ported (WelcomeBar, slider, TopTasks, RetireeSteps, notices, news, help) with a local calm title in `homecalm/Title.tsx`; `HomeShowcase` + `homeshowcase/` removed; 44 px targets on slide numbers, search button and notice links |
-| C2 | Theme kit (heading, hero, panels, dialogs, document kit) | `theme/*`, `docs/kit.tsx`, `about/primitives.tsx` | pending |
+| C2 | Theme kit (heading, hero, panels, dialogs, document kit) | `theme/*`, `docs/kit.tsx`, `about/primitives.tsx` | done (2026-11-21): calm `Headline`/`SectionHeading` (+`center`, shared `DrawnMark`), light `PageHero`/`DocHero` with `Crumbs` + `EyebrowPill`, white `FramedPanel`, green `DarkBackdrop`, white `SectionNav`, dialogs with a cream bar and labelled Close, gold/outline doc buttons; Ghost/spot/Spotlight/Tilt/GridBackdrop/glowLight are no-ops; `homecalm/Title.tsx` removed |
 | C3 | Site chrome, placeholder, 404 | `src/components/**`, `src/app/not-found.tsx`, `src/app/[...slug]/page.tsx` | pending |
 | C4 | Baseline audit, all routes | none edited | pending |
 | C5a | About part 1 `/about` | `about/AboutPage.tsx`, `about/sections.tsx` (overview, mission, structure) | pending |
@@ -150,6 +152,16 @@ names** so the pages still compile.
 - `about/primitives.tsx`: `Spotlight`/`Tilt` render their children without effects, and `CountUp` stays.
 - Verify `/about` and `/regulations/pension-reform-act` (kit-heavy) plus `/`. Pages will still look half showcase in places; that is
   expected, and the page sessions fix it.
+
+Result: typecheck and build pass; `/`, `/about`, `/regulations/pension-reform-act`, `/services`, `/resources/reports/q1-2026`
+clean at 1400 and 390 px (no overflow, no console errors); Modal (`?guide=transfer-rsa`) and Drawer (operator details) put focus on
+Close, close on Escape and return focus; `?lang=yo` headings fine. **For page sessions:** `DarkBackdrop` now paints a solid
+`#0A4A13` layer, so every old `#04140A` band shows as a **full-bleed green band** until its page is restyled (several per page
+in places): inset the one you keep and turn the rest white/cream. Dialog headers drawn by pages (operator drawer, guide dialog,
+doc drawer) are still dark green under the kit's cream Close bar; their `pr-10`/`pr-12` padding for the old round button can go.
+New kit exports to reuse: `Crumbs`, `EyebrowPill` (ui.tsx), `DrawnMark` (Headline.tsx). Still importing the no-op `Ghost`:
+`chronicles/ChroniclesPage.tsx`, `about/AboutPage.tsx`, `components/layout/Footer.tsx` (remove in C3/C5a/C16). Pages calling
+`Headline` directly: operators, about/sections, services (+Calculator), newsroom (+parts), charter.
 
 **C3 Site chrome (setup).** The Header uses the calm tokens: dark green and gold, larger menu text, labelled buttons ("Menu", "Search").
 The mega menus are white `rounded-3xl` panels. The Footer is a warm calm footer (`#0A4A13` inset or full-width dark green, but no spotlight, ghost

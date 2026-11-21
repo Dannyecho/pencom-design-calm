@@ -4,9 +4,8 @@ import type { ReactNode } from "react";
 import Headline from "./Headline";
 
 /**
- * Old-style SectionHeading props mapped onto the showcase Headline (ghost word, pill tag, gradient mark), so
- * ported sections keep their markup while taking the theme’s look. Sections are not numbered in this theme;
- * `n` is kept for compatibility and ignored.
+ * The calm section title with the SectionHeading props (eyebrow, highlight), used by the homepage and inner
+ * pages. Sections are not numbered in this theme; `n` is kept for compatibility and ignored.
  */
 export function SectionHeading({
   n,
@@ -18,6 +17,7 @@ export function SectionHeading({
   dark,
   action,
   stacked,
+  center,
 }: {
   n?: string;
   id: string;
@@ -28,6 +28,9 @@ export function SectionHeading({
   dark?: boolean;
   action?: ReactNode;
   stacked?: boolean;
+  center?: boolean;
 }) {
-  return <Headline id={id} n={n} kicker={eyebrow} title={title} mark={highlight} intro={intro} dark={dark} action={action} stacked={stacked} />;
+  return <Headline id={id} n={n} kicker={eyebrow} title={title} mark={highlight} intro={intro} dark={dark} action={action} stacked={stacked} center={center} />;
 }
+
+export default SectionHeading;

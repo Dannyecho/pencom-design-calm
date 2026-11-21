@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { animate, motion, useInView, useReducedMotion } from "framer-motion";
+import { animate, useInView, useReducedMotion } from "framer-motion";
 import {
   Award, Eye, HeartHandshake, Scale, Shield, ShieldCheck, TrendingUp, Users,
   type LucideIcon,
@@ -47,14 +47,15 @@ export function scrollToId(id: string, smooth = true) {
 /* ─────────────────────────── Heading ─────────────────────────── */
 
 /**
- * Older section-title API, kept for compatibility. In the showcase theme it renders the theme's Headline
- * (ghost word, pill tag, heavy title with the gradient phrase); `center` is accepted and ignored.
+ * Older section-title API, kept for compatibility. It renders the calm theme's Headline (eyebrow pill, ink
+ * title with the gradient phrase and drawn underline); `center` centres it.
  */
 export function SectionHeading({
   eyebrow,
   title,
   highlight,
   intro,
+  center = false,
   dark = false,
   id,
 }: {
@@ -67,7 +68,7 @@ export function SectionHeading({
   id?: string;
 }) {
   const fallback = useId().replace(/:/g, "");
-  return <Headline id={id ?? `h-${fallback}`} kicker={eyebrow} title={title} mark={highlight} intro={intro} dark={dark} />;
+  return <Headline id={id ?? `h-${fallback}`} kicker={eyebrow} title={title} mark={highlight} intro={intro} dark={dark} center={center} />;
 }
 
 export function CountUp({ value, className, duration = 1.8 }: { value: string; className?: string; duration?: number }) {
@@ -111,13 +112,15 @@ export function CountUp({ value, className, duration = 1.8 }: { value: string; c
   );
 }
 
-/* ─────────────────────────── Cursor spotlight ─────────────────────────── */
+/* ─────────────────────────── Retired effects ─────────────────────────── */
 
+/**
+ * The calm theme has no pointer spotlight or 3D tilt: `Spotlight` and `Tilt` keep their props and render their
+ * children in a plain wrapper; `GridBackdrop` renders nothing.
+ */
 export function Spotlight({
   children,
   className,
-  color = "rgba(203,150,21,0.18)",
-  size = 420,
   style,
 }: {
   children: ReactNode;
@@ -126,72 +129,18 @@ export function Spotlight({
   size?: number;
   style?: CSSProperties;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
   return (
-    <div
-      ref={ref}
-      onPointerMove={(e) => {
-        const el = ref.current;
-        if (!el) return;
-        const r = el.getBoundingClientRect();
-        el.style.setProperty("--sx", `${e.clientX - r.left}px`);
-        el.style.setProperty("--sy", `${e.clientY - r.top}px`);
-      }}
-      className={cn("group/spot relative isolate overflow-hidden", className)}
-      style={style}
-    >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity duration-500 group-hover/spot:opacity-100"
-        style={{
-          background: `radial-gradient(${size}px circle at var(--sx, 50%) var(--sy, 50%), ${color}, transparent 65%)`,
-        }}
-      />
+    <div className={cn("relative isolate overflow-hidden", className)} style={style}>
       {children}
     </div>
   );
 }
 
-/* ─────────────────────────── 3D tilt card ─────────────────────────── */
-
-export function Tilt({ children, className, max = 7 }: { children: ReactNode; className?: string; max?: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
-  const [t, setT] = useState({ x: 0, y: 0 });
-  return (
-    <motion.div
-      ref={ref}
-      onPointerMove={(e) => {
-        if (reduce || e.pointerType !== "mouse" || !ref.current) return;
-        const r = ref.current.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width - 0.5;
-        const py = (e.clientY - r.top) / r.height - 0.5;
-        setT({ x: -py * max, y: px * max });
-      }}
-      onPointerLeave={() => setT({ x: 0, y: 0 })}
-      animate={{ rotateX: t.x, rotateY: t.y }}
-      transition={{ type: "spring", stiffness: 200, damping: 18, mass: 0.6 }}
-      style={{ transformPerspective: 900 }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
+export function Tilt({ children, className }: { children: ReactNode; className?: string; max?: number }) {
+  return <div className={className}>{children}</div>;
 }
 
-/** Faint 64px grid masked to the centre, as in the theme's dark bands. */
-export function GridBackdrop({ className }: { className?: string }) {
-  return (
-    <div
-      aria-hidden="true"
-      className={cn("pointer-events-none absolute inset-0", className)}
-      style={{
-        backgroundImage:
-          "linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px)",
-        backgroundSize: "64px 64px",
-        maskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
-        WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
-      }}
-    />
-  );
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function GridBackdrop(_props: { className?: string }) {
+  return null;
 }
