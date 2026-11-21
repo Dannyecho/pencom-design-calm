@@ -1788,6 +1788,8 @@ const yo: Record<string, string> = {
   "We've received your enquiry": "A ti gba ìbéèrè rẹ",
   "We've received your report": "A ti gba ìròyìn rẹ",
   "We've received your complaint": "A ti gba ẹ̀sùn rẹ",
+  /* News page (calm C13a) */
+  "See the photos": "Wo àwọn fọ́tò náà",
 };
 
 export default yo;

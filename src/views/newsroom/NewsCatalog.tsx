@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { scrollToId } from "@/views/about/primitives";
 import { sectionCls } from "@/views/theme/ui";
 import Headline from "@/views/theme/Headline";
+import { outlineBtn } from "@/views/regulations/Sections";
 import { items, kinds, type Kind, type NewsItem } from "./data";
 import { Empty, FilterBar, Galleries, Hero, MediaDesk, NewsCard, Toast, ease, focus, type Sort, type View } from "./parts";
 
@@ -18,9 +19,10 @@ const PAGE = 9;
 /**
  * News catalogue (/news): the newsroom the stakeholders asked for (questionnaire "Anything else"; brief §6–7).
  * Top story → search, type chips, year archive, sort and card/list view, all kept in the URL so a filtered view
- * can be shared → photo galleries → media desk (press contacts, verified accounts, data). Showcase look: dark
- * cinematic hero with the top story floating in it, a sticky pill filter bar, spotlight cards with a growing
- * green→gold line, photo stacks on a pale green band, and the media desk as the page's one near-black band.
+ * can be shared → photo galleries → media desk (press contacts, verified accounts, data). Calm look: light hero
+ * on cream with the top story in a white card (photo above the words), a white sticky pill filter bar with
+ * labelled controls, calm cards in the homepage LatestNews style, photo stacks on white, and the media desk as
+ * the page's one green inset panel.
  * Not a carousel (brief §13: the home slider is the only one); images lazy-load below the fold.
  */
 export default function NewsCatalog() {
@@ -109,7 +111,7 @@ export default function NewsCatalog() {
   return (
     <MotionConfig reducedMotion="user">
       <CookieConsent />
-      <div className="bg-white text-[#0B1F10]">
+      <div className="bg-[#FBF8F1] text-[#14261A]">
         <Hero lead={lead} q={q} onSearch={search} />
 
         <section id="catalogue" aria-labelledby="catalogue-title" className={sectionCls}>
@@ -167,23 +169,21 @@ export default function NewsCatalog() {
               )}
 
               {results.length > limit && (
-                <div className="mt-10 flex flex-col items-center gap-3">
-                  <div className="h-1.5 w-48 overflow-hidden rounded-full bg-[#F2F6F0] ring-1 ring-black/10" aria-hidden="true">
+                <div className="mt-12 flex flex-col items-center gap-4">
+                  <div className="h-2 w-56 overflow-hidden rounded-full bg-[#F1EFE8] ring-1 ring-black/10" aria-hidden="true">
                     <motion.div className="h-full rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" animate={{ width: `${(limit / results.length) * 100}%` }} transition={{ duration: 0.5, ease }} />
                   </div>
                   <button
                     type="button"
                     onClick={() => setLimit((l) => l + PAGE)}
-                    className={cn("group inline-flex min-h-12 items-center gap-2 rounded-full bg-[#0B1F10] py-1.5 pl-6 pr-1.5 font-semibold text-white transition hover:bg-[#117F21]", focus)}
+                    className={cn(outlineBtn, focus)}
                   >
                     {t("Show more news")}
-                    <span aria-hidden="true" className="flex h-9 w-9 items-center justify-center rounded-full bg-[#F4D27A] text-[#1A1206] transition-transform duration-300 group-hover:translate-y-0.5">
-                      <ChevronDown className="h-4 w-4" />
-                    </span>
+                    <ChevronDown className="h-5 w-5 transition-transform duration-300 group-hover:translate-y-1" aria-hidden="true" />
                   </button>
                 </div>
               )}
-              <p className="mt-10 text-center text-xs text-gray-600">
+              <p className="mx-auto mt-10 max-w-2xl rounded-2xl bg-[#F1EFE8] px-5 py-3 text-center text-base text-gray-700">
                 News items are drafts until the newsroom is connected to the CMS. Items scheduled for a later date appear automatically on that date.
               </p>
             </div>

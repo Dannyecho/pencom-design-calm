@@ -1788,6 +1788,8 @@ const ha: Record<string, string> = {
   "We've received your enquiry": "Mun karɓi tambayarka",
   "We've received your report": "Mun karɓi rahotonka",
   "We've received your complaint": "Mun karɓi ƙorafinka",
+  /* News page (calm C13a) */
+  "See the photos": "Duba hotunan",
 };
 
 export default ha;

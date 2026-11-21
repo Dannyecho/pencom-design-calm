@@ -1788,6 +1788,8 @@ const ig: Record<string, string> = {
   "We've received your enquiry": "Anyị anatala ajụjụ gị",
   "We've received your report": "Anyị anatala akụkọ gị",
   "We've received your complaint": "Anyị anatala mkpesa gị",
+  /* News page (calm C13a) */
+  "See the photos": "Lee foto ndị ahụ",
 };
 
 export default ig;
