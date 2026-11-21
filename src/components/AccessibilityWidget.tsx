@@ -139,51 +139,29 @@ export default function AccessibilityWidget() {
       {/* Floating Button */}
       <motion.button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-24 right-6 z-[70] w-12 h-12 rounded-full bg-[#117F21] text-white shadow-lg hover:bg-[#0A4A13] transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#117F21]"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
+        type="button"
+        aria-expanded={open}
+        className="fixed bottom-[6.5rem] right-4 z-[70] flex h-14 w-14 items-center justify-center rounded-full bg-[#0A4A13] text-[#F4D27A] shadow-[0_16px_36px_-14px_rgba(10,74,19,0.9)] ring-2 ring-white transition-colors hover:bg-[#117F21] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D] sm:right-6 print:hidden"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
         aria-label="Accessibility options"
       >
-        <AnimatePresence mode="wait">
-          {open ? (
-            <motion.div
-              key="close"
-              initial={{ rotate: -90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: 90, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <X className="w-5 h-5" />
-            </motion.div>
-          ) : (
-            <motion.div
-              key="open"
-              initial={{ rotate: 90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: -90, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Accessibility className="w-5 h-5" />
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {open ? <X className="h-6 w-6" aria-hidden="true" /> : <Accessibility className="h-6 w-6" aria-hidden="true" />}
       </motion.button>
 
       {/* Panel */}
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 16 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-40 right-6 z-[70] w-72 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden"
+            className="fixed bottom-[11rem] right-4 z-[70] max-h-[calc(100svh-13rem)] w-80 max-w-[calc(100vw-2rem)] overflow-y-auto rounded-3xl bg-white text-[#14261A] shadow-[0_30px_70px_-20px_rgba(10,74,19,0.55)] ring-1 ring-black/10 sm:right-6"
           >
-            <div className="bg-gradient-to-r from-[#117F21] to-[#2E913D] px-4 py-3 flex items-center gap-2">
-              <Accessibility className="w-5 h-5 text-white" />
-              <h3 className="text-white font-semibold text-sm">
+            <div className="flex items-center gap-3 border-b border-black/10 bg-[#FBF8F1] px-4 py-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#0A4A13]"><Accessibility className="h-5 w-5 text-[#F4D27A]" aria-hidden="true" /></span>
+              <h3 className="text-lg font-bold">
                 Accessibility Options
               </h3>
             </div>
@@ -191,44 +169,48 @@ export default function AccessibilityWidget() {
               {options.map((option) => (
                 <button
                   key={option.label}
+                  type="button"
+                  aria-pressed={!!option.active}
                   onClick={option.action}
-                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all ${
+                  className={`flex min-h-14 w-full items-center gap-3 rounded-2xl px-3 py-2.5 text-left transition-colors focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D] ${
                     option.active
                       ? "bg-[#E8F5E9] text-[#0A4A13]"
-                      : "hover:bg-gray-50 text-gray-700"
+                      : "text-[#14261A] hover:bg-[#F1EFE8]"
                   }`}
                 >
                   <option.icon
                     className={`w-4.5 h-4.5 shrink-0 ${
-                      option.active ? "text-[#117F21]" : "text-gray-400"
+                      option.active ? "text-[#117F21]" : "text-gray-600"
                     }`}
+                    aria-hidden="true"
                   />
                   <div className="flex-1">
-                    <p className="text-sm font-medium">{option.label}</p>
+                    <p className="text-base font-semibold">{option.label}</p>
                     <p
-                      className={`text-xs ${
-                        option.active ? "text-[#117F21]" : "text-gray-400"
+                      className={`text-sm ${
+                        option.active ? "text-[#0A4A13]" : "text-gray-600"
                       }`}
                     >
                       {option.value}
                     </p>
                   </div>
                   <div
-                    className={`w-8 h-5 rounded-full transition-colors relative ${
-                      option.active ? "bg-[#117F21]" : "bg-gray-300"
+                    aria-hidden="true"
+                    className={`relative h-6 w-10 shrink-0 rounded-full transition-colors ${
+                      option.active ? "bg-[#117F21]" : "bg-gray-400"
                     }`}
                   >
                     <div
-                      className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${
-                        option.active ? "left-[18px]" : "left-0.5"
+                      className={`absolute top-1 h-4 w-4 rounded-full bg-white shadow transition-[left] ${
+                        option.active ? "left-5" : "left-1"
                       }`}
                     />
                   </div>
                 </button>
               ))}
             </div>
-            <div className="px-4 py-3 bg-gray-50 border-t border-gray-100 text-center">
-              <p className="text-[10px] text-gray-400">
+            <div className="border-t border-black/10 bg-[#FBF8F1] px-4 py-3 text-center">
+              <p className="text-sm text-gray-600">
                 PenCom Accessibility Widget v1.0
               </p>
             </div>

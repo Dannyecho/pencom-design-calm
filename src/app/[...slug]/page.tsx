@@ -4,8 +4,8 @@ import { ArrowLeft, ArrowRight, Hammer } from "lucide-react";
 
 /**
  * Pages not yet rebuilt in this theme. Each section gets its own redesigned page in turn; until then,
- * links from the home page land here instead of on an error. Server-rendered, so the dark showcase backdrop
- * is drawn with plain CSS layers (no motion).
+ * links from the home page land here instead of on an error. Server-rendered calm cream page: CSS only,
+ * no motion.
  */
 const sections: Record<string, { title: string; blurb: string }> = {
   about: { title: "About PenCom", blurb: "Mission, leadership, history and the Service Charter." },
@@ -30,29 +30,27 @@ export default async function ComingSoon({ params }: Props) {
   const s = sections[slug.join("/")] ?? sections[slug[0]];
   if (!s) notFound();
   return (
-    <section className="relative isolate overflow-hidden bg-[#04140A] px-4 py-24 text-white sm:py-32">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(60%_70%_at_85%_0%,rgba(203,150,21,0.30),transparent),radial-gradient(55%_70%_at_0%_100%,rgba(46,145,61,0.40),transparent)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)] [background-size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
-        <p className="absolute inset-x-0 bottom-0 select-none overflow-hidden whitespace-nowrap text-center text-[4.5rem] font-black uppercase leading-none tracking-tighter text-transparent [-webkit-text-stroke:1.5px_rgba(244,210,122,0.18)] sm:text-[8rem] lg:text-[11rem]">{s.title}</p>
-      </div>
-      <div className="mx-auto max-w-3xl text-center">
-        <p className="inline-flex items-center gap-2 rounded-full bg-[#F4D27A] px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-[#1A1206] shadow-[0_12px_30px_-12px_rgba(244,210,122,0.8)]">
-          <Hammer className="h-3.5 w-3.5" aria-hidden="true" />
+    <section className="relative isolate overflow-hidden bg-[#FBF8F1] px-4 py-20 text-[#14261A] sm:py-28">
+      <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full bg-[#E8F5E9] blur-3xl" />
+      <div aria-hidden="true" className="pointer-events-none absolute -bottom-32 -left-24 -z-10 h-72 w-72 rounded-full bg-[#CB9615]/10 blur-3xl" />
+      <div className="mx-auto max-w-3xl rounded-[2rem] bg-white p-8 text-center shadow-[0_30px_60px_-40px_rgba(10,74,19,0.55)] ring-1 ring-black/10 sm:p-14">
+        <span className="inline-flex items-center gap-2.5 rounded-full bg-[#E8F5E9]/80 py-1 pl-1 pr-4 text-[13px] font-bold uppercase tracking-[0.18em] text-[#0A4A13] ring-1 ring-[#117F21]/15 sm:text-sm">
+          <span aria-hidden="true" className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[#2E913D] to-[#0A4A13] text-[#F4D27A]">
+            <Hammer className="h-3.5 w-3.5" />
+          </span>
           Being redesigned
-        </p>
-        <h1 className="mt-6 text-[2.5rem] font-black leading-[1.03] tracking-tight sm:text-6xl">{s.title}</h1>
-        <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/80">{s.blurb} This page is being rebuilt to match the new home page.</p>
-        <div className="mt-9 flex flex-wrap justify-center gap-3">
-          <Link href="/" className={`group inline-flex min-h-12 items-center gap-3 rounded-full bg-[#F4D27A] py-1.5 pl-1.5 pr-5 font-bold text-[#1A1206] shadow-[0_18px_40px_-18px_rgba(244,210,122,0.85)] transition hover:bg-[#FFE08F] ${focus}`}>
-            <span aria-hidden="true" className="flex h-9 w-9 items-center justify-center rounded-full bg-[#0B1F10] text-[#F4D27A] transition-transform duration-300 group-hover:-translate-y-0.5">
-              <ArrowLeft className="h-4 w-4" />
-            </span>
+        </span>
+        <h1 className="mt-6 text-3xl font-bold leading-[1.12] tracking-tight sm:text-4xl lg:text-[2.75rem]">{s.title}</h1>
+        <span aria-hidden="true" className="mx-auto mt-4 block h-1.5 w-16 rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" />
+        <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-gray-700">{s.blurb} This page is being rebuilt to match the new home page.</p>
+        <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+          <Link href="/" className={`group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-[#F4D27A] px-6 text-lg font-bold text-[#1A1206] transition hover:bg-[#FFE08F] ${focus}`}>
+            <ArrowLeft className="h-5 w-5" aria-hidden="true" />
             Back to the home page
           </Link>
-          <Link href="/#chat" className={`inline-flex min-h-12 items-center gap-2 rounded-full bg-white/10 px-6 font-semibold text-white ring-1 ring-white/25 backdrop-blur transition hover:bg-white/20 hover:ring-[#F4D27A]/60 ${focus}`}>
+          <Link href="/#chat" className={`group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border-2 border-[#117F21] px-6 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#117F21] hover:text-white ${focus}`}>
             Ask PenCom Assistant
-            <ArrowRight className="h-4 w-4 text-[#F4D27A]" aria-hidden="true" />
+            <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
           </Link>
         </div>
       </div>

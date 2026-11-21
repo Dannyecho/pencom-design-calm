@@ -1748,6 +1748,25 @@ const ig: Record<string, string> = {
   "· {n} of {total} ready": "· {n} n'ime {total} dị njikere",
   // S9b news story
   "More from the newsroom": "Ọzọ site na ụlọ akụkọ",
+
+  /* Calm C3 site chrome, 404 and placeholder */
+  "What are you looking for?": "Gịnị ka ị na-achọ?",
+  "Close search": "Mechie nchọta",
+  "Menu": "Ndepụta",
+  "Main": "Ndepụta isi",
+  "Ask PenCom": "Jụọ PenCom",
+  "Error 404": "Njehie 404",
+  "We can't find": "Anyị ahụghị",
+  "that page": "ibe ahụ",
+  "The address may be mistyped, or the page may have moved.": "Ikekwe e dehiere adreesị ahụ n'ụzọ na-ezighị ezi, ma ọ bụ e bugharịala ibe ahụ.",
+  "Go to the home page": "Gaa na ibe mbụ",
+  "Back to the home page": "Laghachi na ibe mbụ",
+  "Being redesigned": "A na-emezigharị ya",
+  "This page is being rebuilt to match the new home page.": "A na-ewughachi ibe a ka o kwekọọ na ibe mbụ ọhụrụ.",
+  "Mobile app": "Ngwa ekwentị",
+  "The PenCom app for Android and iOS.": "Ngwa PenCom maka Android na iOS.",
+  "Admin": "Njikwa",
+  "Content management for Commission staff.": "Njikwa ọdịnaya maka ndị ọrụ Kọmịshọn.",
 };
 
 export default ig;

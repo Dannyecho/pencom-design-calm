@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "@/lib/router";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Languages, Scale, X } from "lucide-react";
@@ -20,13 +20,15 @@ export default function LanguageNotice() {
   const { lang, info, setLang, t, coverage, suggestion, dismissSuggestion } = useI18n();
   const { pathname } = useLocation();
   const reduce = useReducedMotion();
-  const [closed, setClosed] = useState<string[]>(() => {
+  const [closed, setClosed] = useState<string[]>([]);
+  // Read after mount (server render has no storage).
+  useEffect(() => {
     try {
-      return JSON.parse(window.sessionStorage.getItem("pencom:lang-notice") ?? "[]");
+      setClosed(JSON.parse(window.sessionStorage.getItem("pencom:lang-notice") ?? "[]"));
     } catch {
-      return [];
+      /* storage unavailable */
     }
-  });
+  }, []);
 
   const lv = level(coverage);
   const legal = isLegalPath(pathname);
@@ -59,16 +61,16 @@ export default function LanguageNotice() {
       <AnimatePresence initial={false}>
         {suggestion && lang === "en" && (
           <motion.div key="offer" {...anim} className="overflow-hidden" role="region" aria-label="Language">
-            <div lang={suggestion.code} className="border-b border-[#117F21]/15 bg-gradient-to-r from-[#E8F5E9] via-white to-[#FFF8E6]">
-              <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-2.5 text-sm">
-                <Languages className="h-4 w-4 text-[#117F21]" aria-hidden="true" />
-                <span className="font-semibold text-[#0B1F10]">{suggestion.hello}!</span>
+            <div lang={suggestion.code} className="border-b border-black/10 bg-[#E8F5E9]">
+              <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 text-base">
+                <Languages className="h-5 w-5 text-[#117F21]" aria-hidden="true" />
+                <span className="font-semibold text-[#14261A]">{suggestion.hello}!</span>
                 <span className="text-gray-700">{suggestion.offer}</span>
-                <button type="button" onClick={() => setLang(suggestion.code)} className="inline-flex min-h-9 items-center rounded-full bg-[#117F21] px-4 text-xs font-bold text-white hover:bg-[#0A4A13] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">
+                <button type="button" onClick={() => setLang(suggestion.code)} className="inline-flex min-h-11 items-center rounded-2xl bg-[#0A4A13] px-5 text-base font-bold text-white hover:bg-[#117F21] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">
                   {suggestion.switchTo}
                 </button>
-                <button type="button" onClick={dismissSuggestion} lang="en" aria-label="No thanks, stay in English" className="ml-auto flex h-9 w-9 items-center justify-center rounded-full text-gray-500 hover:bg-black/5 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">
-                  <X className="h-4 w-4" aria-hidden="true" />
+                <button type="button" onClick={dismissSuggestion} lang="en" aria-label="No thanks, stay in English" className="ml-auto flex h-11 w-11 items-center justify-center rounded-full text-gray-700 hover:bg-black/5 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">
+                  <X className="h-5 w-5" aria-hidden="true" />
                 </button>
               </div>
             </div>
@@ -77,19 +79,18 @@ export default function LanguageNotice() {
 
         {show && (
           <motion.div key={`notice-${lang}`} {...anim} className="overflow-hidden" role="region" aria-label={t("Language notice")}>
-            <div className="relative overflow-hidden border-b border-[#117F21]/15 bg-gradient-to-r from-[#04240A] via-[#0A4A13] to-[#117F21] text-white">
-              <div aria-hidden="true" className="pointer-events-none absolute -left-10 top-0 h-full w-1/3 bg-[radial-gradient(closest-side,rgba(244,210,122,0.25),transparent)]" />
-              <div className="relative mx-auto flex max-w-7xl items-start gap-3 px-4 py-3 sm:items-center">
-                <span className="hidden h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 sm:flex">
-                  <Languages className="h-4 w-4 text-[#F4D27A]" aria-hidden="true" />
+            <div className="border-b border-black/10 bg-[#F1EFE8] text-[#14261A]">
+              <div className="mx-auto flex max-w-7xl items-start gap-3 px-4 py-3 sm:items-center">
+                <span className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] sm:flex">
+                  <Languages className="h-5 w-5 text-[#F4D27A]" aria-hidden="true" />
                 </span>
-                <div className="min-w-0 flex-1 text-sm">
+                <div className="min-w-0 flex-1 text-base">
                   <p className="font-semibold">{headline}</p>
-                  <p className="mt-0.5 text-xs text-white/75">
+                  <p className="mt-0.5 text-sm text-gray-700">
                     {t("Translations are drafts being checked by PenCom.")}
                     {legal && (
-                      <span className="ml-1 inline-flex items-center gap-1 text-[#F4D27A]">
-                        <Scale className="h-3 w-3" aria-hidden="true" />
+                      <span className="ml-1 inline-flex items-center gap-1 text-[#7A5200]">
+                        <Scale className="h-3.5 w-3.5" aria-hidden="true" />
                         {t("Menus and help are shown in {lang}.", { lang: info.native })}
                       </span>
                     )}
@@ -97,17 +98,17 @@ export default function LanguageNotice() {
                 </div>
                 {pct != null && !legal && (
                   <div className="hidden shrink-0 items-center gap-2 md:flex" aria-hidden="true">
-                    <div className="h-1.5 w-24 overflow-hidden rounded-full bg-white/15">
-                      <motion.div className="h-full rounded-full bg-gradient-to-r from-[#F4D27A] to-[#CB9615]" initial={{ width: 0 }} animate={{ width: `${pct}%` }} transition={{ duration: reduce ? 0 : 0.8 }} />
+                    <div className="h-2 w-24 overflow-hidden rounded-full bg-black/10">
+                      <motion.div className="h-full rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" initial={{ width: 0 }} animate={{ width: `${pct}%` }} transition={{ duration: reduce ? 0 : 0.8 }} />
                     </div>
-                    <span className="w-10 text-xs font-bold tabular-nums text-[#F4D27A]">{pct}%</span>
+                    <span className="w-12 text-sm font-bold tabular-nums text-[#0A4A13]">{pct}%</span>
                   </div>
                 )}
-                <button type="button" onClick={() => setLang("en")} className="inline-flex min-h-9 shrink-0 items-center rounded-full border border-white/30 px-3 text-xs font-semibold hover:bg-white/10 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">
+                <button type="button" onClick={() => setLang("en")} className="inline-flex min-h-11 shrink-0 items-center rounded-2xl border-2 border-[#117F21] px-4 text-base font-semibold text-[#0A4A13] hover:bg-[#117F21] hover:text-white focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">
                   {t("Read in English")}
                 </button>
-                <button type="button" onClick={close} aria-label={t("Close language notice")} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full hover:bg-white/10 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">
-                  <X className="h-4 w-4" aria-hidden="true" />
+                <button type="button" onClick={close} aria-label={t("Close language notice")} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-gray-700 hover:bg-black/5 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">
+                  <X className="h-5 w-5" aria-hidden="true" />
                 </button>
               </div>
             </div>

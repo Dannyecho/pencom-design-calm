@@ -1748,6 +1748,25 @@ const yo: Record<string, string> = {
   "· {n} of {total} ready": "· {n} nínú {total} ti ṣetán",
   // S9b news story
   "More from the newsroom": "Púpọ̀ sí i láti ibi ìròyìn",
+
+  /* Calm C3 site chrome, 404 and placeholder */
+  "What are you looking for?": "Kí ni ẹ ń wá?",
+  "Close search": "Pa ìwádìí dé",
+  "Menu": "Àkójọ",
+  "Main": "Àkójọ àkọ́kọ́",
+  "Ask PenCom": "Béèrè lọ́wọ́ PenCom",
+  "Error 404": "Àṣìṣe 404",
+  "We can't find": "A kò rí",
+  "that page": "ojú-ìwé yẹn",
+  "The address may be mistyped, or the page may have moved.": "Ó lè jẹ́ pé a kọ àdírẹ́sì náà ní àṣìṣe, tàbí a ti gbé ojú-ìwé náà lọ síbòmíràn.",
+  "Go to the home page": "Lọ sí ojú-ìwé àkọ́kọ́",
+  "Back to the home page": "Padà sí ojú-ìwé àkọ́kọ́",
+  "Being redesigned": "À ń tún un ṣe",
+  "This page is being rebuilt to match the new home page.": "À ń tún ojú-ìwé yìí kọ́ kí ó lè bá ojú-ìwé àkọ́kọ́ tuntun mu.",
+  "Mobile app": "Áàpù fóònù",
+  "The PenCom app for Android and iOS.": "Áàpù PenCom fún Android àti iOS.",
+  "Admin": "Ìṣàkóso",
+  "Content management for Commission staff.": "Ìṣàkóso àkóónú fún òṣìṣẹ́ Àjọ náà.",
 };
 
 export default yo;

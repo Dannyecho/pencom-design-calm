@@ -80,7 +80,7 @@ Paths below are relative to `src/views/` unless they start with `src/`.
 | C0 | Scaffold `themes/calm` from showcase | root files, `CLAUDE.md` | done (2026-11-21): showcase copied (no `.git`, `node_modules`, `.next`); package `pencom-theme-calm`, dev port 3013; install, typecheck and build pass (197 doc pages); `CLAUDE.md` has the calm Look and status; README updated; git baseline |
 | C1 | Homepage `/` | `HomeCalm.tsx`, `homecalm/*`, `src/app/page.tsx` | done (2026-11-21): calm homepage ported (WelcomeBar, slider, TopTasks, RetireeSteps, notices, news, help) with a local calm title in `homecalm/Title.tsx`; `HomeShowcase` + `homeshowcase/` removed; 44 px targets on slide numbers, search button and notice links |
 | C2 | Theme kit (heading, hero, panels, dialogs, document kit) | `theme/*`, `docs/kit.tsx`, `about/primitives.tsx` | done (2026-11-21): calm `Headline`/`SectionHeading` (+`center`, shared `DrawnMark`), light `PageHero`/`DocHero` with `Crumbs` + `EyebrowPill`, white `FramedPanel`, green `DarkBackdrop`, white `SectionNav`, dialogs with a cream bar and labelled Close, gold/outline doc buttons; Ghost/spot/Spotlight/Tilt/GridBackdrop/glowLight are no-ops; `homecalm/Title.tsx` removed |
-| C3 | Site chrome, placeholder, 404 | `src/components/**`, `src/app/not-found.tsx`, `src/app/[...slug]/page.tsx` | pending |
+| C3 | Site chrome, placeholder, 404 | `src/components/**`, `src/app/not-found.tsx`, `src/app/[...slug]/page.tsx` | done (2026-11-21): calm header (larger menu, labelled Search/Menu, white rounded-3xl mega menus that also open on keyboard focus, working SiteSearch panel), dark-green footer with a cream newsletter card and 18 px links, NoticesBell/Promo/Cookie/QuickLinks/Language/Chat/A11y widget in calm tokens with 44 px targets, cream 404 and placeholder; Notices no longer opens by itself (user's choice), cookie banner waits for the promo; 17 new i18n keys |
 | C4 | Baseline audit, all routes | none edited | pending |
 | C5a | About part 1 `/about` | `about/AboutPage.tsx`, `about/sections.tsx` (overview, mission, structure) | pending |
 | C5b | About part 2 `/about` | `about/sections.tsx` (executive, history, charter) | pending |
@@ -169,6 +169,14 @@ word or grid; large links with 18 px text and gold headings). Restyle NoticesBel
 LanguageNotice and Chatbot launcher to the calm tokens. The `[...slug]` placeholder and `not-found.tsx` become calm cream pages
 with a large gold CTA (server components: CSS only, no motion). Decide with the user whether the Notices panel should
 still open by itself on the first visit; showcase left this open. Verify `/`, `/about` and a 404 at 1400 and 390 px.
+
+Result: header stays **92 px** (28 + 64, no border) because many pages offset sticky bars by 92 px; keep it that way. The
+user chose "promo only" for first visits: NoticesBell's auto-open preview is off (the preview code is still there, unused), and
+CookieConsent waits for `pencom:promo-done` so the two never stack. LanguageNotice now reads sessionStorage in an effect (was
+in a `useState` initialiser). Chat panel closes on Escape and returns focus to `#chat-trigger`; the header search panel
+(Escape → Search button) uses `views/home/SiteSearch`. Floating buttons: Quick links bottom-left and Ask PenCom bottom-right
+are labelled pills from `sm` up; the A11y widget (home only) sits above the chat button. Footer bottom has `pb-28` so the
+floating buttons don't cover "Back to top". `Ghost` is still imported by `chronicles/ChroniclesPage.tsx` and `about/AboutPage.tsx`.
 
 **C4 Baseline audit.** No restyling. Start the dev server (port 3013), open every route at 1400 px and 390 px, run
 the grep over all of `src/views` and note the counts per file. Under each session below, add a short "Audit:" line

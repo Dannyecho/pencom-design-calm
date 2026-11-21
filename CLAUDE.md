@@ -40,8 +40,9 @@ If a page feels busy, take an effect away.
 
 ## Status
 
-In progress. C0 (scaffold), C1 (calm homepage) and C2 (theme kit) done on 21 November 2026; the chrome and inner
-pages still carry showcase styling of their own (page sessions C3–C16 fix them). Progress: `SESSIONS.md`.
+In progress. C0 (scaffold), C1 (calm homepage), C2 (theme kit) and C3 (site chrome, 404, placeholder) done on
+21 November 2026; inner pages still carry showcase styling of their own (page sessions C5a–C16 fix them). The header is
+92 px tall (pages offset sticky bars by that). Progress: `SESSIONS.md`.
 
 ## Run
 
@@ -162,7 +163,7 @@ gold text on light `#7A5200`, warm panel `#F1EFE8`, mint `#E8F5E9`, focus `#FFD8
 - Components can call `t("English", vars)` from `useI18n()`; Headline/PageHero/About hero do this for whole titles.
 - `/regulations/*` is always English (`isLegalPath`). Content stays English by policy: names, addresses, dates,
   figures, document titles, news story text, the Q1 report text, the signed charter text, media captions.
-- Dictionaries: `dict/ha.ts`, `yo.ts`, `ig.ts` have identical keys (1,652 each). New entries go in a marked section at
+- Dictionaries: `dict/ha.ts`, `yo.ts`, `ig.ts` have identical keys (1,669 each). New entries go in a marked section at
   the end. Tools and the full procedure: `tools/i18n/README.md` and `/i18n-pass`.
 
 ## Verify before you report

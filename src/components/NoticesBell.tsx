@@ -16,7 +16,6 @@ const look: Record<NoticeType, { icon: typeof Info; label: string; chip: string;
 };
 
 const READ = "pencom:notices-read";
-const PREVIEWED = "pencom:notices-previewed"; // per browser session: the preview opens once per visit
 const GONE = "pencom:alerts-closed"; // same key the old banner used, so earlier dismissals carry over
 const load = (k: string): string[] => {
   try {
@@ -37,9 +36,8 @@ const save = (k: string, v: string[]) => {
  * Header bell with a notices panel (all pages). A badge counts unread notices; a critical
  * unread notice turns the badge red and gives the bell a brief shake when the page loads.
  * Readers can mark everything read, dismiss single notices, and bring dismissed ones back.
- * On the first page load of a visit, the panel opens by itself showing the top notice only, with a
- * button to expand the full list. It never closes on its own: readers close it with ×, the bell or Escape.
- * Opening it from the bell shows the full list.
+ * Calm theme: the panel only opens from the bell (no first-visit preview). The preview mode (top notice
+ * plus "Show all") is kept in the code but nothing turns it on.
  */
 export default function NoticesBell() {
   const { t } = useI18n();
@@ -58,45 +56,11 @@ export default function NoticesBell() {
   const unread = shown.filter((n) => !read.includes(n.id));
   const urgent = unread.some((n) => n.type === "critical");
 
-  // First load of the visit: open the panel with the top notice, if there is anything unread.
+  // Saved lists load after mount. Calm theme: the panel never opens by itself (the badge shows the count).
   useEffect(() => {
-    let done = false;
-    try {
-      done = window.sessionStorage.getItem(PREVIEWED) === "1";
-    } catch {
-      /* storage unavailable */
-    }
-    const readNow = load(READ);
-    const goneNow = load(GONE);
-    setRead(readNow);
-    setGone(goneNow);
+    setRead(load(READ));
+    setGone(load(GONE));
     setReady(true);
-    const unreadNow = siteNotices.filter((n) => !goneNow.includes(n.id) && !readNow.includes(n.id));
-    if (done || unreadNow.length === 0) return;
-    let id = 0;
-    const show = () => {
-      setPreview(true);
-      setOpen(true);
-      try {
-        window.sessionStorage.setItem(PREVIEWED, "1");
-      } catch {
-        /* ignore */
-      }
-    };
-    const afterPromo = () => {
-      window.clearTimeout(id);
-      id = window.setTimeout(show, 600);
-    };
-    id = window.setTimeout(() => {
-      // A first-visit popup is on its way or open: wait for it to close.
-      if (document.documentElement.dataset.promo) window.addEventListener("pencom:promo-done", afterPromo, { once: true });
-      else show();
-    }, 900);
-    return () => {
-      window.clearTimeout(id);
-      window.removeEventListener("pencom:promo-done", afterPromo);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -148,8 +112,8 @@ export default function NoticesBell() {
         animate={urgent && !reduce ? { rotate: [0, -14, 12, -10, 8, -4, 0] } : undefined}
         transition={{ duration: 0.9, delay: 1.2, repeat: 1, repeatDelay: 2.5 }}
         className={cn(
-          "relative flex h-10 w-10 items-center justify-center rounded-full border transition-colors focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]",
-          open ? "border-[#117F21] bg-[#E8F5E9] text-[#117F21]" : "border-gray-200 text-gray-700 hover:border-[#117F21] hover:bg-[#F4F7F2] hover:text-[#117F21]",
+          "relative flex h-11 w-11 items-center justify-center rounded-full transition-colors focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D]",
+          open ? "bg-[#0A4A13] text-[#F4D27A]" : "text-[#14261A] ring-1 ring-[#117F21]/30 hover:bg-[#0A4A13] hover:text-white",
         )}
       >
         <Bell className="h-5 w-5" aria-hidden="true" />
@@ -162,8 +126,8 @@ export default function NoticesBell() {
               exit={{ scale: 0.4, opacity: 0 }}
               aria-hidden="true"
               className={cn(
-                "absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full px-1 text-[11px] font-bold text-white ring-2 ring-white",
-                urgent ? "bg-[#D32F2F]" : "bg-[#117F21]",
+                "absolute -right-1 -top-1 flex h-[22px] min-w-[22px] items-center justify-center rounded-full px-1 text-xs font-bold text-white ring-2 ring-white",
+                urgent ? "bg-[#C62828]" : "bg-[#117F21]",
               )}
             >
               {unread.length}
@@ -185,21 +149,21 @@ export default function NoticesBell() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: reduce ? 0 : -8, scale: reduce ? 1 : 0.97 }}
             transition={{ duration: 0.18 }}
-            className="fixed inset-x-3 top-[96px] z-[70] origin-top-right overflow-hidden rounded-2xl bg-white text-gray-900 shadow-[0_30px_70px_-20px_rgba(4,36,10,0.5)] ring-1 ring-black/10 focus:outline-none sm:absolute sm:inset-x-auto sm:right-0 sm:top-full sm:mt-3 sm:w-[25rem]"
+            className="fixed inset-x-3 top-[96px] z-[70] origin-top-right overflow-hidden rounded-3xl bg-white text-[#14261A] shadow-[0_30px_60px_-30px_rgba(10,74,19,0.55)] ring-1 ring-black/10 focus:outline-none sm:absolute sm:inset-x-auto sm:right-0 sm:top-full sm:mt-3 sm:w-[28rem]"
           >
-            <div className="flex items-center justify-between gap-3 border-b border-gray-100 px-4 py-3">
+            <div className="flex items-center justify-between gap-3 border-b border-black/10 bg-[#FBF8F1] px-5 py-3">
               <div>
-                <p className="flex items-center gap-2 text-sm font-bold text-[#0B1F10]">
-                  <Bell className="h-4 w-4 text-[#117F21]" aria-hidden="true" />
+                <p className="flex items-center gap-2 text-lg font-bold text-[#14261A]">
+                  <Bell className="h-5 w-5 text-[#117F21]" aria-hidden="true" />
                   {t("Notices")}
                 </p>
-                <p className="text-xs text-gray-500" data-i18n-done>
+                <p className="text-sm text-gray-600" data-i18n-done>
                   {unread.length ? t("{n} unread", { n: unread.length }) : t("You're up to date")}
                 </p>
               </div>
               <div className="flex items-center gap-1">
               {unread.length > 0 && !preview && (
-                <button type="button" onClick={markAll} className="inline-flex min-h-9 items-center gap-1.5 rounded-full px-3 text-xs font-semibold text-[#117F21] hover:bg-[#E8F5E9] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">
+                <button type="button" onClick={markAll} className="inline-flex min-h-11 items-center gap-1.5 rounded-full px-3 text-sm font-semibold text-[#0A4A13] hover:bg-[#E8F5E9] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">
                   <CheckCheck className="h-4 w-4" aria-hidden="true" />
                   {t("Mark all as read")}
                 </button>
@@ -213,9 +177,10 @@ export default function NoticesBell() {
                 }}
                 aria-label={t("Close notices")}
                 title={t("Close notices")}
-                className="flex h-9 w-9 items-center justify-center rounded-full text-gray-500 transition hover:bg-gray-100 hover:text-gray-900 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
+                className="inline-flex min-h-11 items-center gap-1.5 rounded-full px-3 text-sm font-semibold text-[#14261A] ring-1 ring-black/15 transition hover:bg-[#0A4A13] hover:text-white focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
               >
-                <X className="h-5 w-5" aria-hidden="true" />
+                <X className="h-4 w-4" aria-hidden="true" />
+                {t("Close")}
               </button>
               </div>
             </div>
@@ -233,14 +198,14 @@ export default function NoticesBell() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0, height: 0, transition: { duration: 0.2 } }}
-                      className={cn("relative border-b border-gray-100 last:border-0", isNew && "bg-[#F7FAF6]")}
+                      className={cn("relative border-b border-black/5 last:border-0", isNew && "bg-[#F6FAF5]")}
                     >
-                      <div className="flex gap-3 px-4 py-3.5">
-                        <span className={cn("mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl", s.chip)}>
-                          <Icon className="h-4 w-4" aria-hidden="true" />
+                      <div className="flex gap-3 px-5 py-4">
+                        <span className={cn("mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl", s.chip)}>
+                          <Icon className="h-5 w-5" aria-hidden="true" />
                         </span>
                         <div className="min-w-0 flex-1">
-                          <p className="flex flex-wrap items-center gap-x-2 text-[11px] font-bold uppercase tracking-[0.12em]">
+                          <p className="flex flex-wrap items-center gap-x-2 text-xs font-bold uppercase tracking-[0.14em]">
                             <span className={s.text}>{t(s.label)}</span>
                             {isNew && (
                               <span className="inline-flex items-center gap-1 text-[#117F21]">
@@ -249,8 +214,8 @@ export default function NoticesBell() {
                               </span>
                             )}
                           </p>
-                          <p className="mt-0.5 text-sm font-bold text-[#0B1F10]">{t(n.title)}</p>
-                          <p className="mt-0.5 text-sm leading-snug text-gray-600">{t(n.message)}</p>
+                          <p className="mt-1 text-lg font-bold leading-snug text-[#14261A]">{t(n.title)}</p>
+                          <p className="mt-1 text-base leading-snug text-gray-700">{t(n.message)}</p>
                           <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
                             {n.link && (
                               <Link
@@ -259,14 +224,14 @@ export default function NoticesBell() {
                                   markOne(n.id);
                                   setOpen(false);
                                 }}
-                                className={cn("group inline-flex items-center gap-1 text-sm font-semibold hover:underline", s.text)}
+                                className={cn("group inline-flex min-h-11 items-center gap-1.5 text-base font-semibold hover:underline", s.text)}
                               >
                                 {t(n.link.label)}
-                                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                               </Link>
                             )}
                             {isNew && (
-                              <button type="button" onClick={() => markOne(n.id)} className="text-xs font-semibold text-gray-500 hover:text-gray-900 hover:underline">
+                              <button type="button" onClick={() => markOne(n.id)} className="inline-flex min-h-11 items-center text-sm font-semibold text-gray-600 hover:text-[#14261A] hover:underline focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">
                                 {t("Mark as read")}
                               </button>
                             )}
@@ -278,7 +243,7 @@ export default function NoticesBell() {
                           aria-label={`${t("Dismiss notice")}: ${t(n.title)}`}
                           title={t("Dismiss notice")}
                           data-i18n-done
-                          className="-mr-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-gray-400 transition hover:rotate-90 hover:bg-gray-100 hover:text-gray-900 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
+                          className="-mr-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-gray-500 transition hover:bg-[#F1EFE8] hover:text-[#14261A] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
                         >
                           <X className="h-4 w-4" aria-hidden="true" />
                         </button>
@@ -292,7 +257,7 @@ export default function NoticesBell() {
                   <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#E8F5E9] text-[#117F21]">
                     <CheckCheck className="h-6 w-6" aria-hidden="true" />
                   </span>
-                  <p className="mt-3 text-sm font-semibold text-[#0B1F10]">{t("No notices right now")}</p>
+                  <p className="mt-3 text-lg font-semibold text-[#14261A]">{t("No notices right now")}</p>
                 </li>
               )}
             </ul>
@@ -304,7 +269,7 @@ export default function NoticesBell() {
                 aria-expanded="false"
                 aria-controls="notices-panel"
                 data-i18n-done
-                className="group flex w-full items-center justify-center gap-2 border-t border-gray-100 bg-[#F4F7F2] px-4 py-3 text-sm font-semibold text-[#117F21] transition hover:bg-[#E8F5E9] focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]"
+                className="group flex w-full items-center justify-center gap-2 min-h-12 border-t border-black/10 bg-[#FBF8F1] px-4 py-3 text-base font-semibold text-[#0A4A13] transition hover:bg-[#E8F5E9] focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]"
               >
                 {t("Show all {n} notices", { n: shown.length })}
                 <ChevronDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" aria-hidden="true" />
@@ -312,8 +277,8 @@ export default function NoticesBell() {
             )}
 
             {!preview && gone.some((id) => siteNotices.some((n) => n.id === id)) && (
-              <div className="border-t border-gray-100 bg-gray-50 px-4 py-2.5">
-                <button type="button" onClick={() => setGone([])} className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-600 hover:text-gray-900 hover:underline focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">
+              <div className="border-t border-black/10 bg-[#FBF8F1] px-5 py-1">
+                <button type="button" onClick={() => setGone([])} className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-gray-700 hover:text-[#14261A] hover:underline focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">
                   <RotateCcw className="h-3.5 w-3.5" aria-hidden="true" />
                   {t("Show dismissed notices")}
                 </button>

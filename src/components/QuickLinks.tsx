@@ -85,16 +85,16 @@ export default function QuickLinks() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.15 } }}
-            className="absolute bottom-[4.25rem] left-0"
+            className="absolute bottom-[4.5rem] left-0"
           >
             <ul className="flex flex-col-reverse gap-2.5">
               {links.map((l, i) => (
                 <motion.li
                   key={l.to + l.label}
-                  initial={{ opacity: 0, y: reduce ? 0 : 14, scale: reduce ? 1 : 0.6 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: reduce ? 0 : 10, scale: reduce ? 1 : 0.7 }}
-                  transition={{ type: "spring", stiffness: 420, damping: 28, delay: reduce ? 0 : i * 0.035 }}
+                  initial={{ opacity: 0, y: reduce ? 0 : 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: reduce ? 0 : 8 }}
+                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1], delay: reduce ? 0 : i * 0.03 }}
                   style={{ transformOrigin: "left bottom" }}
                 >
                   <Link
@@ -102,10 +102,10 @@ export default function QuickLinks() {
                     onClick={() => setOpen(false)}
                     className="group flex min-h-11 items-center gap-3 focus-visible:outline-none"
                   >
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#117F21] to-[#0A4A13] text-white shadow-[0_10px_24px_-8px_rgba(10,74,19,0.8)] ring-2 ring-white transition duration-200 group-hover:scale-110 group-hover:from-[#CB9615] group-hover:to-[#9A6F06] group-focus-visible:outline group-focus-visible:outline-[3px] group-focus-visible:outline-offset-2 group-focus-visible:outline-[#FFD84D]">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A] shadow-[0_10px_24px_-10px_rgba(10,74,19,0.8)] ring-2 ring-white transition duration-200 group-hover:-rotate-6 group-hover:bg-[#117F21] group-focus-visible:outline group-focus-visible:outline-[3px] group-focus-visible:outline-offset-2 group-focus-visible:outline-[#FFD84D]">
                       <l.icon className="h-5 w-5" aria-hidden="true" />
                     </span>
-                    <span className="whitespace-nowrap rounded-lg bg-white px-3 py-1.5 text-sm font-semibold text-[#0B1F10] shadow-[0_8px_24px_-8px_rgba(0,0,0,0.35)] ring-1 ring-black/10 transition group-hover:-translate-x-0 group-hover:text-[#117F21] group-hover:ring-[#117F21]/30">
+                    <span className="whitespace-nowrap rounded-2xl bg-white px-4 py-2 text-lg font-semibold text-[#14261A] shadow-[0_12px_28px_-14px_rgba(10,74,19,0.55)] ring-1 ring-black/10 transition group-hover:text-[#0A4A13] group-hover:ring-2 group-hover:ring-[#117F21]">
                       {l.label}
                     </span>
                   </Link>
@@ -133,24 +133,10 @@ export default function QuickLinks() {
           pinned.current = !open;
           setOpen((o) => !o);
         }}
-        whileTap={{ scale: 0.92 }}
-        className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[#04240A] text-white shadow-[0_16px_36px_-10px_rgba(4,36,10,0.9)] ring-2 ring-white/80 transition hover:bg-[#0A4A13] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D]"
+        className="relative flex h-14 min-w-14 items-center justify-center gap-2 rounded-full bg-[#0A4A13] px-4 text-white shadow-[0_16px_36px_-14px_rgba(10,74,19,0.9)] ring-2 ring-white transition hover:bg-[#117F21] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D] sm:pr-5"
       >
-        {!open && !reduce && (
-          <span aria-hidden="true" className="absolute inset-0 animate-ping rounded-full bg-[#117F21]/40 [animation-iteration-count:2]" />
-        )}
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.span
-            key={open ? "x" : "grid"}
-            initial={{ rotate: reduce ? 0 : -90, opacity: 0 }}
-            animate={{ rotate: 0, opacity: 1 }}
-            exit={{ rotate: reduce ? 0 : 90, opacity: 0 }}
-            transition={{ duration: 0.18 }}
-            className="relative"
-          >
-            {open ? <X className="h-6 w-6" aria-hidden="true" /> : <LayoutGrid className="h-6 w-6 text-[#F4D27A]" aria-hidden="true" />}
-          </motion.span>
-        </AnimatePresence>
+        {open ? <X className="h-6 w-6 text-[#F4D27A]" aria-hidden="true" /> : <LayoutGrid className="h-6 w-6 text-[#F4D27A]" aria-hidden="true" />}
+        <span className="hidden text-base font-semibold sm:inline" aria-hidden="true">Quick links</span>
       </motion.button>
     </div>
   );

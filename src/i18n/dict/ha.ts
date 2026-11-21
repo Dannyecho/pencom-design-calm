@@ -1748,6 +1748,25 @@ const ha: Record<string, string> = {
   "· {n} of {total} ready": "· {n} cikin {total} a shirye",
   // S9b news story
   "More from the newsroom": "Ƙarin daga ɗakin labarai",
+
+  /* Calm C3 site chrome, 404 and placeholder */
+  "What are you looking for?": "Me kuke nema?",
+  "Close search": "Rufe bincike",
+  "Menu": "Jeri",
+  "Main": "Babban jeri",
+  "Ask PenCom": "Tambayi PenCom",
+  "Error 404": "Kuskure 404",
+  "We can't find": "Ba mu iya samun",
+  "that page": "wannan shafin",
+  "The address may be mistyped, or the page may have moved.": "Wataƙila an rubuta adireshin ba daidai ba, ko an mayar da shafin wani wuri.",
+  "Go to the home page": "Je zuwa shafin farko",
+  "Back to the home page": "Koma shafin farko",
+  "Being redesigned": "Ana sake tsara shi",
+  "This page is being rebuilt to match the new home page.": "Ana sake gina wannan shafin don ya dace da sabon shafin farko.",
+  "Mobile app": "Manhajar waya",
+  "The PenCom app for Android and iOS.": "Manhajar PenCom don Android da iOS.",
+  "Admin": "Gudanarwa",
+  "Content management for Commission staff.": "Gudanar da abun ciki don ma'aikatan Hukumar.",
 };
 
 export default ha;
