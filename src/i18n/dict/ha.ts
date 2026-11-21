@@ -1797,6 +1797,8 @@ const ha: Record<string, string> = {
   "We can't find that story": "Ba mu sami wannan labarin ba",
   "It may have been moved or archived. Browse the latest news instead.": "Wataƙila an motsa shi ko an adana shi. Duba sabbin labarai maimakon haka.",
   "Go to the newsroom": "Je zuwa ɗakin labarai",
+  /* Performance (calm C14a) */
+  "Name of a PFA": "Sunan PFA",
 };
 
 export default ha;

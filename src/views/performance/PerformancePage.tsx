@@ -18,7 +18,7 @@ const sections = [
 ];
 
 /**
- * Industry performance, showcase theme (brief §7 "Data page (PFA performance and fees)": accessible tables
+ * Industry performance, calm theme (brief §7 "Data page (PFA performance and fees)": accessible tables
  * and charts, period selector, CSV/JSON download, methodology note; DES-29).
  * #rsa-summary (old link) lands on Coverage.
  */
@@ -39,7 +39,7 @@ export default function PerformancePage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-white text-[#0B1F10]">
+      <div className="bg-[#FBF8F1] text-[#14261A]">
         <PerfHero />
         <SectionNav sections={sections} pillId="perf-nav-pill" />
         <AssetsSection />

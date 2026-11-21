@@ -1797,6 +1797,8 @@ const ig: Record<string, string> = {
   "We can't find that story": "Anyị ahụghị akụkọ ahụ",
   "It may have been moved or archived. Browse the latest news instead.": "Enwere ike ịkwaga ya ma ọ bụ debe ya. Lelee akụkọ ọhụrụ kama.",
   "Go to the newsroom": "Gaa n'ụlọ akụkọ",
+  /* Performance (calm C14a) */
+  "Name of a PFA": "Aha PFA",
 };
 
 export default ig;

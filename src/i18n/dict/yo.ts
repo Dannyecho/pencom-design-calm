@@ -1797,6 +1797,8 @@ const yo: Record<string, string> = {
   "We can't find that story": "A kò rí ìtàn náà",
   "It may have been moved or archived. Browse the latest news instead.": "Ó lè jẹ́ pé a ti gbé e lọ tàbí fi pamọ́. Wo àwọn ìròyìn tuntun dípò rẹ̀.",
   "Go to the newsroom": "Lọ sí yàrá ìròyìn",
+  /* Performance (calm C14a) */
+  "Name of a PFA": "Orúkọ PFA kan",
 };
 
 export default yo;
