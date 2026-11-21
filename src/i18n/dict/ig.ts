@@ -1790,6 +1790,13 @@ const ig: Record<string, string> = {
   "We've received your complaint": "Anyị anatala mkpesa gị",
   /* News page (calm C13a) */
   "See the photos": "Lee foto ndị ahụ",
+  /* News story (calm C13b) */
+  "Copy link": "Detuo njikọ",
+  "Read the full document": "Gụọ akwụkwọ ahụ niile",
+  "About this story": "Maka akụkọ a",
+  "We can't find that story": "Anyị ahụghị akụkọ ahụ",
+  "It may have been moved or archived. Browse the latest news instead.": "Enwere ike ịkwaga ya ma ọ bụ debe ya. Lelee akụkọ ọhụrụ kama.",
+  "Go to the newsroom": "Gaa n'ụlọ akụkọ",
 };
 
 export default ig;

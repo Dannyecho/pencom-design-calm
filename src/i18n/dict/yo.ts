@@ -1790,6 +1790,13 @@ const yo: Record<string, string> = {
   "We've received your complaint": "A ti gba ẹ̀sùn rẹ",
   /* News page (calm C13a) */
   "See the photos": "Wo àwọn fọ́tò náà",
+  /* News story (calm C13b) */
+  "Copy link": "Dà ìjápọ̀ kọ",
+  "Read the full document": "Ka gbogbo ìwé náà",
+  "About this story": "Nípa ìtàn yìí",
+  "We can't find that story": "A kò rí ìtàn náà",
+  "It may have been moved or archived. Browse the latest news instead.": "Ó lè jẹ́ pé a ti gbé e lọ tàbí fi pamọ́. Wo àwọn ìròyìn tuntun dípò rẹ̀.",
+  "Go to the newsroom": "Lọ sí yàrá ìròyìn",
 };
 
 export default yo;

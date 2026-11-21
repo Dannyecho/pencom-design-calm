@@ -1790,6 +1790,13 @@ const ha: Record<string, string> = {
   "We've received your complaint": "Mun karɓi ƙorafinka",
   /* News page (calm C13a) */
   "See the photos": "Duba hotunan",
+  /* News story (calm C13b) */
+  "Copy link": "Kwafi mahaɗa",
+  "Read the full document": "Karanta cikakken takardar",
+  "About this story": "Game da wannan labari",
+  "We can't find that story": "Ba mu sami wannan labarin ba",
+  "It may have been moved or archived. Browse the latest news instead.": "Wataƙila an motsa shi ko an adana shi. Duba sabbin labarai maimakon haka.",
+  "Go to the newsroom": "Je zuwa ɗakin labarai",
 };
 
 export default ha;
