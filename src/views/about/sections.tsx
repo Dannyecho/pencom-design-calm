@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
-import { ArrowRight, Building2, ChevronDown, Clock, Compass, MapPin, MessageSquareWarning, Quote, Target, X } from "lucide-react";
+import { ArrowRight, Building2, ChevronDown, Clock, Compass, MapPin, MessageSquareWarning, Quote, Target, X, type LucideIcon } from "lucide-react";
 import { Link } from "@/lib/router";
 import { cn } from "@/lib/utils";
 import { CountUp, icons } from "@/views/about/primitives";
@@ -15,9 +15,28 @@ const glowLight = "[background-image:radial-gradient(420px_circle_at_var(--x,50%
 
 /* ─────────────────────────── Overview ─────────────────────────── */
 
+/** The calm card: white, thin ring; on hover it lifts 4 px, gets a green ring and a soft green shadow. */
+const calmCard =
+  "group relative overflow-hidden rounded-3xl bg-white ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)] hover:ring-2 hover:ring-[#117F21]";
+
+/** Dark-green icon tile with a gold icon that tips on card hover. */
+function IconTile({ icon: Icon, small = false }: { icon: LucideIcon; small?: boolean }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={cn(
+        "relative flex shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-[-6deg]",
+        small ? "h-12 w-12" : "h-14 w-14",
+      )}
+    >
+      <Icon className={small ? "h-6 w-6" : "h-7 w-7"} />
+    </span>
+  );
+}
+
 export function Overview() {
   return (
-    <section id="overview" aria-labelledby="overview-title" className={sectionCls}>
+    <section id="overview" aria-labelledby="overview-title" className={cn(sectionCls, "bg-white")}>
       <div className="mx-auto max-w-7xl">
         <Headline
           id="overview-title"
@@ -33,29 +52,18 @@ export function Overview() {
         />
         <h3 className="sr-only">What we do</h3>
         <ul className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {mandate.map((m, i) => {
-            const Icon = icons[m.icon];
-            return (
-              <li key={m.title}>
-                <Rise delay={i * 0.07} className="h-full">
-                  <div
-                    onMouseMove={spot}
-                    className={cn(
-                      "group relative flex h-full flex-col overflow-hidden rounded-3xl bg-white p-7 ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_60px_-30px_rgba(4,20,10,0.4)]",
-                      glowLight,
-                    )}
-                  >
-                    <span aria-hidden="true" className="absolute inset-x-7 top-0 h-[3px] origin-left scale-x-0 rounded-b-full bg-gradient-to-r from-[#117F21] to-[#CB9615] transition-transform duration-500 group-hover:scale-x-100" />
-                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#E8F5E9] text-[#117F21] transition duration-500 group-hover:bg-[#0B1F10] group-hover:text-[#F4D27A]">
-                      <Icon className="h-6 w-6" aria-hidden="true" />
-                    </span>
-                    <h4 className="mt-5 text-lg font-bold leading-snug text-[#0B1F10]">{m.title}</h4>
-                    <p className="mt-2 leading-relaxed text-gray-600">{m.body}</p>
-                  </div>
-                </Rise>
-              </li>
-            );
-          })}
+          {mandate.map((m, i) => (
+            <li key={m.title}>
+              <Rise delay={i * 0.07} className="h-full">
+                <div className={cn(calmCard, "flex h-full flex-col p-7")}>
+                  <span aria-hidden="true" className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#E8F5E9] transition-transform duration-500 group-hover:scale-150" />
+                  <IconTile icon={icons[m.icon]} />
+                  <h4 className="relative mt-6 text-xl font-bold leading-snug text-[#14261A]">{m.title}</h4>
+                  <p className="relative mt-2 text-lg leading-relaxed text-gray-700">{m.body}</p>
+                </div>
+              </Rise>
+            </li>
+          ))}
         </ul>
       </div>
     </section>
@@ -64,59 +72,60 @@ export function Overview() {
 
 /* ─────────────────────────── Mission, vision, values ─────────────────────────── */
 
+/** Mission is the page's one dark-green inset panel; vision is a white card with a gold left edge. */
 export function MissionValues() {
   return (
-    <section id="mission" aria-labelledby="mission-title" className={cn(sectionCls, "bg-[#F2F6F0]")}>
+    <section id="mission" aria-labelledby="mission-title" className={sectionCls}>
       <div className="mx-auto max-w-7xl">
         <Headline id="mission-title" kicker="What drives us" title="The purpose behind every decision" mark="every decision" />
         <div className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-12">
           <Rise className="lg:col-span-7">
-            <div
-              onMouseMove={spot}
-              className="relative h-full overflow-hidden rounded-[1.75rem] p-7 text-white shadow-[0_40px_80px_-40px_rgba(4,20,10,0.8)] [background-image:radial-gradient(420px_circle_at_var(--x,70%)_var(--y,0%),rgba(244,210,122,0.20),transparent_45%),linear-gradient(135deg,#0B1F10,#0A4A13)] sm:p-10"
-            >
-              <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:48px_48px] [mask-image:radial-gradient(ellipse_at_top_right,black,transparent_70%)]" />
-              <Quote aria-hidden="true" className="absolute right-6 top-6 h-16 w-16 text-[#F4D27A]/15" />
-              <p className="relative inline-flex items-center gap-2 rounded-full bg-[#F4D27A] px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-[#1A1206]">
-                <Target className="h-3.5 w-3.5" aria-hidden="true" />
+            <div className="relative isolate h-full overflow-hidden rounded-[2rem] bg-[#0A4A13] p-7 text-white sm:p-10 lg:p-12">
+              <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full bg-[#CB9615]/20 blur-3xl" />
+              <Quote aria-hidden="true" className="absolute bottom-6 right-6 h-20 w-20 text-[#F4D27A]/15" />
+              <p className="inline-flex items-center gap-2.5 rounded-full bg-white/[0.08] py-1 pl-1 pr-4 text-sm font-bold uppercase tracking-[0.18em] text-[#F4D27A] ring-1 ring-white/15">
+                <span aria-hidden="true" className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[#F4D27A] to-[#CB9615] text-[#0A4A13]">
+                  <Target className="h-3.5 w-3.5" />
+                </span>
                 Our mission
               </p>
               <p className="relative mt-7 text-2xl font-semibold leading-snug sm:text-[1.85rem]">{mission}</p>
             </div>
           </Rise>
           <Rise delay={0.08} className="lg:col-span-5">
-            <div className="relative h-full overflow-hidden rounded-[1.75rem] bg-white p-7 ring-1 ring-black/10 sm:p-10">
-              <span aria-hidden="true" className="absolute inset-y-8 left-0 w-1 rounded-r-full bg-gradient-to-b from-[#F4D27A] to-[#CB9615]" />
-              <p className="inline-flex items-center gap-2 rounded-full bg-[#0A4A13] px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-[#F4D27A]">
-                <Compass className="h-3.5 w-3.5" aria-hidden="true" />
+            <div className="relative h-full overflow-hidden rounded-[2rem] bg-white p-7 pl-9 ring-1 ring-black/10 sm:p-10 sm:pl-12">
+              <span aria-hidden="true" className="absolute inset-y-0 left-0 w-2 bg-gradient-to-b from-[#F4D27A] to-[#CB9615]" />
+              <p className="inline-flex items-center gap-2.5 rounded-full bg-[#E8F5E9]/80 py-1 pl-1 pr-4 text-sm font-bold uppercase tracking-[0.18em] text-[#0A4A13] ring-1 ring-[#117F21]/15">
+                <span aria-hidden="true" className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[#2E913D] to-[#0A4A13] text-[#F4D27A]">
+                  <Compass className="h-3.5 w-3.5" />
+                </span>
                 Our vision
               </p>
-              <p className="mt-7 text-xl font-semibold leading-snug text-[#0B1F10] sm:text-2xl">{vision}</p>
+              <p className="mt-7 text-xl font-semibold leading-snug text-[#14261A] sm:text-2xl">{vision}</p>
             </div>
           </Rise>
         </div>
 
         <div className="mt-16 flex items-center gap-4">
-          <h3 id="values" className="shrink-0 scroll-mt-[190px] text-xs font-bold uppercase tracking-[0.2em] text-[#0A4A13]">
+          <h3 id="values" className="shrink-0 scroll-mt-[190px] text-2xl font-bold tracking-tight text-[#14261A]">
             Our core values
           </h3>
-          <span aria-hidden="true" className="h-px flex-1 bg-gradient-to-r from-[#0A4A13]/25 to-transparent" />
+          <span aria-hidden="true" className="h-[3px] flex-1 rounded-full bg-gradient-to-r from-[#117F21]/40 via-[#CB9615]/30 to-transparent" />
         </div>
-        <ul className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
-          {values.map((v, i) => {
-            const Icon = icons[v.icon];
-            return (
-              <li key={v.title}>
-                <Rise delay={i * 0.05} className="group h-full rounded-3xl bg-white p-5 ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_60px_-30px_rgba(4,20,10,0.35)] sm:p-6">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#E8F5E9] text-[#0A4A13] transition duration-300 group-hover:bg-[#0B1F10] group-hover:text-[#F4D27A]">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
+        <ul className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {values.map((v, i) => (
+            <li key={v.title}>
+              <Rise delay={i * 0.05} className="h-full">
+                <div className={cn(calmCard, "flex h-full items-start gap-4 p-6")}>
+                  <IconTile icon={icons[v.icon]} small />
+                  <span>
+                    <h4 className="text-xl font-bold text-[#14261A]">{v.title}</h4>
+                    <p className="mt-1 text-lg leading-relaxed text-gray-700">{v.desc}</p>
                   </span>
-                  <h4 className="mt-4 font-bold text-[#0B1F10]">{v.title}</h4>
-                  <p className="mt-1 text-sm leading-relaxed text-gray-600">{v.desc}</p>
-                </Rise>
-              </li>
-            );
-          })}
+                </div>
+              </Rise>
+            </li>
+          ))}
         </ul>
       </div>
     </section>
@@ -132,7 +141,7 @@ export function History() {
   const grow = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
 
   return (
-    <section id="history" aria-labelledby="history-title" className={sectionCls}>
+    <section id="history" aria-labelledby="history-title" className={cn(sectionCls, "bg-white")}>
       <div className="mx-auto max-w-7xl">
         <Headline
           id="history-title"
@@ -196,26 +205,26 @@ export function History() {
 
 const byId = (id: string) => allExecs.find((e) => e.id === id)!;
 
-function Person({ exec, onSelect, size = "md", dark = false }: { exec: Exec; onSelect: (id: string) => void; size?: "md" | "lg"; dark?: boolean }) {
+function Person({ exec, onSelect, size = "md" }: { exec: Exec; onSelect: (id: string) => void; size?: "md" | "lg" }) {
   return (
-    <button
-      type="button"
-      onClick={() => onSelect(exec.id)}
-      className={cn("group flex min-h-11 w-full items-center gap-3 rounded-2xl p-2 text-left transition", dark ? "hover:bg-white/10" : "hover:bg-[#F2F6F0]", focus)}
-    >
-      <img src={exec.image} alt="" className={cn("shrink-0 rounded-full object-cover object-top ring-2", size === "lg" ? "h-16 w-16" : "h-12 w-12", dark ? "ring-[#F4D27A]/60" : "ring-[#E8F5E9]")} loading="lazy" />
+    <button type="button" onClick={() => onSelect(exec.id)} className={cn("group/p flex min-h-12 w-full items-center gap-4 rounded-2xl p-2 text-left transition hover:bg-[#E8F5E9]", focus)}>
+      <img src={exec.image} alt="" className={cn("shrink-0 rounded-full object-cover object-top ring-2 ring-offset-2", size === "lg" ? "h-20 w-20 ring-[#CB9615]" : "h-14 w-14 ring-[#E8F5E9]")} loading="lazy" />
       <span className="min-w-0">
-        <span className={cn("block text-xs font-bold uppercase tracking-[0.12em]", dark ? "text-[#F4D27A]" : "text-[#117F21]")}>{exec.title.replace("Commissioner, ", "")}</span>
-        <span className={cn("block font-bold leading-snug group-hover:underline", dark ? "text-white" : "text-[#0B1F10]")}>{exec.name}</span>
+        <span className="block text-sm font-bold uppercase tracking-[0.12em] text-[#117F21]">{exec.title.replace("Commissioner, ", "")}</span>
+        <span className={cn("mt-0.5 block font-bold leading-snug text-[#14261A] group-hover/p:underline", size === "lg" ? "text-xl" : "text-lg")}>{exec.name}</span>
       </span>
     </button>
   );
 }
 
+/** Thin green connector between org-chart boxes. */
+const Line = ({ className }: { className?: string }) => <span aria-hidden="true" className={cn("w-[2px] bg-[#117F21]/45", className)} />;
+
+/** Org chart on cream: Board → Director General → four Commissioners, white cards joined by thin green lines. */
 export function Structure({ onSelect }: { onSelect: (id: string) => void }) {
   const [openArm, setOpenArm] = useState<string | null>(null);
   return (
-    <section id="structure" aria-labelledby="structure-title" className={cn(sectionCls, "bg-[#F2F6F0]")}>
+    <section id="structure" aria-labelledby="structure-title" className={sectionCls}>
       <div className="mx-auto max-w-7xl">
         <Headline
           id="structure-title"
@@ -225,49 +234,48 @@ export function Structure({ onSelect }: { onSelect: (id: string) => void }) {
           intro="A Board oversees the Commission. The Director General leads it with four Commissioners, each responsible for a group of departments. Select a name to read their profile."
         />
 
-        {/* Org chart: Board → Director General → four Commissioners, joined by green-to-gold lines. */}
         <div className="mt-12 flex flex-col items-center">
-          <Rise className="rounded-full bg-white px-5 py-2.5 text-sm font-bold uppercase tracking-[0.16em] text-[#0A4A13] shadow-sm ring-1 ring-black/10">Board of the Commission</Rise>
-          <span aria-hidden="true" className="h-8 w-[2px] bg-gradient-to-b from-[#117F21]/40 to-[#CB9615]/70" />
-          <Rise className="w-full max-w-md">
-            <div
-              onMouseMove={spot}
-              className="relative overflow-hidden rounded-[1.75rem] p-3 text-white shadow-[0_30px_60px_-30px_rgba(4,20,10,0.8)] [background-image:radial-gradient(320px_circle_at_var(--x,50%)_var(--y,0%),rgba(244,210,122,0.22),transparent_45%),linear-gradient(135deg,#0B1F10,#0A4A13)]"
-            >
-              <Person exec={dg} onSelect={onSelect} size="lg" dark />
-              <ul className="mt-2 flex flex-wrap gap-1.5 px-2 pb-1">
+          <Rise className="rounded-full bg-white px-6 py-3 text-base font-bold uppercase tracking-[0.16em] text-[#0A4A13] ring-1 ring-black/10">Board of the Commission</Rise>
+          <Line className="h-8" />
+          <Rise className="w-full max-w-lg">
+            <div className="relative overflow-hidden rounded-3xl bg-white p-3 shadow-[0_28px_50px_-30px_rgba(10,74,19,0.55)] ring-2 ring-[#0A4A13]">
+              <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[#117F21] to-[#CB9615]" />
+              <div className="pt-1.5">
+                <Person exec={dg} onSelect={onSelect} size="lg" />
+              </div>
+              <ul className="mt-2 flex flex-wrap gap-2 px-2 pb-2">
                 {dgOffices.map((o) => (
-                  <li key={o.name} className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/85 ring-1 ring-white/10">
+                  <li key={o.name} className="rounded-full bg-[#E8F5E9] px-3.5 py-1.5 text-base text-[#0A4A13]">
                     {o.name}
                   </li>
                 ))}
               </ul>
             </div>
           </Rise>
-          <span aria-hidden="true" className="h-8 w-[2px] bg-gradient-to-b from-[#CB9615]/70 to-[#117F21]/40" />
+          <Line className="h-8" />
         </div>
 
         <div className="relative">
-          {/* Horizontal bus joining the four arms (desktop only). */}
-          <span aria-hidden="true" className="absolute left-[12.5%] right-[12.5%] top-0 hidden h-[2px] bg-gradient-to-r from-[#117F21]/40 via-[#CB9615]/70 to-[#117F21]/40 lg:block" />
+          {/* Horizontal line joining the four arms (desktop only). */}
+          <span aria-hidden="true" className="absolute left-[12.5%] right-[12.5%] top-0 hidden h-[2px] bg-[#117F21]/45 lg:block" />
           <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {arms.map((arm, i) => {
               const exec = byId(arm.execId);
               const open = openArm === arm.execId;
               return (
                 <li key={arm.execId} className="relative lg:pt-6">
-                  <span aria-hidden="true" className="absolute left-1/2 top-0 hidden h-6 w-[2px] -translate-x-1/2 bg-[#117F21]/40 lg:block" />
-                  <Rise delay={i * 0.07} className="flex h-full flex-col rounded-3xl bg-white p-3 ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_60px_-30px_rgba(4,20,10,0.35)]">
+                  <Line className="absolute left-1/2 top-0 hidden h-6 -translate-x-1/2 lg:block" />
+                  <Rise delay={i * 0.07} className={cn(calmCard, "flex h-full flex-col p-3")}>
                     <Person exec={exec} onSelect={onSelect} />
-                    <div className="mt-2 flex flex-1 flex-col border-t border-black/10 px-2 pt-3">
-                      <p className="text-xs font-bold uppercase tracking-[0.16em] text-gray-600">{arm.departments.length} departments</p>
-                      <ul className="mt-2 space-y-1.5">
+                    <div className="mt-2 flex flex-1 flex-col border-t border-black/10 px-2 pt-4">
+                      <p className="text-sm font-bold uppercase tracking-[0.16em] text-gray-600">{arm.departments.length} departments</p>
+                      <ul className="mb-5 mt-3 space-y-2.5">
                         {arm.departments.map((d) => (
-                          <li key={d.name} className="flex items-start gap-2 text-sm font-semibold text-[#0B1F10]">
-                            <Building2 className="mt-0.5 h-4 w-4 shrink-0 text-[#117F21]" aria-hidden="true" />
+                          <li key={d.name} className="flex items-start gap-2.5 text-lg font-semibold leading-snug text-[#14261A]">
+                            <Building2 className="mt-1 h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" />
                             <span>
                               {d.name}
-                              {open && d.units && <span className="mt-1 block text-xs font-normal leading-relaxed text-gray-600">{d.units.join(" · ")}</span>}
+                              {open && d.units && <span className="mt-1 block text-base font-normal leading-relaxed text-gray-700">{d.units.join(" · ")}</span>}
                             </span>
                           </li>
                         ))}
@@ -278,13 +286,13 @@ export function Structure({ onSelect }: { onSelect: (id: string) => void }) {
                           aria-expanded={open}
                           onClick={() => setOpenArm(open ? null : arm.execId)}
                           className={cn(
-                            "mt-auto inline-flex min-h-11 w-fit items-center gap-1.5 self-start rounded-full px-3 text-sm font-semibold transition",
-                            open ? "bg-[#0B1F10] text-[#F4D27A]" : "text-[#117F21] hover:bg-[#F2F6F0]",
+                            "mt-auto inline-flex min-h-12 w-fit items-center gap-2 self-start rounded-full px-4 text-lg font-semibold transition",
+                            open ? "bg-[#0A4A13] text-[#F4D27A]" : "text-[#0A4A13] ring-1 ring-[#117F21]/40 hover:bg-[#E8F5E9]",
                             focus,
                           )}
                         >
                           {open ? "Hide units" : "Show units"}
-                          <ChevronDown className={cn("h-4 w-4 transition-transform", open && "rotate-180")} aria-hidden="true" />
+                          <ChevronDown className={cn("h-5 w-5 transition-transform", open && "rotate-180")} aria-hidden="true" />
                         </button>
                       )}
                     </div>
@@ -294,7 +302,7 @@ export function Structure({ onSelect }: { onSelect: (id: string) => void }) {
             })}
           </ul>
         </div>
-        <p className="mt-6 text-sm text-gray-600">Based on the organisational chart in the Commission’s Annual Report. Departments are being confirmed with Human Resources.</p>
+        <p className="mt-6 text-base text-gray-700">Based on the organisational chart in the Commission’s Annual Report. Departments are being confirmed with Human Resources.</p>
       </div>
     </section>
   );
