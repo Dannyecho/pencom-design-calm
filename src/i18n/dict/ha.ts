@@ -1799,6 +1799,9 @@ const ha: Record<string, string> = {
   "Go to the newsroom": "Je zuwa ɗakin labarai",
   /* Performance (calm C14a) */
   "Name of a PFA": "Sunan PFA",
+  /* Media topics (calm C17) */
+  "Informal sector": "Fannin da ba na hukuma ba",
+  "Reforms and governance": "Gyare-gyare da shugabanci",
 };
 
 export default ha;

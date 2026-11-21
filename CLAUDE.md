@@ -40,9 +40,10 @@ If a page feels busy, take an effect away.
 
 ## Status
 
-In progress. C0 (scaffold), C1 (calm homepage), C2 (theme kit) and C3 (site chrome, 404, placeholder) done on
-21 November 2026; inner pages still carry showcase styling of their own (page sessions C5a–C16 fix them). The header is
-92 px tall (pages offset sticky bars by that). Progress: `SESSIONS.md`.
+Finished on 21 November 2026 (sessions C0–C17). The calm homepage and every inner page are in the calm look; the
+template-colour grep over `src/` leaves only the kit's no-op compat exports, `GhostBtn` and one `DarkBackdrop` per page
+(the green inset panel). All 19 built routes plus the `/mobile` placeholder and a 404 pass at 1400 px and 390 px (one h1,
+no sideways scroll, no console errors). The header is 92 px tall (pages offset sticky bars by that). Progress: `SESSIONS.md`.
 
 ## Run
 
@@ -65,7 +66,7 @@ src/app/                 routes only: each page.tsx exports metadata and renders
   news/[slug], regulations/doc/[id]   generateStaticParams + generateMetadata (Next 16: params is a Promise)
   resources/chronicles   redirect("/chronicles")
 src/views/<page>/        everything for one page: <Name>Page.tsx (client), sections, data
-src/views/theme/         the theme's look, shared by every page: ui.tsx, Headline.tsx, heading.tsx (Ghost.tsx is a no-op)
+src/views/theme/         the theme's look, shared by every page: ui.tsx, Headline.tsx, heading.tsx
 src/views/homecalm/      the home page: Showcase (slider), Sections (welcome, tasks, retiree steps, notices, news, help); section titles come from theme/heading
 src/views/docs/kit.tsx   document pages (Act, regulation docs, Q1 report, forms): DocHero, Toc, ReadingBar, PdfCard…
 src/views/about/primitives.tsx   scrollToId + sectionAliases (old anchors), CountUp, Spotlight, Tilt, reveal
@@ -116,7 +117,7 @@ Ported pages keep react-router code. Import from `@/lib/router`, never `react-ro
   with the pulsing dot and one shimmer, ink title, `DrawnMark` on the highlight (or a short green→gold bar when there is none),
   18 px intro. `dark` = light gold on the green panel; `center`; `action` sits to the right on desktop (below when
   `stacked`/`center`). **No numbers**: `n` is accepted and ignored. The homepage uses this one.
-- `Ghost.tsx`: no-op `Ghost` and identity `ghostWord`, kept only so old imports compile.
+- `Ghost.tsx` was deleted in C17 (nothing imported it); there are no ghost words in calm.
 
 `src/views/docs/kit.tsx`: `DocHero` light (cream, crumbs, eyebrow pill, bold title + growing bar, meta in a white
 `rounded-[2rem]` grid; print stays white). `PrimaryBtn` gold `rounded-2xl min-h-14`, `GhostBtn` green outline;

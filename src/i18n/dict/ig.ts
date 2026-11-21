@@ -1799,6 +1799,9 @@ const ig: Record<string, string> = {
   "Go to the newsroom": "Gaa n'ụlọ akụkọ",
   /* Performance (calm C14a) */
   "Name of a PFA": "Aha PFA",
+  /* Media topics (calm C17) */
+  "Informal sector": "Ngalaba na-abụghị nke gọọmentị",
+  "Reforms and governance": "Mgbanwe na ọchịchị",
 };
 
 export default ig;

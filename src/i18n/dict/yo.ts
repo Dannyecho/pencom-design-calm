@@ -1799,6 +1799,9 @@ const yo: Record<string, string> = {
   "Go to the newsroom": "Lọ sí yàrá ìròyìn",
   /* Performance (calm C14a) */
   "Name of a PFA": "Orúkọ PFA kan",
+  /* Media topics (calm C17) */
+  "Informal sector": "Ẹ̀ka àìjẹ́-ti-ìjọba",
+  "Reforms and governance": "Àtúnṣe àti ìṣàkóso",
 };
 
 export default yo;
