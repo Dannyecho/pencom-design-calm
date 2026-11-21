@@ -9,8 +9,7 @@ import {
 } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "./compat";
 import { cn } from "@/lib/utils";
-import { Tilt } from "@/views/about/primitives";
-import { DarkBackdrop, ease, focus, sectionCls, spot } from "@/views/theme/ui";
+import { ease, focus, sectionCls } from "@/views/theme/ui";
 import { SectionHeading } from "./compat";
 import { guides, type Guide } from "./data";
 
@@ -23,12 +22,25 @@ const guideIcons: Record<string, LucideIcon> = {
   complaint: MessageSquareWarning,
 };
 
-const textSizes = ["text-base", "text-lg", "text-xl"];
+const textSizes = ["text-lg", "text-xl", "text-2xl"];
 
-const glowLight = "[background-image:radial-gradient(420px_circle_at_var(--x,50%)_var(--y,0%),rgba(46,145,61,0.10),transparent_45%)]";
-const darkBtn = "group inline-flex min-h-11 items-center gap-2 rounded-full bg-[#0B1F10] py-1.5 pl-5 pr-1.5 text-sm font-semibold text-white transition hover:bg-[#117F21]";
-const goldBtn = "group inline-flex min-h-11 items-center gap-2 rounded-full bg-[#F4D27A] py-1.5 pl-5 pr-1.5 text-sm font-bold text-[#1A1206] shadow-[0_14px_30px_-14px_rgba(244,210,122,0.9)] transition hover:bg-[#FFE08A]";
-const chip = "flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-transform duration-300 group-hover:rotate-[-45deg]";
+/** The calm card: white, thin ring; on hover it lifts 4 px, gets a green ring and a soft green shadow. */
+const calmCard =
+  "group relative overflow-hidden rounded-3xl bg-white ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)] hover:ring-2 hover:ring-[#117F21]";
+/** Large gold primary and green outline buttons. */
+const goldBtn =
+  "group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-[#F4D27A] px-6 text-lg font-semibold text-[#1A1206] shadow-[0_14px_30px_-18px_rgba(122,82,0,0.8)] transition hover:bg-[#FFE08F]";
+const outlineBtn =
+  "group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border-2 border-[#117F21] bg-white px-6 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#117F21] hover:text-white";
+
+/** Dark-green icon tile with a gold icon that tips on card hover. */
+function IconTile({ icon: Icon, className }: { icon: LucideIcon; className?: string }) {
+  return (
+    <span aria-hidden="true" className={cn("flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-[-6deg]", className)}>
+      <Icon className="h-7 w-7" />
+    </span>
+  );
+}
 
 /** Printable checklist (DES-41): opens a plain page and prints it. */
 function printGuide(g: Guide) {
@@ -102,24 +114,28 @@ function GuideDialog({ guide, onClose }: { guide: Guide | null; onClose: () => v
       <DialogContent className="max-h-[92vh] max-w-3xl sm:max-w-3xl">
         {guide && (
           <>
-            <div className="relative isolate overflow-hidden bg-[#04140A] px-6 pb-7 pt-8 text-white sm:px-9">
-              <DarkBackdrop animate={false} />
-              <Icon aria-hidden="true" className="absolute -right-8 -top-8 h-48 w-48 text-[#F4D27A]/[0.07]" />
-              <p className="inline-flex items-center gap-2 rounded-full bg-[#F4D27A] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-[#1A1206]">
-                <Icon className="h-3.5 w-3.5" aria-hidden="true" />
-                Guide · {guide.audience}
-              </p>
-              <DialogTitle className="mt-4 pr-12 text-2xl font-black leading-tight tracking-tight text-white sm:text-[2rem]">{guide.title}</DialogTitle>
-              <DialogDescription className="mt-2 max-w-xl text-white/80">{guide.intro}</DialogDescription>
-              <div className="mt-5 flex flex-wrap gap-2 text-sm">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 ring-1 ring-white/15"><MapPin className="h-3.5 w-3.5 text-[#F4D27A]" aria-hidden="true" />{guide.where}</span>
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 ring-1 ring-white/15"><Clock className="h-3.5 w-3.5 text-[#F4D27A]" aria-hidden="true" />{guide.time}</span>
+            <div className="relative isolate overflow-hidden border-b border-black/5 bg-[#FBF8F1] px-6 pb-7 pt-6 sm:px-9">
+              <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-20 -z-10 h-56 w-56 rounded-full bg-[#E8F5E9] blur-2xl" />
+              <div className="flex items-start gap-4">
+                <IconTile icon={Icon} className="hidden sm:flex" />
+                <div className="min-w-0">
+                  <p className="inline-flex items-center gap-2 rounded-full bg-[#E8F5E9] px-3 py-1 text-sm font-bold uppercase tracking-[0.16em] text-[#0A4A13] ring-1 ring-[#117F21]/15">
+                    <Icon className="h-4 w-4 sm:hidden" aria-hidden="true" />
+                    Guide · {guide.audience}
+                  </p>
+                  <DialogTitle className="mt-3 text-2xl font-bold leading-tight tracking-tight text-[#14261A] sm:text-[2rem]">{guide.title}</DialogTitle>
+                </div>
+              </div>
+              <DialogDescription className="mt-3 max-w-xl text-lg leading-relaxed text-gray-700">{guide.intro}</DialogDescription>
+              <div className="mt-5 flex flex-wrap gap-2 text-base">
+                <span className="inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 ring-1 ring-black/10"><MapPin className="h-4 w-4 text-[#117F21]" aria-hidden="true" />{guide.where}</span>
+                <span className="inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 ring-1 ring-black/10"><Clock className="h-4 w-4 text-[#117F21]" aria-hidden="true" />{guide.time}</span>
               </div>
               {/* Reading aids */}
-              <div className="mt-6 flex flex-wrap items-center gap-2">
+              <div className="mt-6 flex flex-wrap items-center gap-3">
                 {canSpeak && (
-                  <button type="button" onClick={listen} aria-pressed={speaking} className={cn("inline-flex min-h-11 items-center gap-2 rounded-full bg-[#F4D27A] px-5 text-sm font-bold text-[#1A1206] shadow-[0_14px_30px_-14px_rgba(244,210,122,0.9)] transition hover:bg-[#FFE08A]", focus)}>
-                    {speaking ? <Square className="h-4 w-4 fill-current" aria-hidden="true" /> : <Headphones className="h-4 w-4" aria-hidden="true" />}
+                  <button type="button" onClick={listen} aria-pressed={speaking} className={cn(goldBtn, "min-h-12 px-5", focus)}>
+                    {speaking ? <Square className="h-5 w-5 fill-current" aria-hidden="true" /> : <Headphones className="h-5 w-5" aria-hidden="true" />}
                     {speaking ? "Stop" : "Listen"}
                     {speaking && (
                       <span aria-hidden="true" className="flex h-4 items-end gap-0.5">
@@ -130,82 +146,92 @@ function GuideDialog({ guide, onClose }: { guide: Guide | null; onClose: () => v
                     )}
                   </button>
                 )}
-                <button type="button" onClick={() => printGuide(guide)} className={cn("inline-flex min-h-11 items-center gap-2 rounded-full px-5 text-sm font-semibold ring-1 ring-white/30 transition hover:bg-white/10", focus)}>
-                  <Printer className="h-4 w-4" aria-hidden="true" /> Print checklist
+                <button type="button" onClick={() => printGuide(guide)} className={cn(outlineBtn, "min-h-12 px-5", focus)}>
+                  <Printer className="h-5 w-5" aria-hidden="true" /> Print checklist
                 </button>
-                <div role="group" aria-label="Text size" className="ml-auto inline-flex items-center rounded-full ring-1 ring-white/30">
-                  <button type="button" onClick={() => setSize((x) => Math.max(0, x - 1))} disabled={size === 0} aria-label="Smaller text" className={cn("flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-white/10 disabled:opacity-40", focus)}><Minus className="h-4 w-4" aria-hidden="true" /></button>
-                  <span className="px-1 text-sm font-semibold" aria-live="polite">Aa{size ? ` +${size}` : ""}</span>
-                  <button type="button" onClick={() => setSize((x) => Math.min(2, x + 1))} disabled={size === 2} aria-label="Larger text" className={cn("flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-white/10 disabled:opacity-40", focus)}><Plus className="h-4 w-4" aria-hidden="true" /></button>
+                <div role="group" aria-label="Text size" className="inline-flex items-center gap-1 rounded-2xl bg-white p-0.5 ring-1 ring-black/15 sm:ml-auto">
+                  <button type="button" onClick={() => setSize((x) => Math.max(0, x - 1))} disabled={size === 0} aria-label="Smaller text" className={cn("flex h-11 w-11 items-center justify-center rounded-xl text-[#0A4A13] transition hover:bg-[#E8F5E9] disabled:opacity-40 disabled:hover:bg-transparent", focus)}><Minus className="h-5 w-5" aria-hidden="true" /></button>
+                  <span className="px-1 text-lg font-semibold" aria-live="polite">Aa{size ? ` +${size}` : ""}</span>
+                  <button type="button" onClick={() => setSize((x) => Math.min(2, x + 1))} disabled={size === 2} aria-label="Larger text" className={cn("flex h-11 w-11 items-center justify-center rounded-xl text-[#0A4A13] transition hover:bg-[#E8F5E9] disabled:opacity-40 disabled:hover:bg-transparent", focus)}><Plus className="h-5 w-5" aria-hidden="true" /></button>
                 </div>
               </div>
             </div>
 
-            <div className={cn("grid grid-cols-1 gap-8 px-6 py-8 sm:px-9 md:grid-cols-[1fr_1.3fr]", textSizes[size])}>
+            <div className={cn("grid grid-cols-1 gap-9 px-6 py-8 sm:px-9 md:grid-cols-[1fr_1.3fr]", textSizes[size])}>
               {/* Checklist */}
               <div>
-                <h3 className="text-xs font-bold uppercase tracking-[0.16em] text-[#0A4A13]">What you need</h3>
+                <h3 className="text-sm font-bold uppercase tracking-[0.16em] text-[#0A4A13]">What you need</h3>
                 <ul className="mt-3 space-y-2">
                   {guide.needs.map((n, i) => (
                     <li key={n}>
-                      <label className={cn("flex cursor-pointer items-start gap-3 rounded-2xl p-3 ring-1 transition duration-300", have[i] ? "bg-[#F2F6F0] ring-[#117F21]/40" : "bg-white ring-black/10 hover:ring-[#117F21]/40")}>
+                      <label className={cn("flex min-h-14 cursor-pointer items-start gap-3 rounded-2xl p-3.5 ring-1 transition duration-300", have[i] ? "bg-[#E8F5E9] ring-[#117F21]/40" : "bg-white ring-black/10 hover:ring-[#117F21]/50")}>
                         <input type="checkbox" checked={!!have[i]} onChange={() => setHave((h) => h.map((v, j) => (j === i ? !v : v)))} className="peer sr-only" />
-                        <span aria-hidden="true" className={cn("mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition peer-focus-visible:outline peer-focus-visible:outline-[3px] peer-focus-visible:outline-[#FFD84D]", have[i] ? "border-[#117F21] bg-[#117F21] text-white" : "border-gray-400")}>
-                          {have[i] && <Check className="h-3 w-3" strokeWidth={3.5} />}
+                        <span aria-hidden="true" className={cn("mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border-2 transition peer-focus-visible:outline peer-focus-visible:outline-[3px] peer-focus-visible:outline-[#FFD84D]", have[i] ? "border-[#117F21] bg-[#117F21] text-white" : "border-gray-500 bg-white")}>
+                          {have[i] && <Check className="h-4 w-4" strokeWidth={3.5} />}
                         </span>
-                        <span className={cn("text-gray-800", have[i] && "text-gray-600 line-through decoration-[#117F21]/60")}>{n}</span>
+                        <span className={cn("text-gray-800", have[i] && "text-gray-700 line-through decoration-[#117F21]/60")}>{n}</span>
                       </label>
                     </li>
                   ))}
                 </ul>
-                <div className="mt-4 flex items-center gap-3">
-                  <span aria-hidden="true" className="h-1.5 flex-1 overflow-hidden rounded-full bg-[#F2F6F0]">
-                    <motion.span className="block h-full rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" animate={{ width: `${guide.needs.length ? (ready / guide.needs.length) * 100 : 0}%` }} transition={{ duration: 0.4, ease }} />
+                <div className="mt-5 rounded-2xl bg-[#F1EFE8] p-4">
+                  <p className="text-base font-semibold text-[#14261A]" aria-live="polite">{ready} of {guide.needs.length} ready</p>
+                  <span aria-hidden="true" className="mt-2 block h-2.5 overflow-hidden rounded-full bg-white ring-1 ring-black/10">
+                    <motion.span className="block h-full rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" initial={false} animate={{ width: `${guide.needs.length ? (ready / guide.needs.length) * 100 : 0}%` }} transition={{ duration: 0.45, ease }} />
                   </span>
-                  <p className="text-sm text-gray-600" aria-live="polite">{ready} of {guide.needs.length} ready</p>
                 </div>
               </div>
 
-              {/* Stepper */}
+              {/* Stepper: steps as gold number tiles */}
               <div>
-                <h3 className="text-xs font-bold uppercase tracking-[0.16em] text-[#0A4A13]">Steps</h3>
-                <ol className="mt-3 flex gap-2" aria-label="Progress">
+                <h3 className="text-sm font-bold uppercase tracking-[0.16em] text-[#0A4A13]">Steps</h3>
+                <ol className="relative mt-3 flex items-center justify-between gap-2" aria-label="Progress">
+                  <span aria-hidden="true" className="absolute inset-x-6 top-1/2 h-0.5 -translate-y-1/2 rounded-full bg-[#E3E0D6]" />
+                  <motion.span aria-hidden="true" className="absolute left-6 top-1/2 h-0.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" initial={false} animate={{ width: guide.steps.length > 1 ? `calc((100% - 3rem) * ${step / (guide.steps.length - 1)})` : 0 }} transition={{ duration: 0.45, ease }} />
                   {guide.steps.map((st, i) => (
-                    <li key={st.title} className="flex-1">
-                      <button type="button" onClick={() => setStep(i)} aria-current={i === step ? "step" : undefined} aria-label={`Step ${i + 1}: ${st.title}`} className={cn("group block w-full rounded-full py-2", focus)}>
-                        <span className="block h-1.5 overflow-hidden rounded-full bg-[#E3EADF] transition group-hover:bg-[#D3DECE]">
-                          <motion.span className="block h-full rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" animate={{ width: i <= step ? "100%" : "0%" }} transition={{ duration: 0.4, ease }} />
-                        </span>
+                    <li key={st.title} className="relative">
+                      <button
+                        type="button"
+                        onClick={() => setStep(i)}
+                        aria-current={i === step ? "step" : undefined}
+                        aria-label={`Step ${i + 1}: ${st.title}`}
+                        className={cn(
+                          "flex h-12 w-12 items-center justify-center rounded-2xl text-lg font-bold tabular-nums transition duration-300",
+                          i === step
+                            ? "scale-110 bg-[#F4D27A] text-[#1A1206] shadow-[0_12px_24px_-12px_rgba(122,82,0,0.8)]"
+                            : i < step
+                              ? "bg-[#0A4A13] text-[#F4D27A] hover:bg-[#117F21]"
+                              : "bg-white text-[#0A4A13] ring-1 ring-black/15 hover:ring-2 hover:ring-[#117F21]",
+                          focus,
+                        )}
+                      >
+                        {i < step ? <Check className="h-5 w-5" strokeWidth={3} aria-hidden="true" /> : i + 1}
                       </button>
                     </li>
                   ))}
                 </ol>
-                <div className="relative mt-3 min-h-[11rem]">
+                <div className="relative mt-6 min-h-[11rem]">
                   <AnimatePresence mode="wait" initial={false}>
                     <motion.div key={step} initial={{ opacity: 0, y: reduce ? 0 : 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: reduce ? 0 : -10 }} transition={{ duration: 0.25, ease }}>
-                      <p className="font-mono text-sm font-semibold tabular-nums text-[#7F5A04]">Step {step + 1} of {guide.steps.length}</p>
-                      <p className="mt-1 text-[1.35em] font-black leading-snug tracking-tight text-[#0B1F10]">{s?.title}</p>
+                      <p className="text-base font-semibold tabular-nums text-[#7A5200]">Step {step + 1} of {guide.steps.length}</p>
+                      <p className="mt-1 text-[1.35em] font-bold leading-snug tracking-tight text-[#14261A]">{s?.title}</p>
                       <p className="mt-2 leading-relaxed text-gray-700">{s?.body}</p>
                     </motion.div>
                   </AnimatePresence>
                 </div>
-                <div className="mt-4 flex flex-wrap items-center gap-2">
-                  <button type="button" onClick={() => setStep((x) => Math.max(0, x - 1))} disabled={step === 0} className={cn("inline-flex min-h-11 items-center gap-1 rounded-full px-4 text-sm font-semibold ring-1 ring-black/10 transition hover:bg-[#F2F6F0] disabled:opacity-40 disabled:hover:bg-transparent", focus)}>
-                    <ChevronLeft className="h-4 w-4" aria-hidden="true" /> Back
+                <div className="mt-5 flex flex-wrap items-center gap-3">
+                  <button type="button" onClick={() => setStep((x) => Math.max(0, x - 1))} disabled={step === 0} className={cn(outlineBtn, "px-5 disabled:pointer-events-none disabled:opacity-40", focus)}>
+                    <ChevronLeft className="h-5 w-5" aria-hidden="true" /> Back
                   </button>
                   {step < guide.steps.length - 1 ? (
-                    <button type="button" onClick={() => setStep((x) => x + 1)} className={cn(darkBtn, focus)}>
+                    <button type="button" onClick={() => setStep((x) => x + 1)} className={cn(goldBtn, focus)}>
                       Next step
-                      <span className={cn(chip, "bg-[#F4D27A] text-[#1A1206] group-hover:rotate-0")}>
-                        <ChevronRight className="h-4 w-4" aria-hidden="true" />
-                      </span>
+                      <ChevronRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
                     </button>
                   ) : (
                     <Link to={guide.link.href} onClick={onClose} className={cn(goldBtn, focus)}>
                       {guide.link.label}
-                      <span className={cn(chip, "bg-[#0B1F10] text-[#F4D27A]")}>
-                        <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                      </span>
+                      <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
                     </Link>
                   )}
                 </div>
@@ -234,43 +260,27 @@ export default function Guides({ openId, setOpenId }: { openId: string | null; s
           {guides.map((g, i) => {
             const Icon = guideIcons[g.icon];
             return (
-              <motion.li key={g.id} initial={{ opacity: 0, y: 26 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.65, delay: (i % 3) * 0.08, ease }}>
-                <Tilt className="h-full" max={5}>
-                  <button
-                    type="button"
-                    onClick={() => setOpenId(g.id)}
-                    onMouseMove={spot}
-                    className={cn(
-                      "group relative flex h-full w-full flex-col overflow-hidden rounded-[1.75rem] bg-white p-7 text-left ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_60px_-30px_rgba(4,20,10,0.35)] hover:ring-[#117F21]/30",
-                      glowLight,
-                      focus,
-                    )}
-                  >
-                    <span aria-hidden="true" className="absolute inset-x-7 top-0 h-[3px] origin-left scale-x-0 rounded-b-full bg-gradient-to-r from-[#117F21] to-[#CB9615] transition-transform duration-500 group-hover:scale-x-100" />
-                    <Icon aria-hidden="true" className="pointer-events-none absolute -bottom-8 -right-8 h-36 w-36 text-[#0A4A13]/[0.04] transition duration-700 group-hover:-translate-y-2 group-hover:rotate-[-8deg] group-hover:text-[#CB9615]/[0.10]" />
-                    <span className="flex items-start justify-between gap-3">
-                      <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#0B1F10] to-[#0A4A13] text-[#F4D27A] shadow-[0_14px_30px_-14px_rgba(4,20,10,0.8)] transition duration-500 group-hover:rotate-[-6deg]">
-                        <Icon className="h-6 w-6" aria-hidden="true" />
-                      </span>
-                      <span className="rounded-full bg-[#F2F6F0] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[#0A4A13]">{g.audience}</span>
+              <motion.li key={g.id} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.65, delay: (i % 3) * 0.08, ease }}>
+                <button type="button" onClick={() => setOpenId(g.id)} className={cn(calmCard, "flex h-full w-full flex-col p-6 text-left sm:p-7", focus)}>
+                  <span aria-hidden="true" className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-[#E8F5E9] transition-transform duration-500 group-hover:scale-150" />
+                  <span className="relative flex items-start justify-between gap-3">
+                    <IconTile icon={Icon} />
+                    <span className="rounded-full bg-white px-3 py-1 text-sm font-bold uppercase tracking-[0.14em] text-[#0A4A13] ring-1 ring-[#117F21]/20">{g.audience}</span>
+                  </span>
+                  <span className="relative mt-6 block text-xl font-bold leading-snug tracking-tight text-[#14261A]">{g.title}</span>
+                  <span className="relative mt-2 block text-lg leading-relaxed text-gray-700">{g.intro}</span>
+                  <span className="relative mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-black/5 pt-5 text-base">
+                    <span className="flex items-center gap-3 text-gray-700">
+                      <span className="tabular-nums">{g.steps.length} steps</span>
+                      <span aria-hidden="true" className="text-[#CB9615]">·</span>
+                      <span className="inline-flex items-center gap-1.5"><Headphones className="h-4 w-4 text-[#117F21]" aria-hidden="true" /> Listen</span>
                     </span>
-                    <span className="mt-6 block text-xl font-black leading-snug tracking-tight text-[#0B1F10] transition group-hover:text-[#117F21]">{g.title}</span>
-                    <span className="mt-2 block text-sm leading-relaxed text-gray-600">{g.intro}</span>
-                    <span className="relative mt-auto flex items-center justify-between gap-3 pt-6 text-sm">
-                      <span className="flex items-center gap-3 text-gray-600">
-                        <span className="font-mono tabular-nums">{g.steps.length} steps</span>
-                        <span aria-hidden="true" className="text-[#CB9615]">·</span>
-                        <span className="inline-flex items-center gap-1"><Headphones className="h-3.5 w-3.5" aria-hidden="true" /> Listen</span>
-                      </span>
-                      <span className="inline-flex items-center gap-2 font-semibold text-[#0B1F10]">
-                        Open
-                        <span aria-hidden="true" className={cn(chip, "bg-[#0B1F10] text-[#F4D27A] group-hover:bg-[#F4D27A] group-hover:text-[#1A1206]")}>
-                          <ArrowRight className="h-4 w-4" />
-                        </span>
-                      </span>
+                    <span className="inline-flex items-center gap-2 text-lg font-semibold text-[#0A4A13]">
+                      Open
+                      <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
                     </span>
-                  </button>
-                </Tilt>
+                  </span>
+                </button>
               </motion.li>
             );
           })}

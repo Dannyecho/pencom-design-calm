@@ -1,12 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { AnimatePresence, MotionConfig, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, BookOpen, FileText, FolderOpen, HelpCircle, Library as LibraryIcon, Search, Type, X } from "lucide-react";
 import { useLocation, useNavigate, useSearchParams } from "@/lib/router";
 import { cn } from "@/lib/utils";
 import { scrollToId } from "@/views/about/primitives";
-import { FramedPanel, PageHero, SectionNav, ease, focus, spot } from "@/views/theme/ui";
+import { FramedPanel, PageHero, SectionNav, ease, focus } from "@/views/theme/ui";
 import { FaqSection, Glossary } from "./FaqGlossary";
 import Guides from "./Guides";
 import { Downloads, Learning, Publications } from "./Library";
@@ -14,7 +14,7 @@ import { faqs, glossary, guides } from "./data";
 import { forms, publications } from "./publications";
 
 /**
- * Resources and knowledge base, showcase theme (brief §6.2 Resources; DES-06, DES-22, DES-24, DES-39, DES-41).
+ * Resources and knowledge base, calm theme (brief §6.2 Resources; DES-06, DES-22, DES-24, DES-39, DES-41).
  * Hero with one search across guides, questions, terms and publications → guides (read aloud, enlarge, print;
  * ?guide=<id> makes each shareable) → FAQs → glossary → publications → forms → learning.
  * /resources/faq lands on the questions; old anchors (#annual-reports, #circulars …) still work.
@@ -80,7 +80,7 @@ export default function ResourcesPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-white text-[#0B1F10]">
+      <div className="bg-[#FBF8F1] text-[#14261A]">
         <Hero
           openGuide={(id) => setGuide(id)}
           openFaq={(q) => {
@@ -148,6 +148,16 @@ function Hero({
     { id: "downloads", icon: FolderOpen, n: forms.length, label: "Forms and templates", note: "Ready to download" },
   ];
 
+  const resultsRef = useRef<HTMLUListElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  // The labelled Search button moves to the first result (results show as you type), or back to the field.
+  const submit = (e: FormEvent) => {
+    e.preventDefault();
+    const first = resultsRef.current?.querySelector<HTMLButtonElement>("button");
+    if (first) first.focus();
+    else inputRef.current?.focus();
+  };
+
   return (
     <PageHero
       id="res-title"
@@ -157,46 +167,48 @@ function Hero({
       mark="step by step"
       intro="Plain-language guides you can read, listen to or print, answers to common questions, a glossary of pension terms, and every report and form we publish."
       actions={
-        <div className="relative max-w-xl">
-          <label htmlFor="kb-q" className="sr-only">
+        <form role="search" onSubmit={submit} className="max-w-xl">
+          <label htmlFor="kb-q" className="block text-lg font-semibold">
             Search guides, questions, terms and publications
           </label>
-          <div aria-hidden="true" className="pointer-events-none absolute -inset-px rounded-full bg-gradient-to-r from-[#F4D27A]/80 via-white/10 to-[#117F21]/70" />
-          <div
-            onMouseMove={spot}
-            className="relative flex items-center gap-3 rounded-full bg-white py-1.5 pl-1.5 pr-2 shadow-[0_30px_60px_-24px_rgba(0,0,0,0.85)] transition focus-within:shadow-[0_0_0_3px_#FFD84D,0_30px_60px_-24px_rgba(0,0,0,0.85)] [background-image:radial-gradient(260px_circle_at_var(--x,50%)_var(--y,50%),rgba(244,210,122,0.18),transparent_60%)]"
-          >
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#0B1F10] to-[#0A4A13] text-[#F4D27A]">
+          <div className="mt-3 flex flex-col gap-3 sm:flex-row">
+            <div className="flex min-w-0 flex-1 items-center gap-3 rounded-2xl bg-white px-4 shadow-[0_18px_40px_-26px_rgba(10,74,19,0.6)] ring-1 ring-black/15 transition focus-within:ring-2 focus-within:ring-[#117F21]">
+              <Search className="h-6 w-6 shrink-0 text-[#117F21]" aria-hidden="true" />
+              <input
+                ref={inputRef}
+                id="kb-q"
+                type="search"
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                placeholder="Try “transfer”, “RSA” or “annual report”"
+                autoComplete="off"
+                role="combobox"
+                aria-expanded={hits.length > 0}
+                aria-controls="kb-results"
+                className="min-h-16 w-full min-w-0 bg-transparent text-lg placeholder:text-lg placeholder:text-gray-500 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 [&::-webkit-search-cancel-button]:hidden"
+              />
+              {q && (
+                <button type="button" onClick={() => setQ("")} aria-label="Clear search" className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-gray-600 transition hover:bg-[#F1EFE8]", focus)}>
+                  <X className="h-5 w-5" aria-hidden="true" />
+                </button>
+              )}
+            </div>
+            <button type="submit" className={cn("inline-flex min-h-16 shrink-0 items-center justify-center gap-2 rounded-2xl bg-[#F4D27A] px-7 text-lg font-semibold text-[#1A1206] shadow-[0_14px_30px_-18px_rgba(122,82,0,0.8)] transition hover:bg-[#FFE08F]", focus)}>
               <Search className="h-5 w-5" aria-hidden="true" />
-            </span>
-            <input
-              id="kb-q"
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              placeholder="Try “transfer”, “RSA” or “annual report”"
-              autoComplete="off"
-              role="combobox"
-              aria-expanded={hits.length > 0}
-              aria-controls="kb-results"
-              className="min-h-11 w-full min-w-0 bg-transparent text-base placeholder:text-gray-500 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
-            />
-            {q && (
-              <button type="button" onClick={() => setQ("")} aria-label="Clear search" className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-gray-600 transition hover:rotate-90 hover:bg-[#F2F6F0]", focus)}>
-                <X className="h-4 w-4" aria-hidden="true" />
-              </button>
-            )}
+              Search
+            </button>
           </div>
-          <AnimatePresence>
+          <AnimatePresence initial={false}>
             {q.trim().length >= 2 && (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 6 }}
-                transition={{ duration: 0.2, ease }}
-                className="absolute inset-x-0 top-full z-40 mt-3 overflow-hidden rounded-3xl bg-white p-1.5 shadow-[0_40px_80px_-24px_rgba(0,0,0,0.75)] ring-1 ring-black/10"
+                transition={{ duration: 0.25, ease }}
+                className="mt-3 rounded-3xl bg-white p-2 shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)] ring-1 ring-black/10"
               >
                 {hits.length ? (
-                  <ul id="kb-results" role="listbox" aria-label="Results">
+                  <ul ref={resultsRef} id="kb-results" role="listbox" aria-label="Results">
                     {hits.map((h) => {
                       const I = kindIcon[h.kind];
                       return (
@@ -207,27 +219,25 @@ function Hero({
                               h.go();
                               setQ("");
                             }}
-                            className={cn("group flex w-full items-center gap-3 rounded-2xl px-3 py-2.5 text-left transition hover:bg-[#F2F6F0]", focus)}
+                            className={cn("group flex min-h-16 w-full items-center gap-3 rounded-2xl px-3 py-2 text-left transition hover:bg-[#E8F5E9]", focus)}
                           >
-                            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#F2F6F0] text-[#117F21] transition duration-300 group-hover:bg-gradient-to-br group-hover:from-[#0B1F10] group-hover:to-[#0A4A13] group-hover:text-[#F4D27A]">
-                              <I className="h-4 w-4" aria-hidden="true" />
+                            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0A4A13] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-[-6deg]">
+                              <I className="h-5 w-5" aria-hidden="true" />
                             </span>
                             <span className="min-w-0 flex-1">
-                              <span className="block truncate font-semibold">{h.label}</span>
-                              <span className="block text-[11px] font-bold uppercase tracking-[0.16em] text-[#7F5A04]">{h.kind}</span>
+                              <span className="block truncate text-lg font-semibold">{h.label}</span>
+                              <span className="block text-sm font-bold uppercase tracking-[0.14em] text-[#7A5200]">{h.kind}</span>
                             </span>
-                            <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F2F6F0] text-[#0B1F10] transition duration-300 group-hover:rotate-[-45deg] group-hover:bg-[#F4D27A] group-hover:text-[#1A1206]">
-                              <ArrowRight className="h-4 w-4" />
-                            </span>
+                            <ArrowRight className="h-5 w-5 shrink-0 text-[#0A4A13] transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
                           </button>
                         </li>
                       );
                     })}
                   </ul>
                 ) : (
-                  <p className="px-4 py-4 text-sm text-gray-700">
+                  <p className="px-4 py-4 text-lg text-gray-700">
                     Nothing found. Try another word, or{" "}
-                    <button type="button" onClick={() => document.getElementById("chat-trigger")?.click()} className={cn("rounded font-semibold text-[#117F21] underline", focus)}>
+                    <button type="button" onClick={() => document.getElementById("chat-trigger")?.click()} className={cn("rounded font-semibold text-[#0A4A13] underline underline-offset-4", focus)}>
                       ask PenCom Assistant
                     </button>
                     .
@@ -236,28 +246,32 @@ function Hero({
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
+        </form>
       }
       aside={
-        <FramedPanel className="p-4 sm:p-5">
-          <p className="flex items-center gap-2 px-1 text-xs font-bold uppercase tracking-[0.18em] text-[#0A4A13]"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#CB9615]" />What’s here</p>
-          <ul className="mt-3 space-y-2">
+        <FramedPanel className="p-5 sm:p-7">
+          <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-[#E8F5E9]" />
+          <p className="relative flex items-center gap-2 px-1 text-sm font-bold uppercase tracking-[0.18em] text-[#0A4A13]">
+            <span aria-hidden="true" className="h-2 w-2 rounded-full bg-[#CB9615]" />
+            What’s here
+          </p>
+          <ul className="relative mt-4 space-y-2.5">
             {tiles.map((t, i) => (
-              <motion.li key={t.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.3 + i * 0.05, ease }}>
+              <motion.li key={t.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.3 + i * 0.06, ease }}>
                 <button
                   type="button"
                   onClick={() => jump(t.id)}
-                  className={cn("group relative flex min-h-[4.25rem] w-full items-center gap-4 overflow-hidden rounded-2xl bg-[#F2F6F0] p-3 text-left ring-1 ring-black/10 transition duration-300 hover:-translate-y-0.5 hover:bg-[#0B1F10] hover:text-white hover:shadow-[0_20px_40px_-24px_rgba(4,20,10,0.8)] hover:ring-[#0B1F10]", focus)}
+                  className={cn("group flex min-h-[4.5rem] w-full items-center gap-4 rounded-2xl bg-[#FBF8F1] p-3 text-left ring-1 ring-black/10 transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_20px_40px_-26px_rgba(10,74,19,0.55)] hover:ring-2 hover:ring-[#117F21]", focus)}
                 >
-                  <span aria-hidden="true" className="absolute inset-y-3 left-0 w-[3px] origin-center scale-y-0 rounded-r-full bg-gradient-to-b from-[#F4D27A] to-[#117F21] transition-transform duration-300 group-hover:scale-y-100" />
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white text-[#117F21] shadow-sm transition duration-300 group-hover:rotate-[-6deg] group-hover:bg-[#F4D27A] group-hover:text-[#1A1206]">
-                    <t.icon className="h-5 w-5" aria-hidden="true" />
+                  <span aria-hidden="true" className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#0A4A13] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-[-6deg]">
+                    <t.icon className="h-6 w-6" />
                   </span>
                   <span className="min-w-0 flex-1">
-                    <span className="block font-bold">{t.label}</span>
-                    <span className="block text-xs text-gray-600 transition group-hover:text-white/75">{t.note}</span>
+                    <span className="block text-lg font-bold leading-snug">{t.label}</span>
+                    <span className="block text-base text-gray-600">{t.note}</span>
                   </span>
-                  <span className="font-mono text-2xl font-bold tabular-nums text-[#0A4A13] transition group-hover:text-[#F4D27A]">{t.n}</span>
+                  <span className="text-2xl font-bold tabular-nums text-[#0A4A13]">{t.n}</span>
+                  <ArrowRight className="hidden h-5 w-5 shrink-0 text-[#0A4A13] transition-transform duration-300 group-hover:translate-x-1 sm:block" aria-hidden="true" />
                 </button>
               </motion.li>
             ))}
