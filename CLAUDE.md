@@ -121,7 +121,8 @@ Ported pages keep react-router code. Import from `@/lib/router`, never `react-ro
 `src/views/docs/kit.tsx`: `DocHero` light (cream, crumbs, eyebrow pill, bold title + growing bar, meta in a white
 `rounded-[2rem]` grid; print stays white). `PrimaryBtn` gold `rounded-2xl min-h-14`, `GhostBtn` green outline;
 `ArrowChip` a plain arrow tile (arrow moves 4 px); `darkCard` = `bg-[#0A4A13]`; `glowLight` = "" (retired);
-`ReadingBar` green→gold line at the top; `Toc`, `DocTools`, `PdfCard`, `VerifyNote` in calm tokens.
+`ReadingBar` green→gold line at the top; `Toc`, `DocTools`, `PdfCard`, `VerifyNote` in calm tokens. `sizes` (document body text) are 18/20/22 px. `/regulations/doc/<unknown id>` answers HTTP 404 with
+`app/regulations/doc/[id]/not-found.tsx`.
 
 `src/views/about/primitives.tsx`: `scrollToId`, `sectionAliases`, `reveal`, `CountUp` (one per page at most);
 `SectionHeading` → calm Headline (`center` works); `Spotlight`/`Tilt` render children without effects; `GridBackdrop` renders nothing.

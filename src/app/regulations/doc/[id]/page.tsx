@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import RegDocPage from "@/views/regulations/RegDocPage";
 import { library } from "@/views/regulations/library";
 
@@ -17,5 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
   const { id } = await params;
+  // Unknown ids answer HTTP 404 with ./not-found.tsx
+  if (!library.some((d) => d.id === id)) notFound();
   return <RegDocPage id={id} />;
 }

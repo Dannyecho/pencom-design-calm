@@ -157,7 +157,8 @@ export function DocTools({ size, setSize }: { size: number; setSize: (n: number)
     </div>
   );
 }
-export const sizes = ["1rem", "1.125rem", "1.25rem"];
+/** Document body sizes: 18 px base in calm (DES-41), then 20 and 22 px. */
+export const sizes = ["1.125rem", "1.25rem", "1.375rem"];
 
 /** Contents list with a scroll-spy that works in both directions. */
 export function Toc({ items, title = "Contents", className }: { items: { id: string; label: string; level?: number }[]; title?: string; className?: string }) {
