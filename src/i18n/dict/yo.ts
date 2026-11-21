@@ -1770,6 +1770,24 @@ const yo: Record<string, string> = {
 
   // calm C10 (forms)
   "Download": "Gbà á sílẹ̀",
+
+  // calm C12b (connect form)
+  "Copy": "Dà á kọ",
+  "Copied": "A ti dà á kọ",
+  "Copy reference": "Dà nọ́mbà ẹjọ́ kọ",
+  "Reference copied": "A ti dà nọ́mbà ẹjọ́ kọ",
+  "Check your details": "Ṣàyẹ̀wò àlàyé rẹ",
+  "Your case reference": "Nọ́mbà ẹjọ́ rẹ",
+  "Track this case": "Tọpinpin ẹjọ́ yìí",
+  "Send another": "Fi òmíràn ránṣẹ́",
+  "Change details": "Yí àlàyé padà",
+  "Send": "Fi ránṣẹ́",
+  "There is a problem": "Ìṣòro kan wà",
+  "There are {n} problems": "Ìṣòro {n} wà",
+  "Remove file": "Yọ fáìlì kúrò",
+  "We've received your enquiry": "A ti gba ìbéèrè rẹ",
+  "We've received your report": "A ti gba ìròyìn rẹ",
+  "We've received your complaint": "A ti gba ẹ̀sùn rẹ",
 };
 
 export default yo;

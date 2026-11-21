@@ -1770,6 +1770,24 @@ const ig: Record<string, string> = {
 
   // calm C10 (forms)
   "Download": "Budata",
+
+  // calm C12b (connect form)
+  "Copy": "Detuo",
+  "Copied": "E detuola ya",
+  "Copy reference": "Detuo nọmba okwu",
+  "Reference copied": "E detuola nọmba okwu",
+  "Check your details": "Lelee nkọwa gị",
+  "Your case reference": "Nọmba okwu gị",
+  "Track this case": "Soro okwu a",
+  "Send another": "Ziga ọzọ",
+  "Change details": "Gbanwee nkọwa",
+  "Send": "Ziga",
+  "There is a problem": "Enwere nsogbu",
+  "There are {n} problems": "Enwere nsogbu {n}",
+  "Remove file": "Wepu faịlụ",
+  "We've received your enquiry": "Anyị anatala ajụjụ gị",
+  "We've received your report": "Anyị anatala akụkọ gị",
+  "We've received your complaint": "Anyị anatala mkpesa gị",
 };
 
 export default ig;

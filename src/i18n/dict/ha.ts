@@ -1770,6 +1770,24 @@ const ha: Record<string, string> = {
 
   // calm C10 (forms)
   "Download": "Sauke",
+
+  // calm C12b (connect form)
+  "Copy": "Kwafa",
+  "Copied": "An kwafa",
+  "Copy reference": "Kwafa lambar shari'a",
+  "Reference copied": "An kwafa lambar shari'a",
+  "Check your details": "Duba bayananka",
+  "Your case reference": "Lambar shari'arka",
+  "Track this case": "Bi diddigin wannan shari'a",
+  "Send another": "Aika wani",
+  "Change details": "Canza bayanai",
+  "Send": "Aika",
+  "There is a problem": "Akwai matsala",
+  "There are {n} problems": "Akwai matsaloli {n}",
+  "Remove file": "Cire fayil",
+  "We've received your enquiry": "Mun karɓi tambayarka",
+  "We've received your report": "Mun karɓi rahotonka",
+  "We've received your complaint": "Mun karɓi ƙorafinka",
 };
 
 export default ha;
