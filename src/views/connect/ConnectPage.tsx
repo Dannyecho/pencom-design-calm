@@ -2,18 +2,19 @@
 
 import { useEffect, useState } from "react";
 import { MotionConfig, motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, Building2, Headphones, Mail, MapPin, MessageCircle, MessageSquareWarning, Phone, Search, Send } from "lucide-react";
+import { ArrowRight, Building2, Headphones, Mail, MapPin, MessageCircle, MessageSquareWarning, Phone, Search, Send } from "lucide-react";
 import { useLocation, useNavigate } from "@/lib/router";
 import { cn } from "@/lib/utils";
 import { scrollToId } from "@/views/about/primitives";
-import { darkCard, glowLight } from "@/views/docs/kit";
-import { FramedPanel, PageHero, SectionNav, ease, focus, spot } from "@/views/theme/ui";
+import { openChat } from "@/views/home/SiteSearch";
+import { goldBtn } from "@/views/resources/Library";
+import { FramedPanel, PageHero, SectionNav, ease, focus } from "@/views/theme/ui";
 import CaseForm from "./CaseForm";
 import { Newsroom, Offices, Tracker } from "./Sections";
 import { headOffice, offices, social, type TopicId } from "./data";
 
 /**
- * Connect, showcase theme (brief §6.2 Connect; templates "Complaint, enquiry and employer report forms",
+ * Connect, calm theme (brief §6.2 Connect; templates "Complaint, enquiry and employer report forms",
  * "Case status tracker", "Utility pages: contact and zonal offices", "News and events").
  * Hero with the four things people come here to do → three-step form → case tracker → offices map → newsroom.
  * #report and #complaint open the form on the right topic.
@@ -55,7 +56,7 @@ export default function ConnectPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-white text-[#0B1F10]">
+      <div className="bg-[#FBF8F1] text-[#14261A]">
         <Hero go={go} />
         <SectionNav sections={sections} pillId="connect-nav-pill" />
         <CaseForm topic={topic} setTopic={setTopic} onSubmitted={setLastRef} />
@@ -76,8 +77,9 @@ const actions: { id: string; topic?: TopicId; icon: typeof Send; title: string; 
   { id: "track", icon: Search, title: "Track a case", body: "Use your case reference" },
 ];
 
-const row = "group flex items-center gap-4 rounded-2xl p-3 transition hover:bg-[#F2F6F0]";
-const tile = "flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#0B1F10] text-[#F4D27A] transition duration-300 group-hover:bg-[#117F21] group-hover:text-white";
+const row = "group flex min-h-14 items-center gap-4 rounded-2xl p-3 transition hover:bg-[#E8F5E9]";
+const tile = "flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-[-6deg]";
+const label = "block text-sm font-semibold uppercase tracking-[0.16em] text-[#7A5200]";
 
 function Hero({ go }: { go: (id: string, topic?: TopicId) => void }) {
   const reduce = useReducedMotion();
@@ -90,28 +92,23 @@ function Hero({ go }: { go: (id: string, topic?: TopicId) => void }) {
       mark="help you?"
       intro={`Ask a question, make a complaint, report an employer or track a case. Or visit us at our head office in Abuja or one of ${offices.length} zonal offices.`}
       actions={
-        <ul className="grid max-w-xl grid-cols-2 gap-3">
+        <ul className="grid max-w-xl grid-cols-1 gap-4 min-[420px]:grid-cols-2">
           {actions.map((a, i) => (
             <motion.li key={a.title} initial={{ opacity: 0, y: reduce ? 0 : 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.25 + i * 0.07, ease }}>
               <button
                 type="button"
                 onClick={() => go(a.id, a.topic)}
-                onMouseMove={spot}
                 className={cn(
-                  "group relative flex h-full w-full flex-col items-start gap-3 overflow-hidden rounded-3xl bg-white p-4 text-left ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:bg-[#0B1F10] hover:text-white hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,0.9)] sm:flex-row sm:items-center",
-                  glowLight,
+                  "group flex h-full w-full items-center gap-4 rounded-3xl bg-white p-4 text-left ring-1 min-[420px]:flex-col min-[420px]:gap-0 min-[420px]:p-5 min-[420px]:text-center ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)] hover:ring-2 hover:ring-[#117F21]",
                   focus,
                 )}
               >
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#0B1F10] text-[#F4D27A] transition duration-300 group-hover:bg-[#F4D27A] group-hover:text-[#1A1206]">
-                  <a.icon className="h-5 w-5" aria-hidden="true" />
+                <span aria-hidden="true" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#0A4A13] text-[#F4D27A] transition-transform duration-300 group-hover:scale-110">
+                  <a.icon className="h-7 w-7" />
                 </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block font-bold leading-snug">{a.title}</span>
-                  <span className="mt-0.5 block text-sm text-gray-600 transition group-hover:text-white/75">{a.body}</span>
-                </span>
-                <span aria-hidden="true" className="hidden h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F2F6F0] text-[#0B1F10] transition duration-300 group-hover:rotate-45 group-hover:bg-[#F4D27A] group-hover:text-[#1A1206] sm:flex">
-                  <ArrowUpRight className="h-4 w-4" />
+                <span className="min-w-0">
+                  <span className="block text-xl font-bold leading-snug text-[#14261A] min-[420px]:mt-3">{a.title}</span>
+                  <span className="mt-1 block text-lg text-gray-700">{a.body}</span>
                 </span>
               </button>
             </motion.li>
@@ -120,67 +117,57 @@ function Hero({ go }: { go: (id: string, topic?: TopicId) => void }) {
       }
       aside={
         <FramedPanel>
-          <div onMouseMove={spot} className={cn("relative overflow-hidden px-6 pb-6 pt-6 text-white sm:px-7", darkCard)}>
-            <span aria-hidden="true" className="absolute -right-10 -top-12 h-40 w-40 rounded-full bg-[#F4D27A]/20 blur-2xl" />
-            <Headphones aria-hidden="true" className="absolute -bottom-6 right-4 h-28 w-28 text-white/[0.06]" />
-            <p className="relative text-xs font-bold uppercase tracking-[0.18em] text-[#F4D27A]">National Pension Commission</p>
-            <p className="relative mt-2 text-2xl font-black leading-tight tracking-tight">Talk to us directly</p>
-            <p className="relative mt-1 text-sm text-white/75">Call, email or visit the head office in Abuja.</p>
+          <div className="relative overflow-hidden border-b border-black/10 bg-[#E8F5E9] px-6 pb-6 pt-6 sm:px-7">
+            <span aria-hidden="true" className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-[#CB9615]/20 blur-3xl" />
+            <p className="relative text-sm font-bold uppercase tracking-[0.18em] text-[#0A4A13]">National Pension Commission</p>
+            <p className="relative mt-2 text-2xl font-bold leading-tight tracking-tight sm:text-3xl">Talk to us directly</p>
+            <p className="relative mt-1 text-lg text-gray-700">Call, email or visit the head office in Abuja.</p>
           </div>
           <ul className="space-y-1 p-3 sm:p-4">
             <li>
               <a href={`tel:${headOffice.phone.replace(/\s/g, "")}`} className={cn(row, focus)}>
-                <span className={tile}>
-                  <Phone className="h-5 w-5" aria-hidden="true" />
-                </span>
+                <span aria-hidden="true" className={tile}><Phone className="h-6 w-6" /></span>
                 <span className="min-w-0">
-                  <span className="block text-xs font-semibold uppercase tracking-[0.16em] text-[#7F5A04]">Call</span>
+                  <span className={label}>Call</span>
                   <span className="block text-lg font-bold">{headOffice.phone}</span>
                 </span>
               </a>
             </li>
             <li>
               <a href={`mailto:${headOffice.email}`} className={cn(row, focus)}>
-                <span className={tile}>
-                  <Mail className="h-5 w-5" aria-hidden="true" />
-                </span>
+                <span aria-hidden="true" className={tile}><Mail className="h-6 w-6" /></span>
                 <span className="min-w-0">
-                  <span className="block text-xs font-semibold uppercase tracking-[0.16em] text-[#7F5A04]">Email</span>
+                  <span className={label}>Email</span>
                   <span className="block break-all text-lg font-bold">{headOffice.email}</span>
                 </span>
               </a>
             </li>
             <li>
               <button type="button" onClick={() => go("zonal-offices")} className={cn(row, "w-full text-left", focus)}>
-                <span className={tile}>
-                  <MapPin className="h-5 w-5" aria-hidden="true" />
-                </span>
+                <span aria-hidden="true" className={tile}><MapPin className="h-6 w-6" /></span>
                 <span className="min-w-0 flex-1">
-                  <span className="block text-xs font-semibold uppercase tracking-[0.16em] text-[#7F5A04]">Head office</span>
-                  <span className="block font-semibold leading-snug">{headOffice.address}</span>
+                  <span className={label}>Head office</span>
+                  <span className="block text-lg font-semibold leading-snug">{headOffice.address}</span>
+                  <span className="mt-1 inline-flex items-center gap-1 text-base font-semibold text-[#117F21] sm:hidden">All offices →</span>
                 </span>
-                <span className="hidden shrink-0 text-xs font-semibold text-[#117F21] sm:block">All offices →</span>
+                <span className="hidden shrink-0 items-center gap-1 text-base font-semibold text-[#117F21] sm:inline-flex">
+                  All offices →
+                </span>
               </button>
             </li>
           </ul>
-          <div className="border-t border-black/10 px-6 pb-6 pt-4 sm:px-7">
-            <button
-              type="button"
-              onClick={() => document.getElementById("chat-trigger")?.click()}
-              className={cn("group inline-flex min-h-12 w-full items-center justify-between gap-2 rounded-full bg-[#F4D27A] py-1.5 pl-5 pr-1.5 font-bold text-[#1A1206] shadow-[0_14px_30px_-14px_rgba(203,150,21,0.9)] transition hover:bg-[#FFE08A]", focus)}
-            >
+          <div className="border-t border-black/10 px-6 pb-6 pt-5 sm:px-7">
+            <button type="button" onClick={openChat} className={cn(goldBtn, "w-full justify-between", focus)}>
               <span className="inline-flex items-center gap-2">
-                <MessageCircle className="h-4 w-4" aria-hidden="true" /> Chat with PenCom Assistant
+                <MessageCircle className="h-5 w-5" aria-hidden="true" /> Chat with PenCom Assistant
               </span>
-              <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#0B1F10] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-45">
-                <ArrowUpRight className="h-4 w-4" />
-              </span>
+              <ArrowRight className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
             </button>
-            <p className="mt-4 text-xs text-gray-600">Follow our verified accounts</p>
+            <p className="mt-5 text-base text-gray-700">Follow our verified accounts</p>
             <ul className="mt-2 flex flex-wrap gap-2">
               {social.map((s) => (
                 <li key={s.name}>
-                  <a href={s.href} target="_blank" rel="noopener noreferrer" className={cn("inline-flex min-h-9 items-center rounded-full bg-white px-3 text-xs font-semibold text-[#0B1F10] ring-1 ring-black/10 transition hover:bg-[#0B1F10] hover:text-[#F4D27A] hover:ring-[#0B1F10]", focus)}>
+                  <a href={s.href} target="_blank" rel="noopener noreferrer" className={cn("inline-flex min-h-11 items-center rounded-full bg-white px-4 text-base font-semibold text-[#14261A] ring-1 ring-black/15 transition hover:bg-[#0A4A13] hover:text-white hover:ring-[#0A4A13]", focus)}>
                     {s.name}
                     <span className="sr-only"> {s.handle} (opens in a new tab)</span>
                   </a>
