@@ -1,17 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
-import { ArrowRight, Building2, ChevronDown, Clock, Compass, MapPin, MessageSquareWarning, Quote, Target, X, type LucideIcon } from "lucide-react";
+import { useRef, useState } from "react";
+import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
+import { ArrowRight, Building2, ChevronDown, Clock, Compass, MapPin, MessageSquareWarning, Quote, Target, type LucideIcon } from "lucide-react";
 import { Link } from "@/lib/router";
 import { cn } from "@/lib/utils";
-import { CountUp, icons } from "@/views/about/primitives";
+import { icons } from "@/views/about/primitives";
 import Headline from "@/views/theme/Headline";
-import { DarkBackdrop, FramedPanel, Rise, focus, sectionCls, spot } from "@/views/theme/ui";
+import { FramedPanel, Modal, Rise, focus, sectionCls } from "@/views/theme/ui";
 import { allExecs, arms, chapters, charter, commissioners, dg, dgOffices, mandate, mission, overview, secretary, values, vision, zonalOffices, type Exec } from "./data";
-
-/** Soft green pointer spotlight for white cards; pair with onMouseMove={spot}. */
-const glowLight = "[background-image:radial-gradient(420px_circle_at_var(--x,50%)_var(--y,0%),rgba(46,145,61,0.10),transparent_45%)]";
 
 /* ─────────────────────────── Overview ─────────────────────────── */
 
@@ -134,6 +131,7 @@ export function MissionValues() {
 
 /* ─────────────────────────── History ─────────────────────────── */
 
+/** Timeline on white: a thin line that fills green→gold as you scroll, green year dots, white calm cards. */
 export function History() {
   const reduce = useReducedMotion();
   const list = useRef<HTMLOListElement>(null);
@@ -150,41 +148,35 @@ export function History() {
           mark="₦31.8 trillion"
           intro="How Nigeria moved from budget-funded pensions to the Contributory Pension Scheme, and what has changed since."
         />
-        <ol ref={list} className="relative mt-14 space-y-8 pl-10 sm:pl-14">
+        <ol ref={list} className="relative mt-14 space-y-8 pl-11 sm:pl-16">
           {/* Track, and a green-to-gold line that fills as you scroll. */}
-          <span aria-hidden="true" className="absolute bottom-2 left-[15px] top-2 w-[3px] rounded-full bg-[#0B1F10]/10 sm:left-[23px]" />
+          <span aria-hidden="true" className="absolute bottom-2 left-[15px] top-2 w-[3px] rounded-full bg-[#14261A]/10 sm:left-[23px]" />
           <motion.span aria-hidden="true" style={{ scaleY: reduce ? 1 : grow }} className="absolute bottom-2 left-[15px] top-2 w-[3px] origin-top rounded-full bg-gradient-to-b from-[#117F21] via-[#2E913D] to-[#CB9615] sm:left-[23px]" />
           {chapters.map((c) => (
             <li key={c.id} id={c.id} className="relative scroll-mt-[170px]">
-              <span aria-hidden="true" className="absolute -left-10 top-7 flex h-[33px] w-[33px] items-center justify-center rounded-full bg-[#0B1F10] shadow-[0_0_0_6px_#fff] sm:-left-14 sm:h-[49px] sm:w-[49px]">
+              <span aria-hidden="true" className="absolute -left-11 top-8 flex h-[33px] w-[33px] items-center justify-center rounded-full bg-[#0A4A13] shadow-[0_0_0_6px_#fff] sm:-left-16 sm:h-[49px] sm:w-[49px]">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#F4D27A] sm:h-3 sm:w-3" />
               </span>
               <Rise>
-                <article
-                  onMouseMove={spot}
-                  className={cn(
-                    "group grid grid-cols-1 gap-5 rounded-[1.75rem] bg-white p-6 ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_60px_-30px_rgba(4,20,10,0.35)] sm:p-8 lg:grid-cols-12 lg:gap-10",
-                    glowLight,
-                  )}
-                >
+                <article className={cn(calmCard, "grid grid-cols-1 gap-5 p-6 sm:p-8 lg:grid-cols-12 lg:gap-10")}>
                   <div className="lg:col-span-3">
-                    <p className="text-5xl font-black leading-none tracking-tight text-[#0B1F10] sm:text-6xl">{c.year}</p>
-                    <p className="mt-2 text-xs font-bold uppercase tracking-[0.16em] text-[#117F21]">{c.period}</p>
+                    <p className="text-5xl font-bold leading-none tracking-tight text-[#0A4A13] sm:text-6xl">{c.year}</p>
+                    <p className="mt-3 text-sm font-bold uppercase tracking-[0.16em] text-[#117F21]">{c.period}</p>
                     {c.figure && (
-                      <p className="mt-5 inline-flex flex-col rounded-2xl bg-gradient-to-br from-[#0B1F10] to-[#0A4A13] px-4 py-3 text-white shadow-[0_18px_40px_-20px_rgba(4,20,10,0.8)]">
-                        <span className="text-2xl font-black tabular-nums text-[#F4D27A]">{c.figure.value}</span>
-                        <span className="text-xs text-white/80">{c.figure.label}</span>
+                      <p className="mt-5 inline-flex flex-col rounded-2xl bg-[#E8F5E9] px-4 py-3 ring-1 ring-[#117F21]/20">
+                        <span className="text-2xl font-bold tabular-nums text-[#0A4A13]">{c.figure.value}</span>
+                        <span className="text-base leading-snug text-gray-700">{c.figure.label}</span>
                       </p>
                     )}
                   </div>
                   <div className="lg:col-span-9 lg:border-l lg:border-black/10 lg:pl-10">
-                    <h3 className="text-xl font-bold leading-snug tracking-tight sm:text-2xl">{c.title}</h3>
-                    <p className="mt-2 leading-relaxed text-gray-700">{c.body}</p>
+                    <h3 className="text-xl font-bold leading-snug tracking-tight text-[#14261A] sm:text-2xl">{c.title}</h3>
+                    <p className="mt-3 text-lg leading-relaxed text-gray-700">{c.body}</p>
                     {c.points && (
-                      <ul className="mt-4 space-y-2">
+                      <ul className="mt-4 space-y-2.5">
                         {c.points.map((p) => (
-                          <li key={p} className="flex gap-3 text-gray-700">
-                            <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#CB9615]" />
+                          <li key={p} className="flex gap-3 text-lg leading-relaxed text-gray-700">
+                            <span aria-hidden="true" className="mt-3 h-2 w-2 shrink-0 rounded-full bg-[#CB9615]" />
                             {p}
                           </li>
                         ))}
@@ -200,6 +192,7 @@ export function History() {
     </section>
   );
 }
+
 
 /* ─────────────────────────── Structure ─────────────────────────── */
 
@@ -310,32 +303,29 @@ export function Structure({ onSelect }: { onSelect: (id: string) => void }) {
 
 /* ─────────────────────────── Leadership ─────────────────────────── */
 
+/** On white: the Director General in a large card (photo in a gold-outlined frame, words below it), then the team as calm cards. */
 export function Leadership({ onSelect }: { onSelect: (id: string) => void }) {
   const team = [...commissioners, secretary];
   return (
-    <section id="executive" aria-labelledby="executive-title" className={sectionCls}>
+    <section id="executive" aria-labelledby="executive-title" className={cn(sectionCls, "bg-white")}>
       <div className="mx-auto max-w-7xl">
         <Headline id="executive-title" kicker="Leadership" title="The people who lead the Commission" mark="lead the Commission" intro="The Director General leads the Commission with four Commissioners and the Commission Secretary." />
         <div className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-12">
           <Rise className="lg:col-span-5">
-            <button
-              type="button"
-              onClick={() => onSelect(dg.id)}
-              onMouseMove={spot}
-              className={cn("group relative isolate block h-full min-h-[28rem] w-full overflow-hidden rounded-[1.75rem] bg-[#0B1F10] text-left shadow-[0_40px_80px_-40px_rgba(4,20,10,0.8)]", focus)}
-            >
-              <img src={dg.image} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover object-top transition duration-700 group-hover:scale-105" />
-              <span aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-[#04140A] via-[#04140A]/40 to-transparent" />
-              <span aria-hidden="true" className="absolute inset-0 -z-10 opacity-0 transition-opacity duration-500 [background-image:radial-gradient(360px_circle_at_var(--x,50%)_var(--y,0%),rgba(244,210,122,0.25),transparent_50%)] group-hover:opacity-100" />
-              <span className="absolute inset-x-5 bottom-5 text-white sm:inset-x-7 sm:bottom-7">
-                <span className="inline-flex rounded-full bg-[#F4D27A] px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-[#1A1206]">{dg.title}</span>
-                <span className="mt-3 block text-2xl font-black tracking-tight sm:text-3xl">{dg.name}</span>
-                <span className="mt-2 block max-w-md text-white/85">{dg.bio}</span>
-                <span className="mt-5 inline-flex items-center gap-3 font-semibold text-[#F4D27A]">
+            <button type="button" onClick={() => onSelect(dg.id)} className={cn(calmCard, "flex h-full w-full flex-col p-4 text-left sm:p-5", focus)}>
+              <span className="relative block p-2">
+                <span aria-hidden="true" className="absolute inset-0 rounded-[1.75rem] border-2 border-[#CB9615]/45" />
+                <span className="relative block aspect-[4/3] overflow-hidden rounded-[1.4rem] bg-[#E8F5E9]">
+                  <img src={dg.image} alt="" className="h-full w-full object-cover object-top transition duration-700 group-hover:scale-105" />
+                </span>
+              </span>
+              <span className="flex flex-1 flex-col px-2 pb-2 pt-5">
+                <span className="inline-flex w-fit rounded-full bg-[#E8F5E9] px-3 py-1 text-sm font-bold uppercase tracking-[0.14em] text-[#0A4A13]">{dg.title}</span>
+                <span className="mt-3 block text-2xl font-bold leading-snug tracking-tight text-[#14261A] sm:text-3xl">{dg.name}</span>
+                <span className="mt-2 block text-lg leading-relaxed text-gray-700">{dg.bio}</span>
+                <span className="mt-auto inline-flex items-center gap-2 pt-5 text-lg font-semibold text-[#0A4A13]">
                   View profile
-                  <span aria-hidden="true" className="flex h-9 w-9 items-center justify-center rounded-full bg-[#F4D27A] text-[#1A1206] transition-transform duration-300 group-hover:rotate-[-45deg]">
-                    <ArrowRight className="h-4 w-4" />
-                  </span>
+                  <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
                 </span>
               </span>
             </button>
@@ -344,26 +334,18 @@ export function Leadership({ onSelect }: { onSelect: (id: string) => void }) {
             {team.map((e, i) => (
               <li key={e.id} className={cn(i === team.length - 1 && "sm:col-span-2")}>
                 <Rise delay={i * 0.05} className="h-full">
-                  <button
-                    type="button"
-                    onClick={() => onSelect(e.id)}
-                    onMouseMove={spot}
-                    className={cn(
-                      "group flex h-full w-full items-center gap-4 rounded-3xl bg-white p-4 text-left ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_60px_-30px_rgba(4,20,10,0.35)]",
-                      glowLight,
-                      focus,
-                    )}
-                  >
-                    <span className="relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl bg-[#F2F6F0] ring-1 ring-black/10">
-                      <img src={e.image} alt="" loading="lazy" className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-110" />
+                  <button type="button" onClick={() => onSelect(e.id)} className={cn(calmCard, "flex h-full w-full items-center gap-4 p-4 text-left sm:p-5", focus)}>
+                    <span aria-hidden="true" className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-[#E8F5E9] transition-transform duration-500 group-hover:scale-150" />
+                    <span className="relative h-24 w-24 shrink-0 overflow-hidden rounded-2xl bg-[#E8F5E9] ring-1 ring-black/10">
+                      <img src={e.image} alt="" loading="lazy" className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-105" />
                     </span>
-                    <span className="min-w-0 flex-1">
-                      <span className="block text-xs font-bold uppercase tracking-[0.12em] text-[#117F21]">{e.title}</span>
-                      <span className="mt-1 block font-bold leading-snug text-[#0B1F10]">{e.name}</span>
-                      <span className="mt-1.5 block text-sm font-semibold text-gray-600 group-hover:text-[#117F21]">View profile</span>
-                    </span>
-                    <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F2F6F0] text-[#0B1F10] transition duration-300 group-hover:rotate-[-45deg] group-hover:bg-[#0B1F10] group-hover:text-[#F4D27A]">
-                      <ArrowRight className="h-4 w-4" />
+                    <span className="relative min-w-0 flex-1">
+                      <span className="block text-sm font-bold uppercase tracking-[0.12em] text-[#117F21]">{e.title}</span>
+                      <span className="mt-1 block text-xl font-bold leading-snug text-[#14261A]">{e.name}</span>
+                      <span className="mt-2 inline-flex items-center gap-2 text-base font-semibold text-[#0A4A13]">
+                        View profile
+                        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+                      </span>
                     </span>
                   </button>
                 </Rise>
@@ -378,139 +360,110 @@ export function Leadership({ onSelect }: { onSelect: (id: string) => void }) {
 
 /* ─────────────────────────── Profile dialog ─────────────────────────── */
 
+/** Profile in the kit's light Modal (cream bar with a labelled Close; focus goes in and comes back). */
 export function ProfileDialog({ id, onClose }: { id: string | null; onClose: () => void }) {
-  const reduce = useReducedMotion();
   const exec = id ? allExecs.find((e) => e.id === id) ?? null : null;
-  const closeBtn = useRef<HTMLButtonElement>(null);
-  const opener = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    if (!exec) return;
-    opener.current = document.activeElement as HTMLElement | null;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const t = window.setTimeout(() => closeBtn.current?.focus(), 50);
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    document.addEventListener("keydown", onKey);
-    return () => {
-      window.clearTimeout(t);
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prev;
-      opener.current?.focus?.();
-    };
-  }, [exec, onClose]);
-
   return (
-    <AnimatePresence>
+    <Modal open={!!exec} onClose={onClose} labelledBy="profile-name" className="max-w-3xl">
       {exec && (
-        <motion.div key="profile" className="fixed inset-0 z-[120] flex items-end justify-center p-3 sm:items-center sm:p-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-          <button type="button" tabIndex={-1} aria-label="Close" onClick={onClose} className="absolute inset-0 cursor-default bg-[#04140A]/70 backdrop-blur-md" />
-          <motion.div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="profile-name"
-            initial={{ y: reduce ? 0 : 40, scale: reduce ? 1 : 0.96, opacity: 0 }}
-            animate={{ y: 0, scale: 1, opacity: 1 }}
-            exit={{ y: reduce ? 0 : 30, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 260, damping: 26 }}
-            className="relative grid max-h-[calc(100svh-1.5rem)] w-full max-w-3xl overflow-y-auto rounded-[1.75rem] bg-white shadow-[0_50px_100px_-30px_rgba(0,0,0,0.6)] sm:grid-cols-5"
-          >
-            <div className="relative h-64 bg-[#0B1F10] sm:col-span-2 sm:h-auto">
-              <img src={exec.image} alt={`Portrait of ${exec.name}`} className="h-full w-full object-cover object-top" />
-              <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1.5 bg-gradient-to-r from-[#117F21] via-[#2E913D] to-[#CB9615] sm:inset-y-0 sm:left-auto sm:right-0 sm:h-auto sm:w-1.5 sm:bg-gradient-to-b" />
+        <div className="grid sm:grid-cols-5">
+          <div className="p-4 sm:col-span-2 sm:p-6 sm:pr-0">
+            <div className="relative p-2">
+              <span aria-hidden="true" className="absolute inset-0 rounded-[1.75rem] border-2 border-[#CB9615]/45" />
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[1.4rem] bg-[#E8F5E9] sm:aspect-[3/4]">
+                <img src={exec.image} alt={`Portrait of ${exec.name}`} className="h-full w-full object-cover object-top" />
+              </div>
             </div>
-            <div className="p-6 sm:col-span-3 sm:p-8">
-              <button ref={closeBtn} type="button" onClick={onClose} aria-label="Close profile" className={cn("absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-[#0B1F10] shadow ring-1 ring-black/10 transition hover:rotate-90", focus)}>
-                <X className="h-5 w-5" aria-hidden="true" />
-              </button>
-              <p className="inline-flex rounded-full bg-[#0A4A13] px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-[#F4D27A]">{exec.title}</p>
-              <h2 id="profile-name" className="mt-3 pr-10 text-2xl font-black leading-tight tracking-tight text-[#0B1F10] sm:text-3xl">
-                {exec.name}
-              </h2>
-              <p className="mt-4 leading-relaxed text-gray-700">{exec.bio}</p>
-              <p className="mt-6 border-t border-black/10 pt-4 text-sm text-gray-600">National Pension Commission · Federal Republic of Nigeria</p>
-            </div>
-          </motion.div>
-        </motion.div>
+          </div>
+          <div className="px-6 pb-7 sm:col-span-3 sm:p-8">
+            <p className="inline-flex rounded-full bg-[#E8F5E9] px-3 py-1 text-sm font-bold uppercase tracking-[0.14em] text-[#0A4A13]">{exec.title}</p>
+            <h2 id="profile-name" className="mt-3 text-2xl font-bold leading-tight tracking-tight text-[#14261A] sm:text-3xl">
+              {exec.name}
+            </h2>
+            <span aria-hidden="true" className="mt-4 block h-1 w-16 rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" />
+            <p className="mt-4 text-lg leading-relaxed text-gray-700">{exec.bio}</p>
+            <p className="mt-6 border-t border-black/10 pt-4 text-base text-gray-700">National Pension Commission · Federal Republic of Nigeria</p>
+          </div>
+        </div>
       )}
-    </AnimatePresence>
+    </Modal>
   );
 }
 
-/* ─────────────────────────── Service Charter + visit us (the page's dark band) ─────────────────────────── */
+/* ─────────────────────────── Service Charter + visit us ─────────────────────────── */
 
+/** On cream: a warm panel with the service standards as plain figures in white cards, a gold CTA, then the visit card. */
 export function Charter() {
   return (
-    <section id="charter" aria-labelledby="charter-title" className={cn(sectionCls, "relative isolate bg-[#04140A] text-white")}>
-      <DarkBackdrop />
-      <div className="relative mx-auto max-w-7xl">
-        <Headline
-          id="charter-title"
-          kicker="Service Charter"
-          title="The standards you can expect from us"
-          mark="expect from us"
-          intro="We are committed to efficient, transparent and courteous service. If we fall short, tell us."
-          dark
-          action={
-            <div className="flex flex-wrap gap-3">
-              <Link
-                to="/about/service-charter"
-                className={cn("group inline-flex min-h-12 items-center gap-3 rounded-full bg-[#F4D27A] pl-5 pr-1.5 font-bold text-[#1A1206] shadow-[0_18px_40px_-14px_rgba(244,210,122,0.8)] transition hover:bg-white", focus)}
-              >
-                Read the full charter
-                <span aria-hidden="true" className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1A1206] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-[-45deg]">
-                  <ArrowRight className="h-4 w-4" />
-                </span>
-              </Link>
-              <Link to="/connect" className={cn("inline-flex min-h-12 items-center gap-2 rounded-full px-5 font-semibold text-white ring-1 ring-white/30 transition hover:bg-white/10", focus)}>
-                <MessageSquareWarning className="h-4 w-4" aria-hidden="true" />
-                Tell us
-              </Link>
-            </div>
-          }
-        />
-        <ul className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
-          {charter.map((c, i) => (
-            <li key={c.label}>
-              <Rise delay={i * 0.05} className="h-full">
-                <div
-                  onMouseMove={spot}
-                  className="group relative h-full overflow-hidden rounded-3xl bg-white/[0.06] p-5 ring-1 ring-white/15 backdrop-blur transition duration-300 [background-image:radial-gradient(300px_circle_at_var(--x,50%)_var(--y,0%),rgba(244,210,122,0.16),transparent_50%)] hover:-translate-y-1 hover:ring-[#F4D27A]/40 sm:p-6"
-                >
-                  <Clock className="h-5 w-5 text-[#F4D27A]" aria-hidden="true" />
-                  <p className="mt-4">
-                    <CountUp value={c.value} className="text-4xl font-black tracking-tight text-[#F4D27A] sm:text-5xl" />{" "}
-                    <span className="text-sm text-white/75">{c.unit}</span>
-                  </p>
-                  <p className="mt-1 text-sm text-white/85">{c.label}</p>
+    <section id="charter" aria-labelledby="charter-title" className={sectionCls}>
+      <div className="mx-auto max-w-7xl">
+        <Rise>
+          <div className="relative isolate overflow-hidden rounded-[2rem] bg-[#F1EFE8] p-6 ring-1 ring-black/10 sm:p-10 lg:p-12">
+            <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 -z-10 h-72 w-72 rounded-full bg-[#F4D27A]/30 blur-3xl" />
+            <Headline
+              id="charter-title"
+              kicker="Service Charter"
+              title="The standards you can expect from us"
+              mark="expect from us"
+              intro="We are committed to efficient, transparent and courteous service. If we fall short, tell us."
+              action={
+                <div className="flex flex-wrap gap-3">
+                  <Link to="/about/service-charter" className={cn("group inline-flex min-h-14 items-center gap-2 rounded-2xl bg-[#F4D27A] px-6 text-lg font-bold text-[#1A1206] transition hover:bg-[#FFE08F]", focus)}>
+                    Read the full charter
+                    <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                  </Link>
+                  <Link
+                    to="/connect"
+                    className={cn("inline-flex min-h-14 items-center gap-2 rounded-2xl border-2 border-[#117F21] px-6 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#117F21] hover:text-white", focus)}
+                  >
+                    <MessageSquareWarning className="h-5 w-5" aria-hidden="true" />
+                    Tell us
+                  </Link>
                 </div>
-              </Rise>
-            </li>
-          ))}
-        </ul>
+              }
+            />
+            <ul className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {charter.map((c, i) => (
+                <li key={c.label}>
+                  <Rise delay={i * 0.05} className="h-full">
+                    <div className={cn(calmCard, "flex h-full items-start gap-4 p-5 sm:p-6")}>
+                      <IconTile icon={Clock} small />
+                      <p>
+                        <span className="text-4xl font-bold tracking-tight tabular-nums text-[#0A4A13]">{c.value}</span>{" "}
+                        <span className="text-lg font-semibold text-[#14261A]">{c.unit}</span>
+                        <span className="mt-1 block text-lg leading-snug text-gray-700">{c.label}</span>
+                      </p>
+                    </div>
+                  </Rise>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Rise>
 
-        <Rise className="mt-10">
-          <FramedPanel className="grid grid-cols-1 items-center gap-5 p-6 text-[#0B1F10] sm:p-8 lg:grid-cols-12">
+        <Rise className="mt-6">
+          <FramedPanel className="grid grid-cols-1 items-center gap-6 p-6 sm:p-8 lg:grid-cols-12">
             <div className="lg:col-span-5">
-              <h2 className="flex items-center gap-3 text-xl font-black tracking-tight sm:text-2xl">
-                <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0A4A13] text-[#F4D27A]">
-                  <MapPin className="h-5 w-5" />
-                </span>
+              <h2 className="flex items-center gap-3 text-xl font-bold tracking-tight text-[#14261A] sm:text-2xl">
+                <IconTile icon={MapPin} small />
                 Visit us in Abuja or at a zonal office
               </h2>
-              <p className="mt-2 text-gray-600">Head office: 174 Adetokunbo Ademola Crescent, Wuse II, Abuja.</p>
+              <p className="mt-3 text-lg text-gray-700">Head office: 174 Adetokunbo Ademola Crescent, Wuse II, Abuja.</p>
             </div>
-            <ul className="flex flex-wrap gap-2 lg:col-span-5">
+            <ul className="flex flex-wrap gap-2 lg:col-span-4">
               {zonalOffices.map((z) => (
-                <li key={z} className="rounded-full bg-[#F2F6F0] px-3.5 py-1.5 text-sm font-semibold text-[#0A4A13] ring-1 ring-black/10">
+                <li key={z} className="rounded-full bg-white px-4 py-2 text-base font-semibold text-[#0A4A13] ring-1 ring-[#117F21]/35">
                   {z}
                 </li>
               ))}
             </ul>
-            <div className="lg:col-span-2 lg:text-right">
-              <Link to="/connect#zonal-offices" className={cn("group inline-flex min-h-11 items-center gap-2 rounded-full bg-[#0B1F10] px-5 font-semibold text-white transition hover:bg-[#117F21]", focus)}>
+            <div className="lg:col-span-3 lg:text-right">
+              <Link
+                to="/connect#zonal-offices"
+                className={cn("group inline-flex min-h-14 items-center gap-2 rounded-2xl bg-[#0A4A13] px-6 text-lg font-semibold text-white transition hover:bg-[#117F21]", focus)}
+              >
                 Find an office
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:rotate-[-45deg]" aria-hidden="true" />
+                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
               </Link>
             </div>
           </FramedPanel>

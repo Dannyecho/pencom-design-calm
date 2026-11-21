@@ -83,7 +83,7 @@ Paths below are relative to `src/views/` unless they start with `src/`.
 | C3 | Site chrome, placeholder, 404 | `src/components/**`, `src/app/not-found.tsx`, `src/app/[...slug]/page.tsx` | done (2026-11-21): calm header (larger menu, labelled Search/Menu, white rounded-3xl mega menus that also open on keyboard focus, working SiteSearch panel), dark-green footer with a cream newsletter card and 18 px links, NoticesBell/Promo/Cookie/QuickLinks/Language/Chat/A11y widget in calm tokens with 44 px targets, cream 404 and placeholder; Notices no longer opens by itself (user's choice), cookie banner waits for the promo; 17 new i18n keys |
 | C4 | Baseline audit, all routes | none edited | done (2026-11-21): 22 routes at 1400/390 px: all 200, one h1 each, no sideways scroll, no console errors or hydration warnings; grep 818 matching lines in 35 files of `src/views` (worst: operators 58, Article 58, performance 57); "Audit (C4)" lines added under each session; no code changed |
 | C5a | About part 1 `/about` | `about/AboutPage.tsx`, `about/sections.tsx` (overview, mission, structure) | done (2026-11-21): kit `PageHero` with gold/outline actions and the boardroom photo in a gold-outlined arch (Ken Burns) over a white figures card (the page's count-up); mandate and values as calm cards with green icon tiles; mission is the green inset panel, vision a white card with a gold edge; org chart in white cards with thin green lines; `Ghost` import gone |
-| C5b | About part 2 `/about` | `about/sections.tsx` (executive, history, charter) | pending |
+| C5b | About part 2 `/about` | `about/sections.tsx` (executive, history, charter) | done (2026-11-21): history timeline with green year dots, scroll-filled green→gold line and calm cards (mint figure chips, 18 px body); leadership on white with the DG photo in a gold-outlined frame (words below, not on the photo) and team calm cards; profile dialog now uses the kit `Modal`; charter teaser is a warm `#F1EFE8` panel with plain figures in white cards, gold CTA + outline "Tell us", white visit card; `CountUp`/`spot`/`glowLight`/`DarkBackdrop` gone from the file |
 | C6 | Service Charter `/about/service-charter` | `charter/CharterPage.tsx` | pending |
 | C7 | Services `/services` | `services/ServicesPage.tsx`, `services/Calculator.tsx` | pending |
 | C8 | Operators `/operators` | `operators/OperatorsPage.tsx` | pending |
@@ -193,6 +193,7 @@ Audit (C4): `AboutPage.tsx` 10 grep hits (`<Ghost word="About">` at :84 still im
 white cards with `Rise`. Leadership cards: the photo in a rounded or arch frame, name `text-xl font-bold`, and the profile dialog
 in the light `Modal` style. Charter teaser: a warm `#F1EFE8` panel with a gold CTA (the green panel is already used by
 mission). No invented names or titles.
+Result: grep check clean; only small text left is meta (role eyebrows 14 px, figure labels 16 px). The about page's only `#0A4A13` panel is mission. No new UI strings, so no i18n pass.
 Audit (C4): See C5a for `sections.tsx` counts. Executive and charter-teaser sections are on the dark/`#F2F6F0` showcase pattern; the profile dialog uses the kit Modal (already light).
 
 **C6 Service Charter.** Sections: promise, standards, complaints, full text. The charter text stays in English, and the signed PDF
