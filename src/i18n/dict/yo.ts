@@ -1767,6 +1767,9 @@ const yo: Record<string, string> = {
   "The PenCom app for Android and iOS.": "Áàpù PenCom fún Android àti iOS.",
   "Admin": "Ìṣàkóso",
   "Content management for Commission staff.": "Ìṣàkóso àkóónú fún òṣìṣẹ́ Àjọ náà.",
+
+  // calm C10 (forms)
+  "Download": "Gbà á sílẹ̀",
 };
 
 export default yo;

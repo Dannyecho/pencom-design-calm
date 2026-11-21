@@ -1767,6 +1767,9 @@ const ha: Record<string, string> = {
   "The PenCom app for Android and iOS.": "Manhajar PenCom don Android da iOS.",
   "Admin": "Gudanarwa",
   "Content management for Commission staff.": "Gudanar da abun ciki don ma'aikatan Hukumar.",
+
+  // calm C10 (forms)
+  "Download": "Sauke",
 };
 
 export default ha;

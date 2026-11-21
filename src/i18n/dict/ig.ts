@@ -1767,6 +1767,9 @@ const ig: Record<string, string> = {
   "The PenCom app for Android and iOS.": "Ngwa PenCom maka Android na iOS.",
   "Admin": "Njikwa",
   "Content management for Commission staff.": "Njikwa ọdịnaya maka ndị ọrụ Kọmịshọn.",
+
+  // calm C10 (forms)
+  "Download": "Budata",
 };
 
 export default ig;
