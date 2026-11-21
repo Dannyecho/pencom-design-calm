@@ -81,7 +81,7 @@ Paths below are relative to `src/views/` unless they start with `src/`.
 | C1 | Homepage `/` | `HomeCalm.tsx`, `homecalm/*`, `src/app/page.tsx` | done (2026-11-21): calm homepage ported (WelcomeBar, slider, TopTasks, RetireeSteps, notices, news, help) with a local calm title in `homecalm/Title.tsx`; `HomeShowcase` + `homeshowcase/` removed; 44 px targets on slide numbers, search button and notice links |
 | C2 | Theme kit (heading, hero, panels, dialogs, document kit) | `theme/*`, `docs/kit.tsx`, `about/primitives.tsx` | done (2026-11-21): calm `Headline`/`SectionHeading` (+`center`, shared `DrawnMark`), light `PageHero`/`DocHero` with `Crumbs` + `EyebrowPill`, white `FramedPanel`, green `DarkBackdrop`, white `SectionNav`, dialogs with a cream bar and labelled Close, gold/outline doc buttons; Ghost/spot/Spotlight/Tilt/GridBackdrop/glowLight are no-ops; `homecalm/Title.tsx` removed |
 | C3 | Site chrome, placeholder, 404 | `src/components/**`, `src/app/not-found.tsx`, `src/app/[...slug]/page.tsx` | done (2026-11-21): calm header (larger menu, labelled Search/Menu, white rounded-3xl mega menus that also open on keyboard focus, working SiteSearch panel), dark-green footer with a cream newsletter card and 18 px links, NoticesBell/Promo/Cookie/QuickLinks/Language/Chat/A11y widget in calm tokens with 44 px targets, cream 404 and placeholder; Notices no longer opens by itself (user's choice), cookie banner waits for the promo; 17 new i18n keys |
-| C4 | Baseline audit, all routes | none edited | pending |
+| C4 | Baseline audit, all routes | none edited | done (2026-11-21): 22 routes at 1400/390 px: all 200, one h1 each, no sideways scroll, no console errors or hydration warnings; grep 818 matching lines in 35 files of `src/views` (worst: operators 58, Article 58, performance 57); "Audit (C4)" lines added under each session; no code changed |
 | C5a | About part 1 `/about` | `about/AboutPage.tsx`, `about/sections.tsx` (overview, mission, structure) | pending |
 | C5b | About part 2 `/about` | `about/sections.tsx` (executive, history, charter) | pending |
 | C6 | Service Charter `/about/service-charter` | `charter/CharterPage.tsx` | pending |
@@ -182,87 +182,108 @@ floating buttons don't cover "Back to top". `Ghost` is still imported by `chroni
 the grep over all of `src/views` and note the counts per file. Under each session below, add a short "Audit:" line
 covering grep hits, showcase effects still showing (spotlights, glass, dark bands, ghost letters), `x` animations,
 text below 18 px in body copy, overflow and console errors. Fix only crashes and console errors.
+Result: no crashes or console errors, so no code was changed. Every inner page except forms, Q1 report and the document pages shows at least one **full-bleed green band** (old `#04140A` section + the new green `DarkBackdrop`); keep one per page as an inset panel. Most common leftovers: ink `#0B1F10` (401 lines), `{spot}` (124), `#F2F6F0` (129), `font-black` (115), `glowLight` (83). Body copy is mostly 16 px (`text-base`) in cards and document text. Audit script (Playwright, measures bands, glass, weight 900, sub-18 px text, overflow offenders) was in the session scratchpad; the one-line greps above reproduce the counts.
 
 **C5a About part 1.** Sections: overview (hero), mission, structure. Make the About hero the calm `PageHero` or hand-build it in its style.
 `CountUp` hero figures stay as plain bold ink figures in white cards (one count-up moment is fine). Mission is the page's
 green inset panel; vision is a white card with a gold left edge. Org chart: white cards with thin green connectors.
+Audit (C4): `AboutPage.tsx` 10 grep hits (`<Ghost word="About">` at :84 still imported), `sections.tsx` 48 (shared with C5b: `#0B1F10` 22, `{spot}` 8, `#F2F6F0` 7, `font-black` 6, `glowLight` 4, `#04140A` 3, 2 `DarkBackdrop`). Hero is still the dark photo hero with text over the photo. Page renders **2 full-bleed green bands**, 8 glass elements, 28 `font-weight:900` text elements, 48 body paragraphs/list items under 18 px. No `x` animations, no overflow, no console errors.
 
 **C5b About part 2.** Sections: executive, history, charter teaser. History timeline: green year dots on a thin line,
 white cards with `Rise`. Leadership cards: the photo in a rounded or arch frame, name `text-xl font-bold`, and the profile dialog
 in the light `Modal` style. Charter teaser: a warm `#F1EFE8` panel with a gold CTA (the green panel is already used by
 mission). No invented names or titles.
+Audit (C4): See C5a for `sections.tsx` counts. Executive and charter-teaser sections are on the dark/`#F2F6F0` showcase pattern; the profile dialog uses the kit Modal (already light).
 
 **C6 Service Charter.** Sections: promise, standards, complaints, full text. The charter text stays in English, and the signed PDF
 link stays. Standard cards are white with green time badges. Complaint steps 1–4 become the gold number tiles (the green
 inset panel). Values are white cards with icon tiles (no numbers). Keep the `aliases` search map and the contents highlight.
+Audit (C4): `CharterPage.tsx` 38 hits (`#0B1F10` 15, `#F2F6F0` 8, `{spot}` 8, `font-black` 5, `glowLight` 4, `#04140A` 2). 1 full-bleed green band (complaints), 4 glass, 61 heavy-weight text elements, **147** items under 18 px (standards list and full charter text at 16 px). No overflow, no console errors.
 
 **C7 Services.** Sections: journeys, calculator, portals, help. The journey panel is a white card with a green header and steps
 as gold number tiles. The calculator is the page's green inset panel (white slider card, and a white results card with plain bold
 figures, readable at 390 px; the breakdown colours must keep contrast on white). Portals are white task-style cards (the homepage
 TopTasks look, no tilt). Help cards follow the homepage TalkToUs style. Keep the handoff dialog and its focus.
+Audit (C4): `ServicesPage.tsx` 33 hits (`#F2F6F0` 11, `#0B1F10` 15, `<Tilt` 1) plus a **hand-rolled 3D tilt button** at :651 (rotateX/Y on mouse move + `spot`); `Calculator.tsx` 8 (2 `DarkBackdrop`). 1 full-bleed green band (calculator), 12 heavy text, 20 small. No overflow, no console errors.
 
 **C8 Operators.** Sections: how, directory, funds, performance, plus the details drawer. Hero counts become white figure cards.
 The directory toolbar is a white pill bar with labelled filters, and operator cards are white with hover lift. The funds selector goes in the
 green inset panel; "your fund" is a white card with a gold edge. PFA returns are **sample figures** and keep their label.
 The drawer gets the light header and its focus trap stays.
+Audit (C4): `OperatorsPage.tsx` 58 hits, the most of any page (`#0B1F10` 19, `#F2F6F0` 13, `font-black` 10, `{spot}` 8, `glowLight` 5, `glowDark` 3, 3 `DarkBackdrop`). 1 full-bleed green band (funds) plus 2 dark cards, 4 glass, 39 heavy text, 47 small. No overflow, no console errors.
 
 **C9a Resources part 1.** Hero (knowledge search: a large `min-h-16` search field with an 18 px placeholder and a labelled
 Search button) and guides. `?guide=transfer-rsa` must still open the guide. Guide cards are white with icon tiles. The guide
 dialog is light, with steps as gold number tiles and a checklist progress bar. Keep `canSpeak` in its effect.
+Audit (C4): `ResourcesPage.tsx` 8 hits (`#F2F6F0` 5), `Guides.tsx` 19 (`<Tilt` 1, 2 `DarkBackdrop`, `font-black` 3). Page-wide (also `/resources/faq`): 1 full-bleed green band (learning), 1 dark block, 10 glass, 58 heavy text, 35 small. No overflow, no console errors.
 
 **C9b Resources part 2.** Sections: publications, downloads, learning, FAQ, glossary, and the `/resources/faq` route. Keep
 `#annual-reports` and `?doc=` working (`compat.tsx`). The FAQ is an accordion with large question text and no counters. Glossary flip
 cards become simple cards (or an accordion) with no ghost letters. Learning is the page's green inset panel with a gold play button.
 Publication covers can keep a gentle hover lift.
+Audit (C4): `Library.tsx` 41 hits (`font-black` 10, `{spot}` 7, `#04140A` 4, 2 `DarkBackdrop`), `FaqGlossary.tsx` 23, `compat.tsx` 0. Publication covers are dark gradient tiles; learning band is full-bleed green. `/resources/faq` renders the same page (same counts as C9a).
 
 **C10 Forms + Q1 report.** Checklist ticks persist in `pencom:checklists` (SSR-safe, `ready` flag). The open checklist gets a
 white card with a green header and a gold progress ring. Report sections: glance, dg, environment, domains,
 priorities, outlook. Report text stays English and print styles stay white. Dashboard tiles are white figure cards with
 plain figures. The DG quote goes in the green inset panel.
+Audit (C4): `FormsPage.tsx` 30 hits (`#0B1F10` 19, `<Tilt` 1), `ReportPage.tsx` 24 (`#0B1F10` 18). No full-bleed bands; report has one green inset block already. Forms: 9 heavy, 20 small; report: 22 heavy, **79** small (report body at 16 px), 1 glass each. No overflow, no console errors.
 
 **C11a Regulations library.** Sections: latest, act, library, policies, compliance, plus facets and the document drawer.
 **Always English.** Filters stay in the URL and the drawer keeps its focus trap. The Act block is the green inset panel. The library has a
 labelled search and sort, with facets as large checkboxes (44 px rows). Result cards are white with hover lift (lift on an inner div
 because of `layout`). Compliance self-check uses a green progress line.
+Audit (C4): `RegulationsPage.tsx` 9, `Sections.tsx` 35 (`#0B1F10` 15, `font-black` 7, `{spot}` 7), `Library.tsx` 25 (`#0B1F10` 18, `#F2F6F0` 7), `DocDrawer.tsx` 15 (2 `DarkBackdrop`, dark drawer header under the kit's cream Close bar). 1 full-bleed green band (Act), 11 glass, 10 heavy, 34 small. No overflow, no console errors.
 
 **C11b Act + regulation docs.** 197 generated pages: spot-check three (short, long with tables, one with a newer
 version) plus one without a web version and a missing id. The Act search is a sticky white pill. Part headers are warm `#F1EFE8`
 panels (not dark). Section numbers go in green tiles, and `?s=` deep links keep the gold ring. Tables get a green header
 and zebra rows. Keep build time low. English only, so no dictionary work.
+Audit (C4): `PensionAct.tsx` 17, `RegDocPage.tsx` 24 (`#0B1F10` 16, `#F2F6F0` 7; table header `thead.bg-[#0B1F10]`). Body text is 16 px (Act 564 small items, micro-pension doc 114). Missing id `/regulations/doc/no-such-doc` shows a hand-built "We can't find that document" (`font-black`, `#0B1F10`, :91) with **HTTP 200**, not 404. Wide tables scroll inside their box (no page overflow). No console errors.
 
 **C12a Connect part 1.** Sections: contact, offices map, news, track. No invented office hours. Hero action cards follow the
 homepage TalkToUs card style. The tracker is the page's green inset panel (labelled search with a large Track button, and the result as a
 white card). On the map, the route line and pins share `px()`/`py()`, and the office card is white with a gold directions button.
+Audit (C4): `ConnectPage.tsx` 13, `Sections.tsx` 29 (`#0B1F10` 13, `{spot}` 6, `#04140A` 3, 2 `DarkBackdrop`). 1 full-bleed green band (tracker) plus 1 dark block, 5 heavy, 4 small. Map pin data in `data.ts` uses `x`/`y` for positions (not animation). No overflow, no console errors.
 
 **C12b Connect part 2.** Complaint form: labels, errors and focus order (WCAG 2.2 AA). Steps are a pill bar with gold
 number tiles. Topic cards are white and turn dark green when chosen. Inputs are `min-h-14` with 18 px text. The confirmation keeps
 its callback-ref focus. `#report` opens on employer and `#complaint` on PFA.
+Audit (C4): `CaseForm.tsx` 28 hits (`#0B1F10` 19, `#F2F6F0` 4, `{spot}` 4, `font-black` 3).
 
 **C13a News catalogue.** The hero becomes the calm `PageHero` with the top story beside it in a white card (photo above the text,
 never text on the photo). The filter bar is a white pill bar. News cards follow the homepage LatestNews style. Galleries go on white.
 The media desk is the green inset panel. Keep the "drafts until the CMS" label and per-type kind colours (with checked contrast).
+Audit (C4): `NewsCatalog.tsx` 3, `parts.tsx` 50 (`#0B1F10` 28, `{spot}` 10, `glowLight` 6, `#04140A` 4). 1 full-bleed green band (media desk), **10 dark cards at 1400 px** (dark news/video tiles), 13 glass, 24 small. No overflow, no console errors.
 
 **C13b News story.** The calm version replaces the dark photo header: title on cream, photo below in a rounded frame
 (text never on the photo). Animated or split titles keep `data-no-translate`. Figures are white cards with plain
 figures; the callout is a warm `#F1EFE8` panel. Check two stories (`q1-2026-industry-report`, `48-hour-approvals`).
+Audit (C4): `Article.tsx` 58 hits (`#0B1F10` 31, `{spot}` 8, `font-black` 7, `glowLight` 6, `#04140A` 4, `<Tilt` 1). Both stories still have the **dark photo header with the title over the photo** (`img.absolute.inset-0.-z-20`), a full-bleed green band, 3 dark blocks, 4 glass, ~20 heavy text. No overflow, no console errors.
 
 **C14a Performance part 1.** Sections: coverage, assets, allocation, funds, fees, compare, method. The funds band becomes
 the green inset panel. Segmented controls become a white pill bar with a dark-green active pill. Sample figures keep their label.
 The median line formula depends on the race row grid; keep both in step.
+Audit (C4): `Sections.tsx` 57 hits (`#0B1F10` 24, `font-black` **18**, `{spot}` 13, `#F2F6F0` 9, `glowLight` 8, `glowDark` 3), `PerformancePage.tsx` 1, `data.ts` 1 (`#0B1F10` as a series colour). 1 full-bleed green band (funds) plus 2 green blocks, 6 glass, 39 heavy, 24 small. No overflow, no console errors.
 
 **C14b Performance part 2.** Charts: light tooltips (white card, ink text, green figure), dashed gridlines,
 gray-600 axis, no glows. The donut gets a plain centre figure. The latest column is gold with ink text. Check contrast and 390 px fit.
 Chart and table toggles are a pill bar, with labelled CSV and JSON download buttons.
+Audit (C4): `charts.tsx` 18 hits (`#0B1F10` 14, `#F2F6F0` 5, `font-black` 2), 3 glass (dark tooltips).
 
 **C15 Media.** Sections: photos, videos, follow, plus the lightbox. Captions stay English. Videos is the green inset panel
 (player in a rounded frame, playlist as white rows). Album cards are white with a gold ring when chosen. The lightbox gets large
 labelled Previous/Next/Close buttons. Arrow keys, Escape and focus return keep working.
+Audit (C4): `MediaPage.tsx` 38 hits (`#04140A` 6, `#0B1F10` 13, `font-black` 7, `{spot}` 7, `glowDark` 4, `<Tilt` 2). 1 full-bleed green band (videos), **15 glass**, 23 heavy, 39 small. **Lightbox slides on `x`** (`MediaPage.tsx:422`, `dir * 80`): change to `y`/fade. No overflow, no console errors.
 
 **C16 Chronicles.** The serif masthead stays, but becomes light (cream, serif title, gold underline, gold "Read the issue"
 CTA that opens the PDF, no flip-book). Inside cards are white with icon tiles. Launch is the green inset panel. The shelf is a
 simple row of covers with a hover lift. Subscribe is a white card with a large email field and validation focus.
+Audit (C4): `ChroniclesPage.tsx` 36 (`<Ghost word="Chronicles">` at :125 still imported, `#04140A` 4, `glowDark` 4, 3 `DarkBackdrop`, `font-black` 6), `PreviewPages.tsx` 15 (`#0B1F10` 12). **2 full-bleed green bands** (masthead and launch) plus 3 dark blocks, 9 glass, 15 heavy. No overflow, no console errors.
 
 **C17 Site-wide sweep.** Run the grep over all of `src/` (it should be clean). Do a 390 px and 1400 px pass on all 20 routes (one h1, no
 sideways scroll, no console errors). Check that body text is 18 px or larger across pages. Run `/i18n-pass` for any new strings (the homepage
 strings first: check they are in `src/i18n/dict`, and confirm highlight phrases are substrings of the translated titles). Update
 `themes/calm/CLAUDE.md` (Look, kit, status), the root `CLAUDE.md` and `docs/HANDOFF.md`.
+
+Audit (C4): Kit leftovers to settle here: the kit `Drawer` slides in on `x: "100%"` (`theme/ui.tsx:355`), allowed for a side drawer but the only `x` motion left once C15 is done; `about/primitives.tsx` still exports `GridBackdrop` (no-op); `theme/Ghost.tsx` can go once C5a and C16 drop their imports. Homepage (C1) still has 16 px card descriptions in TopTasks (14 items under 18 px). Placeholders `/mobile`, `/admin` and the 404 are clean.
