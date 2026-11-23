@@ -13,6 +13,7 @@ import {
 import { navItems } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import ReportGovBadge from "@/components/ReportGovBadge";
 import NoticesBell from "@/components/NoticesBell";
 import SiteSearch from "@/views/home/SiteSearch";
 
@@ -126,6 +127,7 @@ export default function Header() {
             </Link>
           </div>
           <div className="flex items-center gap-4">
+            <span className="hidden md:inline-flex"><ReportGovBadge compact /></span>
             <Link to="/connect#contact" className={cn("flex items-center gap-1.5 whitespace-nowrap rounded text-white/85 transition hover:text-[#F4D27A]", focus)}>
               <Phone className="h-3.5 w-3.5 text-[#F4D27A]" aria-hidden="true" />
               <span className="hidden sm:inline">09-4611300</span>
