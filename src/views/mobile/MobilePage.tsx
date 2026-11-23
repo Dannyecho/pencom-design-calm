@@ -101,7 +101,7 @@ export default function MobilePage() {
           <Phone
             screen={screen}
             setScreen={setScreen}
-            className="h-[calc(100svh-300px)] max-h-[740px] min-h-[600px] rounded-[2.6rem] bg-[#FBF8F1]"
+            className="h-[calc(100svh-180px)] max-h-[860px] min-h-[720px] rounded-[2.6rem] bg-[#FBF8F1]"
           />
         </motion.div>
       </div>
