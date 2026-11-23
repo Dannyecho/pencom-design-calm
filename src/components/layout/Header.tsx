@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, type FocusEvent } from "react";
 import { Link, useLocation } from "@/lib/router";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
-  Menu, X, ChevronDown, ChevronRight, Shield, Search,
+  Menu, X, ChevronDown, Shield, Search,
   Building2, ClipboardList, Users, BookOpen, Scale, Mail,
   Home, ArrowRightLeft, UserCircle, TrendingUp, FileCheck,
   UserPlus, Heart, Download, Calculator, Landmark,
@@ -16,6 +16,7 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ReportGovBadge from "@/components/ReportGovBadge";
 import NoticesBell from "@/components/NoticesBell";
 import SiteSearch from "@/views/home/SiteSearch";
+import MegaPanel from "./MegaPanel";
 
 /**
  * Site header in the calm look. Total height stays 92 px (28 px utility bar + 64 px nav), because pages
@@ -110,6 +111,14 @@ export default function Header() {
     location.pathname === item.href ||
     (item.href !== "/" && location.pathname.startsWith(`${item.href}/`)) ||
     !!(item as { match?: string[] }).match?.includes(location.pathname);
+  // The sheet's Close button: close and put focus back on the menu word without reopening it.
+  const quiet = useRef(false);
+  const closeMega = (label: string) => {
+    setActiveMega(null);
+    quiet.current = true;
+    document.querySelector<HTMLElement>(`[data-mega-trigger="${label}"]`)?.focus();
+    window.setTimeout(() => (quiet.current = false), 0);
+  };
   const leave = (e: FocusEvent<HTMLElement>) => {
     if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setActiveMega(null);
   };
@@ -142,7 +151,7 @@ export default function Header() {
       <nav
         aria-label="Main"
         className={cn(
-          "bg-white transition-shadow duration-300",
+          "relative bg-white transition-shadow duration-300",
           scrolled ? "shadow-[0_1px_0_rgba(0,0,0,0.08),0_14px_30px_-24px_rgba(10,74,19,0.55)]" : "shadow-none",
         )}
       >
@@ -157,7 +166,7 @@ export default function Header() {
             </Link>
 
             {/* Desktop menu */}
-            <ul className="hidden items-center gap-0.5 lg:flex">
+            <ul className="hidden items-center gap-0.5 self-stretch lg:flex">
               {navItems.map((item) => {
                 const mega = hasMega(item.label) ? item.megaMenu : undefined;
                 const on = isActive(item);
@@ -166,14 +175,18 @@ export default function Header() {
                 return (
                   <li
                     key={item.label}
-                    className="relative"
+                    className="flex h-16 items-center"
                     onMouseEnter={() => mega && setActiveMega(item.label)}
                     onMouseLeave={() => setActiveMega(null)}
-                    onFocus={() => mega && setActiveMega(item.label)}
+                    onFocus={() => {
+                      if (quiet.current) quiet.current = false;
+                      else if (mega) setActiveMega(item.label);
+                    }}
                     onBlur={leave}
                   >
                     <Link
                       to={item.href}
+                      data-mega-trigger={item.label}
                       aria-current={location.pathname === item.href ? "page" : undefined}
                       aria-expanded={mega ? openNow : undefined}
                       className={cn(
@@ -188,60 +201,7 @@ export default function Header() {
                     </Link>
 
                     <AnimatePresence>
-                      {openNow && mega && (
-                        <motion.div
-                          initial={{ opacity: 0, y: reduce ? 0 : 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: reduce ? 0 : 6 }}
-                          transition={{ duration: 0.2 }}
-                          className={cn("absolute top-full pt-3", cols === 1 ? "left-0" : "left-1/2 -translate-x-1/2")}
-                        >
-                          <div
-                            className={cn(
-                              "rounded-3xl bg-white shadow-[0_30px_60px_-30px_rgba(10,74,19,0.55)] ring-1 ring-black/10",
-                              cols === 1 ? "w-[22rem] p-3" : "min-w-[680px] p-6",
-                            )}
-                          >
-                            <div className="grid gap-6" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>
-                              {mega.columns.map((col) => (
-                                <div key={col.title}>
-                                  {cols > 1 && (
-                                    <p className="mb-2 flex items-center gap-2 px-3 text-[13px] font-bold uppercase tracking-[0.16em] text-[#0A4A13]">
-                                      <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#CB9615]" />
-                                      {col.title}
-                                    </p>
-                                  )}
-                                  <ul className="space-y-0.5">
-                                    {(col.links as NavLinkItem[]).map((link) => {
-                                      const here = location.pathname === link.href;
-                                      return (
-                                        <li key={link.label}>
-                                          <NavLink
-                                            to={link.href}
-                                            plain={link.plain}
-                                            aria-current={here ? "page" : undefined}
-                                            className={cn(
-                                              "group flex min-h-11 items-center gap-2 rounded-2xl px-3 py-2 text-base transition-colors",
-                                              here ? "bg-[#E8F5E9] font-semibold text-[#0A4A13]" : "text-[#14261A] hover:bg-[#F1EFE8] hover:text-[#0A4A13]",
-                                              focus,
-                                            )}
-                                          >
-                                            <span className="min-w-0 flex-1">
-                                              <span className={link.note ? "font-semibold" : undefined}>{link.label}</span>
-                                              {link.note && <span className="mt-0.5 block text-sm font-normal leading-snug text-gray-600">{link.note}</span>}
-                                            </span>
-                                            <ChevronRight className="h-4 w-4 shrink-0 text-[#117F21] opacity-0 transition duration-200 group-hover:translate-x-1 group-hover:opacity-100" aria-hidden="true" />
-                                          </NavLink>
-                                        </li>
-                                      );
-                                    })}
-                                  </ul>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        </motion.div>
-                      )}
+                      {openNow && mega && <MegaPanel item={item} pathname={location.pathname} onClose={() => closeMega(item.label)} />}
                     </AnimatePresence>
                   </li>
                 );
