@@ -21,7 +21,7 @@ import { albums, channelUrl, photoSrc, photos, thumb, topics, videos, type Topic
 
 const ring = "focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]";
 /** The calm card hover: lift 4 px, green ring, soft green shadow. */
-const lift = "transition duration-300 hover:-translate-y-1 hover:ring-2 hover:ring-[#117F21] hover:shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)]";
+const lift = "transition duration-300 hover:-translate-y-1 hover:ring-2 hover:ring-[#14892A] hover:shadow-[0_28px_50px_-28px_rgba(16,93,29,0.55)]";
 const nav = [
   { id: "videos", label: "Videos" },
   { id: "photos", label: "Photos" },
@@ -66,7 +66,7 @@ function Hero({ onVideos, onPhotos }: { onVideos: () => void; onPhotos: () => vo
             <button type="button" onClick={onVideos} className={cn("inline-flex min-h-14 items-center gap-2.5 rounded-2xl bg-[#F4D27A] px-6 text-lg font-bold text-[#1A1206] shadow-[0_14px_30px_-16px_rgba(154,107,0,0.8)] transition hover:bg-[#FFE08F]", focus)}>
               <Play className="h-5 w-5 fill-current" aria-hidden="true" /> Watch videos
             </button>
-            <button type="button" onClick={onPhotos} className={cn("inline-flex min-h-14 items-center gap-2.5 rounded-2xl border-2 border-[#117F21] bg-white px-6 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#117F21] hover:text-white", focus)}>
+            <button type="button" onClick={onPhotos} className={cn("inline-flex min-h-14 items-center gap-2.5 rounded-2xl border-2 border-[#14892A] bg-white px-6 text-lg font-semibold text-[#105D1D] transition hover:bg-[#14892A] hover:text-white", focus)}>
               <Images className="h-5 w-5" aria-hidden="true" /> Browse photos
             </button>
           </div>
@@ -76,7 +76,7 @@ function Hero({ onVideos, onPhotos }: { onVideos: () => void; onPhotos: () => vo
                 <dt className="flex items-center gap-2 text-base font-semibold text-gray-700">
                   <Icon className="h-4 w-4 shrink-0 text-[#117F21]" aria-hidden="true" /> {l}
                 </dt>
-                <dd className="mt-1 text-3xl font-bold text-[#14261A]">{v}</dd>
+                <dd className="mt-1 text-3xl font-bold text-[#24422D]">{v}</dd>
               </div>
             ))}
           </dl>
@@ -93,7 +93,7 @@ function Hero({ onVideos, onPhotos }: { onVideos: () => void; onPhotos: () => vo
           </div>
           {!reduce && (
             <div className="mt-3 flex justify-end">
-              <button type="button" onClick={() => setPaused((p) => !p)} className={cn("inline-flex min-h-12 items-center gap-2 rounded-2xl bg-white px-4 text-base font-semibold text-[#0A4A13] ring-1 ring-[#117F21]/40 transition hover:bg-[#0A4A13] hover:text-white", focus)}>
+              <button type="button" onClick={() => setPaused((p) => !p)} className={cn("inline-flex min-h-12 items-center gap-2 rounded-2xl bg-white px-4 text-base font-semibold text-[#105D1D] ring-1 ring-[#14892A]/40 transition hover:bg-[#105D1D] hover:text-white", focus)}>
                 {paused ? <Play className="h-4 w-4 fill-current" aria-hidden="true" /> : <Pause className="h-4 w-4 fill-current" aria-hidden="true" />}
                 {paused ? "Play photo wall" : "Pause photo wall"}
               </button>
@@ -139,7 +139,7 @@ function Videos({ initial }: { initial: string | null }) {
           action={
             <div role="radiogroup" aria-label="Filter videos by topic" className="flex flex-wrap gap-2">
               {topics.map((t) => (
-                <button key={t} type="button" role="radio" aria-checked={topic === t} onClick={() => setTopic(t)} className={cn("min-h-12 rounded-2xl px-5 text-base font-semibold transition sm:text-lg", ring, topic === t ? "bg-[#F4D27A] text-[#1A1206]" : "bg-white/[0.07] text-white ring-1 ring-white/20 hover:bg-white hover:text-[#0A4A13]")}>
+                <button key={t} type="button" role="radio" aria-checked={topic === t} onClick={() => setTopic(t)} className={cn("min-h-12 rounded-2xl px-5 text-base font-semibold transition sm:text-lg", ring, topic === t ? "bg-[#F4D27A] text-[#1A1206]" : "bg-white/[0.07] text-white ring-1 ring-white/20 hover:bg-white hover:text-[#105D1D]")}>
                   {t}
                 </button>
               ))}
@@ -149,7 +149,7 @@ function Videos({ initial }: { initial: string | null }) {
 
         <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-12">
           <div id="player" className="lg:col-span-8">
-            <div className="relative aspect-video overflow-hidden rounded-[1.75rem] bg-[#06300C] shadow-[0_40px_80px_-40px_rgba(0,0,0,0.7)] ring-4 ring-white/10">
+            <div className="relative aspect-video overflow-hidden rounded-[1.75rem] bg-[#114D19] shadow-[0_40px_80px_-40px_rgba(0,0,0,0.7)] ring-4 ring-white/10">
               <AnimatePresence mode="wait">
                 {playing ? (
                   <motion.iframe
@@ -180,7 +180,7 @@ function Videos({ initial }: { initial: string | null }) {
                 <p className="mt-2 max-w-2xl text-lg text-white/85">{v.blurb}</p>
                 <p className="mt-2 text-base text-white/75">Video by {v.channel}. Published {v.month}.</p>
               </div>
-              <a href={`https://www.youtube.com/watch?v=${v.id}`} target="_blank" rel="noopener noreferrer" className={cn("inline-flex min-h-14 shrink-0 items-center gap-2.5 self-start rounded-2xl bg-white px-5 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#F4D27A] hover:text-[#1A1206]", ring)}>
+              <a href={`https://www.youtube.com/watch?v=${v.id}`} target="_blank" rel="noopener noreferrer" className={cn("inline-flex min-h-14 shrink-0 items-center gap-2.5 self-start rounded-2xl bg-white px-5 text-lg font-semibold text-[#105D1D] transition hover:bg-[#F4D27A] hover:text-[#1A1206]", ring)}>
                 <Youtube className="h-5 w-5" aria-hidden="true" /> Watch on YouTube<span className="sr-only"> (opens in a new tab)</span>
               </a>
             </div>
@@ -197,11 +197,11 @@ function Videos({ initial }: { initial: string | null }) {
                   const on = x.id === current;
                   return (
                     <motion.li key={x.id} layout={!reduce} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.3 }}>
-                      <button type="button" onClick={() => choose(x.id)} aria-current={on ? "true" : undefined} className={cn("group flex w-full items-center gap-3 rounded-2xl bg-white p-2.5 text-left text-[#14261A] transition duration-300", ring, on ? "ring-[3px] ring-[#F4D27A]" : "hover:-translate-y-0.5 hover:bg-[#E8F5E9]")}>
+                      <button type="button" onClick={() => choose(x.id)} aria-current={on ? "true" : undefined} className={cn("group flex w-full items-center gap-3 rounded-2xl bg-white p-2.5 text-left text-[#24422D] transition duration-300", ring, on ? "ring-[3px] ring-[#F4D27A]" : "hover:-translate-y-0.5 hover:bg-[#E8F5E9]")}>
                         <span className="relative block aspect-video w-28 shrink-0 overflow-hidden rounded-xl bg-[#F1EFE8] sm:w-32">
                           <img src={thumb(x.id)} alt="" loading="lazy" className="h-full w-full object-cover" />
                           {on && playing && (
-                            <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center bg-[#0A4A13]/60">
+                            <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center bg-[#105D1D]/60">
                               <span className="flex h-4 items-end gap-0.5">{[0, 1, 2].map((k) => <motion.span key={k} className="w-1 rounded-full bg-[#F4D27A]" animate={reduce ? undefined : { height: ["30%", "100%", "30%"] }} transition={{ duration: 0.9, repeat: Infinity, delay: k * 0.15 }} style={{ height: "60%" }} />)}</span>
                             </span>
                           )}
@@ -216,7 +216,7 @@ function Videos({ initial }: { initial: string | null }) {
                 })}
               </AnimatePresence>
             </ul>
-            <a href={channelUrl} target="_blank" rel="noopener noreferrer" className={cn("group mt-4 flex items-center justify-between gap-3 rounded-3xl bg-white p-4 text-lg font-semibold text-[#14261A] transition duration-300 hover:-translate-y-1", ring)}>
+            <a href={channelUrl} target="_blank" rel="noopener noreferrer" className={cn("group mt-4 flex items-center justify-between gap-3 rounded-3xl bg-white p-4 text-lg font-semibold text-[#24422D] transition duration-300 hover:-translate-y-1", ring)}>
               <span className="flex items-center gap-3">
                 <span aria-hidden="true" className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#C4161C] text-white"><Youtube className="h-6 w-6" /></span>
                 PenCom’s official YouTube channel
@@ -248,7 +248,7 @@ function Photos({ album, setAlbum, open }: { album: string; setAlbum: (a: string
           highlight="the Commission"
           intro="Photos from PenCom Chronicles, Issue 1. Select a photo to see it full screen."
           action={
-            <Link to="/chronicles" className={cn("group inline-flex min-h-14 items-center gap-3 rounded-2xl border-2 border-[#117F21] bg-white px-5 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#117F21] hover:text-white", ring)}>
+            <Link to="/chronicles" className={cn("group inline-flex min-h-14 items-center gap-3 rounded-2xl border-2 border-[#14892A] bg-white px-5 text-lg font-semibold text-[#105D1D] transition hover:bg-[#14892A] hover:text-white", ring)}>
               From PenCom Chronicles <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
             </Link>
           }
@@ -260,7 +260,7 @@ function Photos({ album, setAlbum, open }: { album: string; setAlbum: (a: string
             const on = album === c.id;
             return (
               <li key={c.id} className="snap-start">
-                <button type="button" onClick={() => setAlbum(c.id)} aria-pressed={on} className={cn("group block w-56 overflow-hidden rounded-3xl bg-white p-2 text-left transition duration-300 hover:-translate-y-1", ring, on ? "shadow-[0_24px_50px_-28px_rgba(154,107,0,0.7)] ring-[3px] ring-[#CB9615]" : "ring-1 ring-black/10 hover:ring-2 hover:ring-[#117F21] hover:shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)]")}>
+                <button type="button" onClick={() => setAlbum(c.id)} aria-pressed={on} className={cn("group block w-56 overflow-hidden rounded-3xl bg-white p-2 text-left transition duration-300 hover:-translate-y-1", ring, on ? "shadow-[0_24px_50px_-28px_rgba(154,107,0,0.7)] ring-[3px] ring-[#CB9615]" : "ring-1 ring-black/10 hover:ring-2 hover:ring-[#14892A] hover:shadow-[0_28px_50px_-28px_rgba(16,93,29,0.55)]")}>
                   <span className="relative block h-28 overflow-hidden rounded-2xl bg-[#F1EFE8]">
                     <img src={photoSrc(c.cover)} alt="" loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
                     {on && (
@@ -270,7 +270,7 @@ function Photos({ album, setAlbum, open }: { album: string; setAlbum: (a: string
                     )}
                   </span>
                   <span className="block px-2 pb-1.5 pt-3">
-                    <span className="block text-lg font-bold leading-tight text-[#14261A]">{c.title}</span>
+                    <span className="block text-lg font-bold leading-tight text-[#24422D]">{c.title}</span>
                     <span className="mt-0.5 block text-base text-gray-700">{c.n} photos</span>
                   </span>
                 </button>
@@ -280,7 +280,7 @@ function Photos({ album, setAlbum, open }: { album: string; setAlbum: (a: string
         </ul>
         <AnimatePresence mode="wait">
           <motion.p key={album} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mt-3 rounded-2xl bg-[#F1EFE8] px-4 py-3 text-lg text-gray-700" aria-live="polite">
-            {a ? <><strong className="text-[#14261A]">{a.title}.</strong> {a.blurb} </> : <strong className="text-[#14261A]">All albums. </strong>}{shown.length} photos.
+            {a ? <><strong className="text-[#24422D]">{a.title}.</strong> {a.blurb} </> : <strong className="text-[#24422D]">All albums. </strong>}{shown.length} photos.
           </motion.p>
         </AnimatePresence>
 
@@ -296,9 +296,9 @@ function Photos({ album, setAlbum, open }: { album: string; setAlbum: (a: string
                   <span className="flex items-start justify-between gap-3 px-2 pb-2 pt-3">
                     <span className="min-w-0">
                       <span className="block text-sm font-bold uppercase tracking-[0.14em] text-[#7A5200]">{albums.find((x) => x.id === ph.album)?.title}</span>
-                      <span className="mt-1 block text-base font-semibold leading-snug text-[#14261A]">{ph.caption}</span>
+                      <span className="mt-1 block text-base font-semibold leading-snug text-[#24422D]">{ph.caption}</span>
                     </span>
-                    <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#E8F5E9] text-[#0A4A13] transition duration-300 group-hover:bg-[#0A4A13] group-hover:text-[#F4D27A]"><Expand className="h-4 w-4" /></span>
+                    <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#E8F5E9] text-[#105D1D] transition duration-300 group-hover:bg-[#105D1D] group-hover:text-[#F4D27A]"><Expand className="h-4 w-4" /></span>
                   </span>
                 </button>
               </motion.li>
@@ -361,7 +361,7 @@ function FullScreen({ open, onClose, onArrow, labelledBy, describedBy, children 
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-[130] flex h-[100dvh] w-screen flex-col bg-[#FBF8F1] text-[#14261A]"
+          className="fixed inset-0 z-[130] flex h-[100dvh] w-screen flex-col bg-[#FBF8F1] text-[#24422D]"
         >
           {children}
         </motion.div>
@@ -383,15 +383,15 @@ function Lightbox({ id, list, onChange, onClose }: { id: string | null; list: ty
   useEffect(() => {
     stripRef.current?.querySelector<HTMLElement>(`[data-id="${id}"]`)?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", inline: "center", block: "nearest" });
   }, [id, reduce]);
-  const stepBtn = cn("inline-flex min-h-14 items-center gap-2 rounded-2xl bg-white px-4 text-lg font-semibold text-[#0A4A13] ring-1 ring-[#117F21]/40 transition hover:bg-[#0A4A13] hover:text-white sm:px-6", ring);
+  const stepBtn = cn("inline-flex min-h-14 items-center gap-2 rounded-2xl bg-white px-4 text-lg font-semibold text-[#105D1D] ring-1 ring-[#14892A]/40 transition hover:bg-[#105D1D] hover:text-white sm:px-6", ring);
 
   return (
     <FullScreen open={!!ph} onClose={onClose} onArrow={go} labelledBy="lightbox-title" describedBy="lightbox-desc">
         {ph && (
           <>
             <div className="flex items-center justify-between gap-3 border-b border-black/5 bg-white px-4 py-3 sm:px-6">
-              <p className="text-lg text-gray-700" aria-live="polite"><span className="font-bold text-[#14261A]">{idx + 1}</span> / {list.length}</p>
-              <button type="button" data-autofocus onClick={onClose} className={cn("inline-flex min-h-12 items-center gap-2 rounded-2xl bg-white px-4 text-lg font-semibold text-[#14261A] ring-1 ring-black/10 transition hover:bg-[#0A4A13] hover:text-white", ring)}>
+              <p className="text-lg text-gray-700" aria-live="polite"><span className="font-bold text-[#24422D]">{idx + 1}</span> / {list.length}</p>
+              <button type="button" data-autofocus onClick={onClose} className={cn("inline-flex min-h-12 items-center gap-2 rounded-2xl bg-white px-4 text-lg font-semibold text-[#24422D] ring-1 ring-black/10 transition hover:bg-[#105D1D] hover:text-white", ring)}>
                 <X className="h-5 w-5" aria-hidden="true" /> Close
               </button>
             </div>
@@ -405,7 +405,7 @@ function Lightbox({ id, list, onChange, onClose }: { id: string | null; list: ty
                   key={ph.id} src={photoSrc(ph)} alt={ph.alt}
                   initial={{ opacity: 0, y: reduce ? 0 : 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
                   transition={{ duration: 0.35, ease }} draggable={false}
-                  className="max-h-full max-w-full select-none rounded-2xl bg-white object-contain p-2 shadow-[0_40px_80px_-40px_rgba(10,74,19,0.55)] ring-1 ring-black/10"
+                  className="max-h-full max-w-full select-none rounded-2xl bg-white object-contain p-2 shadow-[0_40px_80px_-40px_rgba(16,93,29,0.55)] ring-1 ring-black/10"
                 />
               </AnimatePresence>
             </div>
@@ -416,7 +416,7 @@ function Lightbox({ id, list, onChange, onClose }: { id: string | null; list: ty
                 </button>
                 <div className="order-first w-full min-w-0 text-center sm:order-none sm:w-auto sm:flex-1">
                   <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#7A5200]">{albums.find((x) => x.id === ph.album)?.title}</p>
-                  <h2 id="lightbox-title" className="mx-auto mt-1 line-clamp-3 max-w-3xl text-lg font-bold leading-snug text-[#14261A] sm:text-xl">{ph.caption}</h2>
+                  <h2 id="lightbox-title" className="mx-auto mt-1 line-clamp-3 max-w-3xl text-lg font-bold leading-snug text-[#24422D] sm:text-xl">{ph.caption}</h2>
                 </div>
                 <button type="button" onClick={() => go(1)} className={stepBtn} aria-label="Next photo">
                   <span aria-hidden="true">Next</span> <ChevronRight className="h-5 w-5" aria-hidden="true" />
@@ -453,7 +453,7 @@ function Follow() {
               <a href={s.href} target="_blank" rel="noopener noreferrer" className={cn("group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl bg-white p-6 ring-1 ring-black/10", lift, ring)}>
                 <span aria-hidden="true" className="absolute -right-8 -top-8 h-20 w-20 rounded-full bg-[#E8F5E9] transition-transform duration-500 group-hover:scale-150" />
                 <span className="relative flex items-start justify-between gap-3">
-                  <span className="text-xl font-bold tracking-tight text-[#14261A]">{s.name}</span>
+                  <span className="text-xl font-bold tracking-tight text-[#24422D]">{s.name}</span>
                   <ArrowChip />
                 </span>
                 <span className="relative mt-8 block break-words text-lg text-gray-700">{s.handle}</span>
@@ -469,8 +469,8 @@ function Follow() {
           ].map(({ to, title, sub, Icon }) => (
             <Link key={to} to={to} className={cn("group relative flex items-center justify-between gap-4 overflow-hidden rounded-3xl bg-white p-6 ring-1 ring-black/10 sm:p-7", lift, ring)}>
               <span className="flex items-center gap-4">
-                <span aria-hidden="true" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A] transition-transform duration-300 group-hover:-rotate-6"><Icon className="h-6 w-6" /></span>
-                <span><span className="block text-xl font-bold tracking-tight text-[#14261A]">{title}</span><span className="block text-lg text-gray-700">{sub}</span></span>
+                <span aria-hidden="true" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#105D1D] text-[#F4D27A] transition-transform duration-300 group-hover:-rotate-6"><Icon className="h-6 w-6" /></span>
+                <span><span className="block text-xl font-bold tracking-tight text-[#24422D]">{title}</span><span className="block text-lg text-gray-700">{sub}</span></span>
               </span>
               <ArrowChip />
             </Link>
@@ -478,7 +478,7 @@ function Follow() {
         </Rise>
         <p className="mt-8 flex items-start gap-3 rounded-2xl bg-[#F1EFE8] p-5 text-lg text-gray-700">
           <Mail className="mt-1 h-5 w-5 shrink-0 text-[#7A5200]" aria-hidden="true" />
-          <span>Journalists: for interviews, photos or footage, contact Corporate Communications at <a href="mailto:info@pencom.gov.ng" className={cn("font-semibold text-[#0A4A13] underline decoration-[#CB9615] decoration-2 underline-offset-4 hover:text-[#117F21]", ring)}>info@pencom.gov.ng</a>.</span>
+          <span>Journalists: for interviews, photos or footage, contact Corporate Communications at <a href="mailto:info@pencom.gov.ng" className={cn("font-semibold text-[#105D1D] underline decoration-[#CB9615] decoration-2 underline-offset-4 hover:text-[#117F21]", ring)}>info@pencom.gov.ng</a>.</span>
         </p>
       </div>
     </section>
@@ -511,7 +511,7 @@ export default function MediaPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-[#FBF8F1] text-[#14261A]">
+      <div className="bg-[#FBF8F1] text-[#24422D]">
       <Hero onVideos={() => scrollToId("videos", !reduce)} onPhotos={() => scrollToId("photos", !reduce)} />
       <SectionNav sections={nav} pillId="media-nav-pill" />
       <Videos initial={params.get("video")} />

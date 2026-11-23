@@ -13,7 +13,7 @@ import { forms, publications, type Publication } from "./publications";
 
 /** The calm card: white, thin ring; on hover it lifts 4 px, gets a green ring and a soft green shadow. */
 export const calmCard =
-  "group relative overflow-hidden rounded-3xl bg-white ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)] hover:ring-2 hover:ring-[#117F21]";
+  "group relative overflow-hidden rounded-3xl bg-white ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(16,93,29,0.55)] hover:ring-2 hover:ring-[#14892A]";
 /** Large gold primary button. */
 export const goldBtn =
   "group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-[#F4D27A] px-6 text-lg font-semibold text-[#1A1206] shadow-[0_14px_30px_-18px_rgba(122,82,0,0.8)] transition hover:bg-[#FFE08F]";
@@ -22,13 +22,13 @@ export const pill = (on: boolean) =>
   cn(
     "inline-flex min-h-12 shrink-0 items-center justify-center rounded-full px-5 text-lg font-semibold transition duration-300",
     focus,
-    on ? "bg-[#0A4A13] text-[#F4D27A] shadow-[0_10px_24px_-14px_rgba(10,74,19,0.8)]" : "bg-white text-[#14261A] ring-1 ring-black/15 hover:bg-[#0A4A13] hover:text-white hover:ring-[#0A4A13]",
+    on ? "bg-[#105D1D] text-[#F4D27A] shadow-[0_10px_24px_-14px_rgba(16,93,29,0.8)]" : "bg-white text-[#24422D] ring-1 ring-black/15 hover:bg-[#105D1D] hover:text-white hover:ring-[#105D1D]",
   );
 
 /** Dark-green icon tile with a gold icon that tips on card hover. */
 export function IconTile({ icon: Icon, className }: { icon: LucideIcon; className?: string }) {
   return (
-    <span aria-hidden="true" className={cn("flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-[-6deg]", className)}>
+    <span aria-hidden="true" className={cn("flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#105D1D] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-[-6deg]", className)}>
       <Icon className="h-7 w-7" />
     </span>
   );
@@ -66,18 +66,18 @@ const booklets = publications
 
 function Cover({ p, label, big, tone }: { p: Publication; label: string; big: string; tone: "green" | "gold" | "mint" }) {
   const bg = {
-    green: "bg-[#0A4A13] text-white",
+    green: "bg-[#105D1D] text-white",
     gold: "bg-[#F4D27A] text-[#1A1206]",
-    mint: "bg-[#E8F5E9] text-[#0A4A13] ring-1 ring-[#0A4A13]/15",
+    mint: "bg-[#E8F5E9] text-[#105D1D] ring-1 ring-[#105D1D]/15",
   }[tone];
-  const sub = { green: "text-white/80", gold: "text-[#1A1206]/80", mint: "text-[#0A4A13]/80" }[tone];
-  const bar = { green: "bg-[#F4D27A]", gold: "bg-[#0A4A13]", mint: "bg-[#CB9615]" }[tone];
-  const tag = { green: "bg-white text-[#0A4A13]", gold: "bg-[#0A4A13] text-[#F4D27A]", mint: "bg-[#0A4A13] text-[#F4D27A]" }[tone];
+  const sub = { green: "text-white/80", gold: "text-[#1A1206]/80", mint: "text-[#105D1D]/80" }[tone];
+  const bar = { green: "bg-[#F4D27A]", gold: "bg-[#105D1D]", mint: "bg-[#CB9615]" }[tone];
+  const tag = { green: "bg-white text-[#105D1D]", gold: "bg-[#105D1D] text-[#F4D27A]", mint: "bg-[#105D1D] text-[#F4D27A]" }[tone];
   return (
     <a href={p.pdf} target="_blank" rel="noopener noreferrer" className="group block rounded-3xl focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-4 focus-visible:outline-[#FFD84D]">
       <span
         className={cn(
-          "relative block aspect-[3/4] w-full overflow-hidden rounded-r-3xl rounded-l-lg p-6 shadow-[0_24px_44px_-26px_rgba(10,74,19,0.6)] transition duration-500 group-hover:-translate-y-1.5 group-hover:shadow-[0_36px_60px_-30px_rgba(10,74,19,0.7)]",
+          "relative block aspect-[3/4] w-full overflow-hidden rounded-r-3xl rounded-l-lg p-6 shadow-[0_24px_44px_-26px_rgba(16,93,29,0.6)] transition duration-500 group-hover:-translate-y-1.5 group-hover:shadow-[0_36px_60px_-30px_rgba(16,93,29,0.7)]",
           bg,
         )}
       >
@@ -121,7 +121,7 @@ function DocRow({ p }: { p: Publication }) {
         <IconTile icon={FileText} className="h-12 w-12 rounded-xl [&>svg]:h-6 [&>svg]:w-6" />
         <span className="flex-1 text-lg font-semibold">{p.title}</span>
         <span className="hidden text-base tabular-nums text-gray-700 sm:block">{fmt(p.date)}</span>
-        <Download className="h-5 w-5 shrink-0 text-[#0A4A13] transition-transform duration-300 group-hover:translate-y-1" aria-hidden="true" />
+        <Download className="h-5 w-5 shrink-0 text-[#105D1D] transition-transform duration-300 group-hover:translate-y-1" aria-hidden="true" />
         <span className="sr-only">(PDF, opens in a new tab)</span>
       </a>
     </li>
@@ -147,12 +147,12 @@ export function Publications({ highlight }: { highlight: string | null }) {
         <SectionHeading id="pub-title" eyebrow="Publications" title="Reports on the pension industry" highlight="pension industry" intro={`${publications.length} reports and publications, from monthly figures to annual reports. Every one is the official PDF.`} />
         <Rise className="mt-10">
           <Link to="/resources/reports/q1-2026" className={cn(calmCard, "flex flex-col justify-between gap-5 p-6 sm:flex-row sm:items-center sm:p-8", focus)}>
-            <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-[#117F21] to-[#CB9615]" />
+            <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-[#14892A] to-[#CB9615]" />
             <Bubble />
             <span className="relative flex items-start gap-5">
               <IconTile icon={Newspaper} className="hidden sm:flex" />
               <span>
-                <span className="inline-flex items-center gap-2 rounded-full bg-[#E8F5E9] px-3 py-1 text-sm font-bold uppercase tracking-[0.14em] text-[#0A4A13]">New · Read online</span>
+                <span className="inline-flex items-center gap-2 rounded-full bg-[#E8F5E9] px-3 py-1 text-sm font-bold uppercase tracking-[0.14em] text-[#105D1D]">New · Read online</span>
                 <span className="mt-3 block text-2xl font-bold tracking-tight">Q1 2026 Quarterly Industry Report</span>
                 <span className="mt-1 block text-lg text-gray-700">The dashboard, the Director-General’s read and the priorities for Q2, as a web page.</span>
               </span>
@@ -172,7 +172,7 @@ export function Publications({ highlight }: { highlight: string | null }) {
         </div>
 
         {/* Browser */}
-        <div className="mt-16 rounded-[2rem] bg-white p-4 shadow-[0_30px_60px_-40px_rgba(10,74,19,0.45)] ring-1 ring-black/10 sm:p-8">
+        <div className="mt-16 rounded-[2rem] bg-white p-4 shadow-[0_30px_60px_-40px_rgba(16,93,29,0.45)] ring-1 ring-black/10 sm:p-8">
           <div role="tablist" aria-label="Publication types" className="flex gap-1.5 overflow-x-auto rounded-full bg-[#F1EFE8] p-1.5 [scrollbar-width:none]">
             {tabs.map((t) => (
               <button
@@ -183,7 +183,7 @@ export function Publications({ highlight }: { highlight: string | null }) {
                 onClick={() => setTab(t)}
                 className={cn(
                   "min-h-12 shrink-0 rounded-full px-5 text-lg font-semibold transition-colors duration-300 focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]",
-                  tab === t ? "bg-[#0A4A13] text-[#F4D27A] shadow-[0_10px_24px_-14px_rgba(10,74,19,0.8)]" : "text-[#14261A] hover:bg-white",
+                  tab === t ? "bg-[#105D1D] text-[#F4D27A] shadow-[0_10px_24px_-14px_rgba(16,93,29,0.8)]" : "text-[#24422D] hover:bg-white",
                 )}
               >
                 {t}
@@ -205,10 +205,10 @@ export function Publications({ highlight }: { highlight: string | null }) {
                             {r ? (
                               <a href={r.pdf} target="_blank" rel="noopener noreferrer" className={cn(calmCard, "flex aspect-[4/3] flex-col justify-between p-5", focus)}>
                                 <Bubble />
-                                <span className="relative text-5xl font-bold tracking-tight text-[#0A4A13]">Q{n}</span>
+                                <span className="relative text-5xl font-bold tracking-tight text-[#105D1D]">Q{n}</span>
                                 <span className="relative flex items-center justify-between text-lg text-gray-700">
                                   <span className="tabular-nums">{qYear} report</span>
-                                  <Download className="h-5 w-5 text-[#0A4A13] transition-transform duration-300 group-hover:translate-y-1" aria-hidden="true" />
+                                  <Download className="h-5 w-5 text-[#105D1D] transition-transform duration-300 group-hover:translate-y-1" aria-hidden="true" />
                                 </span>
                                 <span className="sr-only">{r.title}, PDF, opens in a new tab</span>
                               </a>
@@ -236,7 +236,7 @@ export function Publications({ highlight }: { highlight: string | null }) {
                             {r ? (
                               <a href={r.pdf} target="_blank" rel="noopener noreferrer" className={cn(calmCard, "flex aspect-square flex-col items-center justify-center gap-1.5 rounded-2xl bg-[#FBF8F1] hover:bg-white", focus)}>
                                 <span className="text-xl font-bold">{m}</span>
-                                <Download className="h-5 w-5 text-[#0A4A13] transition-transform duration-300 group-hover:translate-y-0.5" aria-hidden="true" />
+                                <Download className="h-5 w-5 text-[#105D1D] transition-transform duration-300 group-hover:translate-y-0.5" aria-hidden="true" />
                                 <span className="sr-only">{r.title}, PDF, opens in a new tab</span>
                               </a>
                             ) : (
@@ -259,7 +259,7 @@ export function Publications({ highlight }: { highlight: string | null }) {
                           <span aria-hidden="true" className="absolute inset-y-0 left-0 w-2 bg-[#CB9615]" />
                           <Bubble />
                           <span className="relative text-sm font-bold uppercase tracking-[0.14em] text-[#7A5200]">Annual report</span>
-                          <span className="relative text-3xl font-bold text-[#0A4A13]">{a.year}</span>
+                          <span className="relative text-3xl font-bold text-[#105D1D]">{a.year}</span>
                           <span className="sr-only">{a.title}, PDF, opens in a new tab</span>
                         </a>
                       </motion.li>
@@ -298,13 +298,13 @@ export function Downloads() {
                       aria-hidden="true"
                       className={cn(
                         "flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-sm font-bold transition-transform duration-300 group-hover:rotate-[-6deg]",
-                        f.ext === "PDF" ? "bg-[#0A4A13] text-[#F4D27A]" : "bg-[#E8F5E9] text-[#0A4A13]",
+                        f.ext === "PDF" ? "bg-[#105D1D] text-[#F4D27A]" : "bg-[#E8F5E9] text-[#105D1D]",
                       )}
                     >
                       {f.ext}
                     </span>
                     <span className="flex-1 text-lg font-semibold">{f.title}</span>
-                    <Download className="h-5 w-5 shrink-0 text-[#0A4A13] transition-transform duration-300 group-hover:translate-y-1" aria-hidden="true" />
+                    <Download className="h-5 w-5 shrink-0 text-[#105D1D] transition-transform duration-300 group-hover:translate-y-1" aria-hidden="true" />
                     <span className="sr-only">({f.ext}, opens in a new tab)</span>
                   </a>
                 </motion.li>
@@ -332,7 +332,7 @@ export function Downloads() {
                       >
                         <span className="text-lg font-bold">{langNames[b.lang!]}</span>
                         <span className="flex items-center gap-1.5 text-base text-gray-700">
-                          <Download className="h-4 w-4 text-[#0A4A13] transition-transform group-hover:translate-y-0.5" aria-hidden="true" /> PDF
+                          <Download className="h-4 w-4 text-[#105D1D] transition-transform group-hover:translate-y-0.5" aria-hidden="true" /> PDF
                         </span>
                       </a>
                     </li>
@@ -340,9 +340,9 @@ export function Downloads() {
                 </ul>
                 {booklets.filter((b) => !b.lang).map((b) => (
                   <a key={b.pdf} href={b.pdf} target="_blank" rel="noopener noreferrer" className={cn(calmCard, "mt-3 flex min-h-14 items-center gap-3 rounded-2xl p-4 text-lg font-semibold hover:-translate-y-0.5", focus)}>
-                    <BookOpen className="h-5 w-5 shrink-0 text-[#0A4A13]" aria-hidden="true" />
+                    <BookOpen className="h-5 w-5 shrink-0 text-[#105D1D]" aria-hidden="true" />
                     <span className="flex-1">{b.title}</span>
-                    <Download className="h-5 w-5 shrink-0 text-[#0A4A13] transition-transform group-hover:translate-y-0.5" aria-hidden="true" />
+                    <Download className="h-5 w-5 shrink-0 text-[#105D1D] transition-transform group-hover:translate-y-0.5" aria-hidden="true" />
                   </a>
                 ))}
               </div>
@@ -375,7 +375,7 @@ export function Learning({ openGuides }: { openGuides: () => void }) {
 
         <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-12">
           <div className="lg:col-span-8">
-            <div className="overflow-hidden rounded-3xl bg-white text-[#14261A] shadow-[0_30px_60px_-34px_rgba(0,0,0,0.7)]">
+            <div className="overflow-hidden rounded-3xl bg-white text-[#24422D] shadow-[0_30px_60px_-34px_rgba(0,0,0,0.7)]">
               <div className="relative bg-black">
                 {playing ? (
                   <video key={v.src} controls autoPlay poster={v.poster} className="aspect-video w-full" preload="metadata">

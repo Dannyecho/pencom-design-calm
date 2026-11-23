@@ -40,7 +40,7 @@ const PICK: { match: RegExp; title: string; who: Who[]; id: string }[] = [
 ];
 const WHO: ("All" | Who)[] = ["All", "Contributors", "Retirees", "Families", "Employers"];
 const KEY = "pencom:checklists";
-const outlineBtn = cn("group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border-2 border-[#117F21] bg-white px-6 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#117F21] hover:text-white disabled:pointer-events-none disabled:opacity-40", ring);
+const outlineBtn = cn("group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border-2 border-[#14892A] bg-white px-6 text-lg font-semibold text-[#105D1D] transition hover:bg-[#14892A] hover:text-white disabled:pointer-events-none disabled:opacity-40", ring);
 
 function load(): Record<string, number[]> {
   try { return JSON.parse(localStorage.getItem(KEY) ?? "{}"); } catch { return {}; }
@@ -83,7 +83,7 @@ export default function FormsPage() {
     if (!cur) return;
     const w = window.open("", "_blank", "width=800,height=900");
     if (!w) return;
-    w.document.write(`<!doctype html><title>${cur.title}</title><style>body{font:16px/1.6 Arial;margin:40px}h1{font:bold 22px Verdana;color:#0A4A13;margin:0}p{color:#444}ul{list-style:none;padding:0}li{display:flex;gap:12px;margin-bottom:12px}.b{flex:none;width:18px;height:18px;border:2px solid #117F21;border-radius:4px;margin-top:3px;text-align:center;line-height:14px;font-weight:bold;color:#117F21}footer{margin-top:30px;font-size:12px;color:#666;border-top:1px solid #ddd;padding-top:8px}</style><h1>${cur.title}</h1><p>${cur.std.dept}${cur.std.time ? ` · Service standard: ${cur.std.time}` : ""}</p><ul>${cur.items.map((t, i) => `<li><span class="b">${done.includes(i) ? "✓" : ""}</span>${t.replace(/</g, "&lt;")}</li>`).join("")}</ul><footer>National Pension Commission · From the Service Charter (revised May 2026) · pencom.gov.ng</footer>`);
+    w.document.write(`<!doctype html><title>${cur.title}</title><style>body{font:16px/1.6 Arial;margin:40px}h1{font:bold 22px Verdana;color:#105D1D;margin:0}p{color:#444}ul{list-style:none;padding:0}li{display:flex;gap:12px;margin-bottom:12px}.b{flex:none;width:18px;height:18px;border:2px solid #14892A;border-radius:4px;margin-top:3px;text-align:center;line-height:14px;font-weight:bold;color:#117F21}footer{margin-top:30px;font-size:12px;color:#666;border-top:1px solid #ddd;padding-top:8px}</style><h1>${cur.title}</h1><p>${cur.std.dept}${cur.std.time ? ` · Service standard: ${cur.std.time}` : ""}</p><ul>${cur.items.map((t, i) => `<li><span class="b">${done.includes(i) ? "✓" : ""}</span>${t.replace(/</g, "&lt;")}</li>`).join("")}</ul><footer>National Pension Commission · From the Service Charter (revised May 2026) · pencom.gov.ng</footer>`);
     w.document.close(); w.focus(); w.print();
   };
 
@@ -94,7 +94,7 @@ export default function FormsPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-[#FBF8F1] text-[#14261A] print:bg-white">
+      <div className="bg-[#FBF8F1] text-[#24422D] print:bg-white">
       <DocHero
         crumbs={[{ label: "Home", to: "/" }, { label: "Resources", to: "/resources" }, { label: "Forms and checklists" }]}
         kind="Forms and checklists"
@@ -139,14 +139,14 @@ export default function FormsPage() {
                   const n = (ticks[l.id] ?? []).length;
                   return (
                     <motion.li key={l.id} layout={!reduce} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
-                      <button type="button" onClick={() => setSel(l.id)} aria-pressed={on} className={cn("group relative flex w-full items-center gap-4 overflow-hidden rounded-3xl p-4 text-left transition duration-300", ring, on ? "bg-[#E8F5E9] ring-2 ring-[#117F21] shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)]" : "bg-white ring-1 ring-black/10 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)] hover:ring-2 hover:ring-[#117F21]")}>
-                        <span className={cn("flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-lg font-bold tabular-nums transition-transform duration-300 group-hover:rotate-[-6deg]", on || n === l.items.length ? "bg-[#F4D27A] text-[#1A1206]" : "bg-[#0A4A13] text-[#F4D27A]")}>{n === l.items.length ? <Check className="h-6 w-6" aria-hidden="true" /> : l.items.length}</span>
+                      <button type="button" onClick={() => setSel(l.id)} aria-pressed={on} className={cn("group relative flex w-full items-center gap-4 overflow-hidden rounded-3xl p-4 text-left transition duration-300", ring, on ? "bg-[#E8F5E9] ring-2 ring-[#14892A] shadow-[0_28px_50px_-28px_rgba(16,93,29,0.55)]" : "bg-white ring-1 ring-black/10 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(16,93,29,0.55)] hover:ring-2 hover:ring-[#14892A]")}>
+                        <span className={cn("flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-lg font-bold tabular-nums transition-transform duration-300 group-hover:rotate-[-6deg]", on || n === l.items.length ? "bg-[#F4D27A] text-[#1A1206]" : "bg-[#105D1D] text-[#F4D27A]")}>{n === l.items.length ? <Check className="h-6 w-6" aria-hidden="true" /> : l.items.length}</span>
                         <span className="min-w-0 flex-1">
                           <span className="block text-lg font-bold leading-snug">{l.title}</span>
-                          <span className="mt-0.5 block text-base text-[#14261A]/75">{l.who.join(" · ")}{n > 0 && ` · ${n} of ${l.items.length} ready`}</span>
+                          <span className="mt-0.5 block text-base text-[#24422D]/75">{l.who.join(" · ")}{n > 0 && ` · ${n} of ${l.items.length} ready`}</span>
                         </span>
-                        <ArrowRight className={cn("h-5 w-5 shrink-0 transition-transform duration-300", on ? "text-[#0A4A13]" : "text-[#14261A]/50 group-hover:translate-x-1 group-hover:text-[#117F21]")} aria-hidden="true" />
-                        {n > 0 && <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1 bg-black/5"><span className="block h-full origin-left bg-gradient-to-r from-[#117F21] to-[#CB9615] transition-transform duration-500" style={{ transform: `scaleX(${n / l.items.length})` }} /></span>}
+                        <ArrowRight className={cn("h-5 w-5 shrink-0 transition-transform duration-300", on ? "text-[#105D1D]" : "text-[#24422D]/50 group-hover:translate-x-1 group-hover:text-[#117F21]")} aria-hidden="true" />
+                        {n > 0 && <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1 bg-black/5"><span className="block h-full origin-left bg-gradient-to-r from-[#14892A] to-[#CB9615] transition-transform duration-500" style={{ transform: `scaleX(${n / l.items.length})` }} /></span>}
                       </button>
                     </motion.li>
                   );
@@ -155,8 +155,8 @@ export default function FormsPage() {
 
               <AnimatePresence mode="wait">
                 <motion.article key={cur.id} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.3, ease }} aria-labelledby="cl-cur" className="lg:col-span-7">
-                  <div className="overflow-hidden rounded-[2rem] bg-white shadow-[0_40px_80px_-50px_rgba(10,74,19,0.55)] ring-1 ring-black/10">
-                    <div className="relative isolate flex flex-col gap-5 overflow-hidden bg-[#0A4A13] p-6 text-white sm:flex-row sm:items-center sm:p-7">
+                  <div className="overflow-hidden rounded-[2rem] bg-white shadow-[0_40px_80px_-50px_rgba(16,93,29,0.55)] ring-1 ring-black/10">
+                    <div className="relative isolate flex flex-col gap-5 overflow-hidden bg-[#105D1D] p-6 text-white sm:flex-row sm:items-center sm:p-7">
                       <span aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 -z-10 h-48 w-48 rounded-full bg-[#CB9615]/20 blur-3xl" />
                       <div className="relative h-24 w-24 shrink-0">
                         <svg viewBox="0 0 72 72" className="h-full w-full -rotate-90" aria-hidden="true">
@@ -171,29 +171,29 @@ export default function FormsPage() {
                         {cur.std.time && <p className="mt-3 inline-flex items-center gap-2 rounded-full bg-white/[0.07] px-4 py-1.5 text-base font-semibold ring-1 ring-white/10"><Clock className="h-4 w-4 text-[#F4D27A]" aria-hidden="true" />PenCom’s service standard: {cur.std.time}</p>}
                       </div>
                     </div>
-                    <ul className="divide-y divide-[#14261A]/[0.08]">
+                    <ul className="divide-y divide-[#24422D]/[0.08]">
                       {cur.items.map((it, i) => {
                         const on = done.includes(i);
                         return (
                           <li key={i}>
                             <label className={cn("flex min-h-14 cursor-pointer gap-4 px-6 py-4 transition has-[:focus-visible]:outline has-[:focus-visible]:outline-[3px] has-[:focus-visible]:-outline-offset-[3px] has-[:focus-visible]:outline-[#FFD84D] sm:px-7", on ? "bg-[#E8F5E9]/70" : "hover:bg-[#FBF8F1]")}>
                               <input type="checkbox" checked={on} onChange={() => toggle(i)} className="sr-only" />
-                              <motion.span animate={{ scale: on ? [1, 1.25, 1] : 1 }} transition={{ duration: 0.3 }} aria-hidden="true" className={cn("mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border-2 transition", on ? "border-[#117F21] bg-[#117F21] text-white" : "border-[#14261A]/40 bg-white")}>
+                              <motion.span animate={{ scale: on ? [1, 1.25, 1] : 1 }} transition={{ duration: 0.3 }} aria-hidden="true" className={cn("mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border-2 transition", on ? "border-[#14892A] bg-[#14892A] text-white" : "border-[#24422D]/40 bg-white")}>
                                 {on && <Check className="h-5 w-5" strokeWidth={3} />}
                               </motion.span>
-                              <span className={cn("text-lg leading-relaxed transition", on ? "text-[#14261A]/70 line-through decoration-[#117F21]/60" : "text-[#14261A]")}>{it}</span>
+                              <span className={cn("text-lg leading-relaxed transition", on ? "text-[#24422D]/70 line-through decoration-[#14892A]/60" : "text-[#24422D]")}>{it}</span>
                             </label>
                           </li>
                         );
                       })}
                     </ul>
-                    <div className="flex flex-wrap items-center gap-3 border-t border-[#14261A]/[0.08] bg-[#FBF8F1] p-5 sm:px-7">
+                    <div className="flex flex-wrap items-center gap-3 border-t border-[#24422D]/[0.08] bg-[#FBF8F1] p-5 sm:px-7">
                       <button type="button" onClick={printList} className={cn(goldBtn, ring)}><Printer className="h-5 w-5" aria-hidden="true" /> Print checklist</button>
                       <button type="button" onClick={() => setTicks((t) => ({ ...t, [cur.id]: [] }))} disabled={!done.length} className={outlineBtn}><RotateCcw className="h-5 w-5" aria-hidden="true" /> Start again</button>
-                      <Link to="/about/service-charter#standards" className={cn("group inline-flex min-h-14 items-center gap-3 rounded-2xl text-lg font-semibold text-[#0A4A13] hover:underline lg:ml-auto", ring)}>See it in the Service Charter <ArrowChip /></Link>
+                      <Link to="/about/service-charter#standards" className={cn("group inline-flex min-h-14 items-center gap-3 rounded-2xl text-lg font-semibold text-[#105D1D] hover:underline lg:ml-auto", ring)}>See it in the Service Charter <ArrowChip /></Link>
                     </div>
                   </div>
-                  <p className="mt-3 text-base text-[#14261A]/75">Your ticks are saved on this device only.</p>
+                  <p className="mt-3 text-base text-[#24422D]/75">Your ticks are saved on this device only.</p>
                 </motion.article>
               </AnimatePresence>
             </div>
@@ -211,10 +211,10 @@ export default function FormsPage() {
             intro="Download, complete and submit as the form instructs. Most services now start online through the right portal."
             action={
               <label className="block w-full sm:max-w-sm">
-              <span className="block text-lg font-semibold text-[#14261A]">Find a form</span>
+              <span className="block text-lg font-semibold text-[#24422D]">Find a form</span>
               <span className="mt-2 flex min-h-14 items-center gap-3 rounded-2xl bg-white px-4 ring-1 ring-black/15 transition focus-within:ring-[3px] focus-within:ring-[#FFD84D]">
-                <Search className="h-5 w-5 shrink-0 text-[#0A4A13]" aria-hidden="true" />
-                <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Find a form" className="min-h-14 w-full min-w-0 bg-transparent text-lg text-[#14261A] placeholder:text-[#14261A]/60 focus:outline-none focus-visible:outline-none focus-visible:ring-0" />
+                <Search className="h-5 w-5 shrink-0 text-[#105D1D]" aria-hidden="true" />
+                <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Find a form" className="min-h-14 w-full min-w-0 bg-transparent text-lg text-[#24422D] placeholder:text-[#24422D]/60 focus:outline-none focus-visible:outline-none focus-visible:ring-0" />
               </span>
             </label>
             }
@@ -226,10 +226,10 @@ export default function FormsPage() {
                   <Bubble />
                   <span className="relative flex items-center justify-between">
                     <span className={cn("flex h-14 w-12 flex-col items-center justify-center rounded-xl text-xs font-bold text-white shadow transition-transform duration-300 group-hover:rotate-[-6deg]", f.ext === "PDF" ? "bg-[#B52026]" : "bg-[#1F6A99]")}><FileType className="h-5 w-5" aria-hidden="true" />{f.ext}</span>
-                    <span className="inline-flex items-center gap-2 text-base font-semibold text-[#0A4A13]">Download <Download className="h-5 w-5 transition-transform duration-300 group-hover:translate-y-1" aria-hidden="true" /></span>
+                    <span className="inline-flex items-center gap-2 text-base font-semibold text-[#105D1D]">Download <Download className="h-5 w-5 transition-transform duration-300 group-hover:translate-y-1" aria-hidden="true" /></span>
                   </span>
-                  <span className="relative mt-5 block flex-1 text-xl font-bold leading-snug text-[#14261A]">{f.title}</span>
-                  <span className="relative mt-3 block text-base text-[#14261A]/75">Published {new Date(f.date).toLocaleDateString("en-GB", { month: "short", year: "numeric" })}</span>
+                  <span className="relative mt-5 block flex-1 text-xl font-bold leading-snug text-[#24422D]">{f.title}</span>
+                  <span className="relative mt-3 block text-base text-[#24422D]/75">Published {new Date(f.date).toLocaleDateString("en-GB", { month: "short", year: "numeric" })}</span>
                   <span className="sr-only">(opens in a new tab)</span>
                 </a>
               </motion.li>
@@ -239,7 +239,7 @@ export default function FormsPage() {
             <VerifyNote>Checklists reproduce the documentation requirements in the revised Service Charter (May 2026). Your PFA or the relevant PenCom department may ask for more in particular cases.</VerifyNote>
             <Link to="/services#portals" className={cn(calmCard, "flex items-center gap-5 p-6", ring)}>
               <IconTile icon={Globe} />
-              <span className="min-w-0 flex-1"><span className="block text-xl font-bold tracking-tight">Applying online?</span><span className="mt-1 block text-lg text-[#14261A]/80">Find the right portal: eHub, PCRS, PENCAP and more</span></span>
+              <span className="min-w-0 flex-1"><span className="block text-xl font-bold tracking-tight">Applying online?</span><span className="mt-1 block text-lg text-[#24422D]/80">Find the right portal: eHub, PCRS, PENCAP and more</span></span>
               <ArrowChip />
             </Link>
           </Rise>

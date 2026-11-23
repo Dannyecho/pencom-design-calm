@@ -64,9 +64,9 @@ export default function LanguageNotice() {
             <div lang={suggestion.code} className="border-b border-black/10 bg-[#E8F5E9]">
               <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 text-base">
                 <Languages className="h-5 w-5 text-[#117F21]" aria-hidden="true" />
-                <span className="font-semibold text-[#14261A]">{suggestion.hello}!</span>
+                <span className="font-semibold text-[#24422D]">{suggestion.hello}!</span>
                 <span className="text-gray-700">{suggestion.offer}</span>
-                <button type="button" onClick={() => setLang(suggestion.code)} className="inline-flex min-h-11 items-center rounded-2xl bg-[#0A4A13] px-5 text-base font-bold text-white hover:bg-[#117F21] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">
+                <button type="button" onClick={() => setLang(suggestion.code)} className="inline-flex min-h-11 items-center rounded-2xl bg-[#105D1D] px-5 text-base font-bold text-white hover:bg-[#14892A] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">
                   {suggestion.switchTo}
                 </button>
                 <button type="button" onClick={dismissSuggestion} lang="en" aria-label="No thanks, stay in English" className="ml-auto flex h-11 w-11 items-center justify-center rounded-full text-gray-700 hover:bg-black/5 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">
@@ -79,9 +79,9 @@ export default function LanguageNotice() {
 
         {show && (
           <motion.div key={`notice-${lang}`} {...anim} className="overflow-hidden" role="region" aria-label={t("Language notice")}>
-            <div className="border-b border-black/10 bg-[#F1EFE8] text-[#14261A]">
+            <div className="border-b border-black/10 bg-[#F1EFE8] text-[#24422D]">
               <div className="mx-auto flex max-w-7xl items-start gap-3 px-4 py-3 sm:items-center">
-                <span className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] sm:flex">
+                <span className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#105D1D] sm:flex">
                   <Languages className="h-5 w-5 text-[#F4D27A]" aria-hidden="true" />
                 </span>
                 <div className="min-w-0 flex-1 text-base">
@@ -99,12 +99,12 @@ export default function LanguageNotice() {
                 {pct != null && !legal && (
                   <div className="hidden shrink-0 items-center gap-2 md:flex" aria-hidden="true">
                     <div className="h-2 w-24 overflow-hidden rounded-full bg-black/10">
-                      <motion.div className="h-full rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" initial={{ width: 0 }} animate={{ width: `${pct}%` }} transition={{ duration: reduce ? 0 : 0.8 }} />
+                      <motion.div className="h-full rounded-full bg-gradient-to-r from-[#14892A] to-[#CB9615]" initial={{ width: 0 }} animate={{ width: `${pct}%` }} transition={{ duration: reduce ? 0 : 0.8 }} />
                     </div>
-                    <span className="w-12 text-sm font-bold tabular-nums text-[#0A4A13]">{pct}%</span>
+                    <span className="w-12 text-sm font-bold tabular-nums text-[#105D1D]">{pct}%</span>
                   </div>
                 )}
-                <button type="button" onClick={() => setLang("en")} className="inline-flex min-h-11 shrink-0 items-center rounded-2xl border-2 border-[#117F21] px-4 text-base font-semibold text-[#0A4A13] hover:bg-[#117F21] hover:text-white focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">
+                <button type="button" onClick={() => setLang("en")} className="inline-flex min-h-11 shrink-0 items-center rounded-2xl border-2 border-[#14892A] px-4 text-base font-semibold text-[#105D1D] hover:bg-[#14892A] hover:text-white focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">
                   {t("Read in English")}
                 </button>
                 <button type="button" onClick={close} aria-label={t("Close language notice")} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-gray-700 hover:bg-black/5 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">

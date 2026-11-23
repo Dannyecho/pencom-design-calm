@@ -79,8 +79,8 @@ const focus = "focus-visible:outline focus-visible:outline-[3px] focus-visible:o
 /** Column heading on the green band: gold, uppercase, with a small gold dot. */
 function Kicker({ children, light = false }: { children: string; light?: boolean }) {
   return (
-    <p className={cn("flex items-center gap-2.5 text-sm font-bold uppercase tracking-[0.18em]", light ? "text-[#0A4A13]" : "text-[#F4D27A]")}>
-      <span aria-hidden="true" className={cn("h-2 w-2 shrink-0 rounded-full", light ? "bg-gradient-to-br from-[#2E913D] to-[#0A4A13]" : "bg-[#F4D27A]")} />
+    <p className={cn("flex items-center gap-2.5 text-sm font-bold uppercase tracking-[0.18em]", light ? "text-[#105D1D]" : "text-[#F4D27A]")}>
+      <span aria-hidden="true" className={cn("h-2 w-2 shrink-0 rounded-full", light ? "bg-gradient-to-br from-[#36A045] to-[#105D1D]" : "bg-[#F4D27A]")} />
       {children}
     </p>
   );
@@ -101,7 +101,7 @@ export default function Footer() {
   const toTop = () => window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
 
   return (
-    <footer className="relative isolate overflow-hidden bg-[#0A4A13] text-white print:hidden" aria-labelledby="footer-title">
+    <footer className="relative isolate overflow-hidden bg-[#105D1D] text-white print:hidden" aria-labelledby="footer-title">
       <h2 id="footer-title" className="sr-only">
         Site footer
       </h2>
@@ -114,7 +114,7 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7, ease }}
-          className="grid grid-cols-1 gap-8 rounded-[2rem] bg-[#FBF8F1] p-6 text-[#14261A] shadow-[0_40px_70px_-40px_rgba(0,0,0,0.6)] sm:p-10 lg:grid-cols-12 lg:gap-12"
+          className="grid grid-cols-1 gap-8 rounded-[2rem] bg-[#FBF8F1] p-6 text-[#24422D] shadow-[0_40px_70px_-40px_rgba(0,0,0,0.6)] sm:p-10 lg:grid-cols-12 lg:gap-12"
         >
           <div className="lg:col-span-7">
             <Kicker light>Stay informed</Kicker>
@@ -131,7 +131,7 @@ export default function Footer() {
                     role="status"
                     initial={{ opacity: 0, y: reduce ? 0 : 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center gap-3 rounded-2xl bg-[#E8F5E9] p-4 text-lg font-semibold text-[#0A4A13] ring-1 ring-[#117F21]/20"
+                    className="flex items-center gap-3 rounded-2xl bg-[#E8F5E9] p-4 text-lg font-semibold text-[#105D1D] ring-1 ring-[#14892A]/20"
                   >
                     <CheckCircle2 className="h-6 w-6 shrink-0 text-[#117F21]" aria-hidden="true" />
                     Thank you. Check your inbox to confirm your subscription.
@@ -152,7 +152,7 @@ export default function Footer() {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="you@example.com"
-                          className="min-h-14 w-full bg-transparent text-lg text-[#14261A] placeholder:text-gray-500 focus:outline-none"
+                          className="min-h-14 w-full bg-transparent text-lg text-[#24422D] placeholder:text-gray-500 focus:outline-none"
                         />
                       </span>
                       <button
@@ -180,7 +180,7 @@ export default function Footer() {
                   <Link
                     key={s.name}
                     to="/mobile"
-                    className={cn("inline-flex min-h-14 items-center gap-3 rounded-2xl border-2 border-[#117F21] bg-white px-4 text-[#14261A] transition hover:bg-[#0A4A13] hover:text-white", focus)}
+                    className={cn("inline-flex min-h-14 items-center gap-3 rounded-2xl border-2 border-[#14892A] bg-white px-4 text-[#24422D] transition hover:bg-[#105D1D] hover:text-white", focus)}
                   >
                     <s.icon className="h-6 w-6" aria-hidden="true" />
                     <span className="text-left">
@@ -202,7 +202,7 @@ export default function Footer() {
                       rel="noopener noreferrer"
                       aria-label={`${s.label} (opens in a new tab)`}
                       title={s.label}
-                      className={cn("flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A] transition duration-300 hover:-translate-y-1 hover:bg-[#117F21]", focus)}
+                      className={cn("flex h-12 w-12 items-center justify-center rounded-2xl bg-[#105D1D] text-[#F4D27A] transition duration-300 hover:-translate-y-1 hover:bg-[#14892A]", focus)}
                     >
                       <s.icon className="h-5 w-5" aria-hidden="true" />
                     </a>
@@ -275,11 +275,11 @@ export default function Footer() {
                   href={`https://${p.name.toLowerCase()}.pencom.gov.ng`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={cn("group flex min-h-14 items-center gap-3 rounded-2xl bg-white/[0.07] px-5 ring-1 ring-white/10 transition duration-300 hover:-translate-y-1 hover:bg-white hover:text-[#14261A]", focus)}
+                  className={cn("group flex min-h-14 items-center gap-3 rounded-2xl bg-white/[0.07] px-5 ring-1 ring-white/10 transition duration-300 hover:-translate-y-1 hover:bg-white hover:text-[#24422D]", focus)}
                 >
                   <span className="text-lg font-bold">{p.name}</span>
                   <span className="truncate text-base text-white/80 transition group-hover:text-gray-700">{p.note}</span>
-                  <ExternalLink className="ml-auto h-5 w-5 shrink-0 text-[#F4D27A] transition group-hover:text-[#0A4A13]" aria-hidden="true" />
+                  <ExternalLink className="ml-auto h-5 w-5 shrink-0 text-[#F4D27A] transition group-hover:text-[#105D1D]" aria-hidden="true" />
                   <span className="sr-only">(opens in a new tab)</span>
                 </a>
               </li>

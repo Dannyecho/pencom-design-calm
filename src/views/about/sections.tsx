@@ -14,7 +14,7 @@ import { allExecs, arms, chapters, charter, commissioners, dg, dgOffices, mandat
 
 /** The calm card: white, thin ring; on hover it lifts 4 px, gets a green ring and a soft green shadow. */
 const calmCard =
-  "group relative overflow-hidden rounded-3xl bg-white ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)] hover:ring-2 hover:ring-[#117F21]";
+  "group relative overflow-hidden rounded-3xl bg-white ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(16,93,29,0.55)] hover:ring-2 hover:ring-[#14892A]";
 
 /** Dark-green icon tile with a gold icon that tips on card hover. */
 function IconTile({ icon: Icon, small = false }: { icon: LucideIcon; small?: boolean }) {
@@ -22,7 +22,7 @@ function IconTile({ icon: Icon, small = false }: { icon: LucideIcon; small?: boo
     <span
       aria-hidden="true"
       className={cn(
-        "relative flex shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-[-6deg]",
+        "relative flex shrink-0 items-center justify-center rounded-2xl bg-[#105D1D] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-[-6deg]",
         small ? "h-12 w-12" : "h-14 w-14",
       )}
     >
@@ -55,7 +55,7 @@ export function Overview() {
                 <div className={cn(calmCard, "flex h-full flex-col p-7")}>
                   <span aria-hidden="true" className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#E8F5E9] transition-transform duration-500 group-hover:scale-150" />
                   <IconTile icon={icons[m.icon]} />
-                  <h4 className="relative mt-6 text-xl font-bold leading-snug text-[#14261A]">{m.title}</h4>
+                  <h4 className="relative mt-6 text-xl font-bold leading-snug text-[#24422D]">{m.title}</h4>
                   <p className="relative mt-2 text-lg leading-relaxed text-gray-700">{m.body}</p>
                 </div>
               </Rise>
@@ -77,11 +77,11 @@ export function MissionValues() {
         <Headline id="mission-title" kicker="What drives us" title="The purpose behind every decision" mark="every decision" />
         <div className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-12">
           <Rise className="lg:col-span-7">
-            <div className="relative isolate h-full overflow-hidden rounded-[2rem] bg-[#0A4A13] p-7 text-white sm:p-10 lg:p-12">
+            <div className="relative isolate h-full overflow-hidden rounded-[2rem] bg-[#105D1D] p-7 text-white sm:p-10 lg:p-12">
               <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full bg-[#CB9615]/20 blur-3xl" />
               <Quote aria-hidden="true" className="absolute bottom-6 right-6 h-20 w-20 text-[#F4D27A]/15" />
               <p className="inline-flex items-center gap-2.5 rounded-full bg-white/[0.08] py-1 pl-1 pr-4 text-sm font-bold uppercase tracking-[0.18em] text-[#F4D27A] ring-1 ring-white/15">
-                <span aria-hidden="true" className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[#F4D27A] to-[#CB9615] text-[#0A4A13]">
+                <span aria-hidden="true" className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[#F4D27A] to-[#CB9615] text-[#105D1D]">
                   <Target className="h-3.5 w-3.5" />
                 </span>
                 Our mission
@@ -92,22 +92,22 @@ export function MissionValues() {
           <Rise delay={0.08} className="lg:col-span-5">
             <div className="relative h-full overflow-hidden rounded-[2rem] bg-white p-7 pl-9 ring-1 ring-black/10 sm:p-10 sm:pl-12">
               <span aria-hidden="true" className="absolute inset-y-0 left-0 w-2 bg-gradient-to-b from-[#F4D27A] to-[#CB9615]" />
-              <p className="inline-flex items-center gap-2.5 rounded-full bg-[#E8F5E9]/80 py-1 pl-1 pr-4 text-sm font-bold uppercase tracking-[0.18em] text-[#0A4A13] ring-1 ring-[#117F21]/15">
-                <span aria-hidden="true" className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[#2E913D] to-[#0A4A13] text-[#F4D27A]">
+              <p className="inline-flex items-center gap-2.5 rounded-full bg-[#E8F5E9]/80 py-1 pl-1 pr-4 text-sm font-bold uppercase tracking-[0.18em] text-[#105D1D] ring-1 ring-[#14892A]/15">
+                <span aria-hidden="true" className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[#36A045] to-[#105D1D] text-[#F4D27A]">
                   <Compass className="h-3.5 w-3.5" />
                 </span>
                 Our vision
               </p>
-              <p className="mt-7 text-xl font-semibold leading-snug text-[#14261A] sm:text-2xl">{vision}</p>
+              <p className="mt-7 text-xl font-semibold leading-snug text-[#24422D] sm:text-2xl">{vision}</p>
             </div>
           </Rise>
         </div>
 
         <div className="mt-16 flex items-center gap-4">
-          <h3 id="values" className="shrink-0 scroll-mt-[190px] text-2xl font-bold tracking-tight text-[#14261A]">
+          <h3 id="values" className="shrink-0 scroll-mt-[190px] text-2xl font-bold tracking-tight text-[#24422D]">
             Our core values
           </h3>
-          <span aria-hidden="true" className="h-[3px] flex-1 rounded-full bg-gradient-to-r from-[#117F21]/40 via-[#CB9615]/30 to-transparent" />
+          <span aria-hidden="true" className="h-[3px] flex-1 rounded-full bg-gradient-to-r from-[#14892A]/40 via-[#CB9615]/30 to-transparent" />
         </div>
         <ul className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {values.map((v, i) => (
@@ -116,7 +116,7 @@ export function MissionValues() {
                 <div className={cn(calmCard, "flex h-full items-start gap-4 p-6")}>
                   <IconTile icon={icons[v.icon]} small />
                   <span>
-                    <h4 className="text-xl font-bold text-[#14261A]">{v.title}</h4>
+                    <h4 className="text-xl font-bold text-[#24422D]">{v.title}</h4>
                     <p className="mt-1 text-lg leading-relaxed text-gray-700">{v.desc}</p>
                   </span>
                 </div>
@@ -150,27 +150,27 @@ export function History() {
         />
         <ol ref={list} className="relative mt-14 space-y-8 pl-11 sm:pl-16">
           {/* Track, and a green-to-gold line that fills as you scroll. */}
-          <span aria-hidden="true" className="absolute bottom-2 left-[15px] top-2 w-[3px] rounded-full bg-[#14261A]/10 sm:left-[23px]" />
-          <motion.span aria-hidden="true" style={{ scaleY: reduce ? 1 : grow }} className="absolute bottom-2 left-[15px] top-2 w-[3px] origin-top rounded-full bg-gradient-to-b from-[#117F21] via-[#2E913D] to-[#CB9615] sm:left-[23px]" />
+          <span aria-hidden="true" className="absolute bottom-2 left-[15px] top-2 w-[3px] rounded-full bg-[#24422D]/10 sm:left-[23px]" />
+          <motion.span aria-hidden="true" style={{ scaleY: reduce ? 1 : grow }} className="absolute bottom-2 left-[15px] top-2 w-[3px] origin-top rounded-full bg-gradient-to-b from-[#14892A] via-[#36A045] to-[#CB9615] sm:left-[23px]" />
           {chapters.map((c) => (
             <li key={c.id} id={c.id} className="relative scroll-mt-[170px]">
-              <span aria-hidden="true" className="absolute -left-11 top-8 flex h-[33px] w-[33px] items-center justify-center rounded-full bg-[#0A4A13] shadow-[0_0_0_6px_#fff] sm:-left-16 sm:h-[49px] sm:w-[49px]">
+              <span aria-hidden="true" className="absolute -left-11 top-8 flex h-[33px] w-[33px] items-center justify-center rounded-full bg-[#105D1D] shadow-[0_0_0_6px_#fff] sm:-left-16 sm:h-[49px] sm:w-[49px]">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#F4D27A] sm:h-3 sm:w-3" />
               </span>
               <Rise>
                 <article className={cn(calmCard, "grid grid-cols-1 gap-5 p-6 sm:p-8 lg:grid-cols-12 lg:gap-10")}>
                   <div className="lg:col-span-3">
-                    <p className="text-5xl font-bold leading-none tracking-tight text-[#0A4A13] sm:text-6xl">{c.year}</p>
+                    <p className="text-5xl font-bold leading-none tracking-tight text-[#105D1D] sm:text-6xl">{c.year}</p>
                     <p className="mt-3 text-sm font-bold uppercase tracking-[0.16em] text-[#117F21]">{c.period}</p>
                     {c.figure && (
-                      <p className="mt-5 inline-flex flex-col rounded-2xl bg-[#E8F5E9] px-4 py-3 ring-1 ring-[#117F21]/20">
-                        <span className="text-2xl font-bold tabular-nums text-[#0A4A13]">{c.figure.value}</span>
+                      <p className="mt-5 inline-flex flex-col rounded-2xl bg-[#E8F5E9] px-4 py-3 ring-1 ring-[#14892A]/20">
+                        <span className="text-2xl font-bold tabular-nums text-[#105D1D]">{c.figure.value}</span>
                         <span className="text-base leading-snug text-gray-700">{c.figure.label}</span>
                       </p>
                     )}
                   </div>
                   <div className="lg:col-span-9 lg:border-l lg:border-black/10 lg:pl-10">
-                    <h3 className="text-xl font-bold leading-snug tracking-tight text-[#14261A] sm:text-2xl">{c.title}</h3>
+                    <h3 className="text-xl font-bold leading-snug tracking-tight text-[#24422D] sm:text-2xl">{c.title}</h3>
                     <p className="mt-3 text-lg leading-relaxed text-gray-700">{c.body}</p>
                     {c.points && (
                       <ul className="mt-4 space-y-2.5">
@@ -204,14 +204,14 @@ function Person({ exec, onSelect, size = "md" }: { exec: Exec; onSelect: (id: st
       <img src={exec.image} alt="" className={cn("shrink-0 rounded-full object-cover object-top ring-2 ring-offset-2", size === "lg" ? "h-20 w-20 ring-[#CB9615]" : "h-14 w-14 ring-[#E8F5E9]")} loading="lazy" />
       <span className="min-w-0">
         <span className="block text-sm font-bold uppercase tracking-[0.12em] text-[#117F21]">{exec.title.replace("Commissioner, ", "")}</span>
-        <span className={cn("mt-0.5 block font-bold leading-snug text-[#14261A] group-hover/p:underline", size === "lg" ? "text-xl" : "text-lg")}>{exec.name}</span>
+        <span className={cn("mt-0.5 block font-bold leading-snug text-[#24422D] group-hover/p:underline", size === "lg" ? "text-xl" : "text-lg")}>{exec.name}</span>
       </span>
     </button>
   );
 }
 
 /** Thin green connector between org-chart boxes. */
-const Line = ({ className }: { className?: string }) => <span aria-hidden="true" className={cn("w-[2px] bg-[#117F21]/45", className)} />;
+const Line = ({ className }: { className?: string }) => <span aria-hidden="true" className={cn("w-[2px] bg-[#14892A]/45", className)} />;
 
 /** Org chart on cream: Board → Director General → four Commissioners, white cards joined by thin green lines. */
 export function Structure({ onSelect }: { onSelect: (id: string) => void }) {
@@ -228,17 +228,17 @@ export function Structure({ onSelect }: { onSelect: (id: string) => void }) {
         />
 
         <div className="mt-12 flex flex-col items-center">
-          <Rise className="rounded-full bg-white px-6 py-3 text-base font-bold uppercase tracking-[0.16em] text-[#0A4A13] ring-1 ring-black/10">Board of the Commission</Rise>
+          <Rise className="rounded-full bg-white px-6 py-3 text-base font-bold uppercase tracking-[0.16em] text-[#105D1D] ring-1 ring-black/10">Board of the Commission</Rise>
           <Line className="h-8" />
           <Rise className="w-full max-w-lg">
-            <div className="relative overflow-hidden rounded-3xl bg-white p-3 shadow-[0_28px_50px_-30px_rgba(10,74,19,0.55)] ring-2 ring-[#0A4A13]">
-              <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[#117F21] to-[#CB9615]" />
+            <div className="relative overflow-hidden rounded-3xl bg-white p-3 shadow-[0_28px_50px_-30px_rgba(16,93,29,0.55)] ring-2 ring-[#105D1D]">
+              <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[#14892A] to-[#CB9615]" />
               <div className="pt-1.5">
                 <Person exec={dg} onSelect={onSelect} size="lg" />
               </div>
               <ul className="mt-2 flex flex-wrap gap-2 px-2 pb-2">
                 {dgOffices.map((o) => (
-                  <li key={o.name} className="rounded-full bg-[#E8F5E9] px-3.5 py-1.5 text-base text-[#0A4A13]">
+                  <li key={o.name} className="rounded-full bg-[#E8F5E9] px-3.5 py-1.5 text-base text-[#105D1D]">
                     {o.name}
                   </li>
                 ))}
@@ -250,7 +250,7 @@ export function Structure({ onSelect }: { onSelect: (id: string) => void }) {
 
         <div className="relative">
           {/* Horizontal line joining the four arms (desktop only). */}
-          <span aria-hidden="true" className="absolute left-[12.5%] right-[12.5%] top-0 hidden h-[2px] bg-[#117F21]/45 lg:block" />
+          <span aria-hidden="true" className="absolute left-[12.5%] right-[12.5%] top-0 hidden h-[2px] bg-[#14892A]/45 lg:block" />
           <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {arms.map((arm, i) => {
               const exec = byId(arm.execId);
@@ -264,7 +264,7 @@ export function Structure({ onSelect }: { onSelect: (id: string) => void }) {
                       <p className="text-sm font-bold uppercase tracking-[0.16em] text-gray-600">{arm.departments.length} departments</p>
                       <ul className="mb-5 mt-3 space-y-2.5">
                         {arm.departments.map((d) => (
-                          <li key={d.name} className="flex items-start gap-2.5 text-lg font-semibold leading-snug text-[#14261A]">
+                          <li key={d.name} className="flex items-start gap-2.5 text-lg font-semibold leading-snug text-[#24422D]">
                             <Building2 className="mt-1 h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" />
                             <span>
                               {d.name}
@@ -280,7 +280,7 @@ export function Structure({ onSelect }: { onSelect: (id: string) => void }) {
                           onClick={() => setOpenArm(open ? null : arm.execId)}
                           className={cn(
                             "mt-auto inline-flex min-h-12 w-fit items-center gap-2 self-start rounded-full px-4 text-lg font-semibold transition",
-                            open ? "bg-[#0A4A13] text-[#F4D27A]" : "text-[#0A4A13] ring-1 ring-[#117F21]/40 hover:bg-[#E8F5E9]",
+                            open ? "bg-[#105D1D] text-[#F4D27A]" : "text-[#105D1D] ring-1 ring-[#14892A]/40 hover:bg-[#E8F5E9]",
                             focus,
                           )}
                         >
@@ -320,10 +320,10 @@ export function Leadership({ onSelect }: { onSelect: (id: string) => void }) {
                 </span>
               </span>
               <span className="flex flex-1 flex-col px-2 pb-2 pt-5">
-                <span className="inline-flex w-fit rounded-full bg-[#E8F5E9] px-3 py-1 text-sm font-bold uppercase tracking-[0.14em] text-[#0A4A13]">{dg.title}</span>
-                <span className="mt-3 block text-2xl font-bold leading-snug tracking-tight text-[#14261A] sm:text-3xl">{dg.name}</span>
+                <span className="inline-flex w-fit rounded-full bg-[#E8F5E9] px-3 py-1 text-sm font-bold uppercase tracking-[0.14em] text-[#105D1D]">{dg.title}</span>
+                <span className="mt-3 block text-2xl font-bold leading-snug tracking-tight text-[#24422D] sm:text-3xl">{dg.name}</span>
                 <span className="mt-2 block text-lg leading-relaxed text-gray-700">{dg.bio}</span>
-                <span className="mt-auto inline-flex items-center gap-2 pt-5 text-lg font-semibold text-[#0A4A13]">
+                <span className="mt-auto inline-flex items-center gap-2 pt-5 text-lg font-semibold text-[#105D1D]">
                   View profile
                   <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
                 </span>
@@ -341,8 +341,8 @@ export function Leadership({ onSelect }: { onSelect: (id: string) => void }) {
                     </span>
                     <span className="relative min-w-0 flex-1">
                       <span className="block text-sm font-bold uppercase tracking-[0.12em] text-[#117F21]">{e.title}</span>
-                      <span className="mt-1 block text-xl font-bold leading-snug text-[#14261A]">{e.name}</span>
-                      <span className="mt-2 inline-flex items-center gap-2 text-base font-semibold text-[#0A4A13]">
+                      <span className="mt-1 block text-xl font-bold leading-snug text-[#24422D]">{e.name}</span>
+                      <span className="mt-2 inline-flex items-center gap-2 text-base font-semibold text-[#105D1D]">
                         View profile
                         <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
                       </span>
@@ -376,11 +376,11 @@ export function ProfileDialog({ id, onClose }: { id: string | null; onClose: () 
             </div>
           </div>
           <div className="px-6 pb-7 sm:col-span-3 sm:p-8">
-            <p className="inline-flex rounded-full bg-[#E8F5E9] px-3 py-1 text-sm font-bold uppercase tracking-[0.14em] text-[#0A4A13]">{exec.title}</p>
-            <h2 id="profile-name" className="mt-3 text-2xl font-bold leading-tight tracking-tight text-[#14261A] sm:text-3xl">
+            <p className="inline-flex rounded-full bg-[#E8F5E9] px-3 py-1 text-sm font-bold uppercase tracking-[0.14em] text-[#105D1D]">{exec.title}</p>
+            <h2 id="profile-name" className="mt-3 text-2xl font-bold leading-tight tracking-tight text-[#24422D] sm:text-3xl">
               {exec.name}
             </h2>
-            <span aria-hidden="true" className="mt-4 block h-1 w-16 rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" />
+            <span aria-hidden="true" className="mt-4 block h-1 w-16 rounded-full bg-gradient-to-r from-[#14892A] to-[#CB9615]" />
             <p className="mt-4 text-lg leading-relaxed text-gray-700">{exec.bio}</p>
             <p className="mt-6 border-t border-black/10 pt-4 text-base text-gray-700">National Pension Commission · Federal Republic of Nigeria</p>
           </div>
@@ -414,7 +414,7 @@ export function Charter() {
                   </Link>
                   <Link
                     to="/connect"
-                    className={cn("inline-flex min-h-14 items-center gap-2 rounded-2xl border-2 border-[#117F21] px-6 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#117F21] hover:text-white", focus)}
+                    className={cn("inline-flex min-h-14 items-center gap-2 rounded-2xl border-2 border-[#14892A] px-6 text-lg font-semibold text-[#105D1D] transition hover:bg-[#14892A] hover:text-white", focus)}
                   >
                     <MessageSquareWarning className="h-5 w-5" aria-hidden="true" />
                     Tell us
@@ -429,8 +429,8 @@ export function Charter() {
                     <div className={cn(calmCard, "flex h-full items-start gap-4 p-5 sm:p-6")}>
                       <IconTile icon={Clock} small />
                       <p>
-                        <span className="text-4xl font-bold tracking-tight tabular-nums text-[#0A4A13]">{c.value}</span>{" "}
-                        <span className="text-lg font-semibold text-[#14261A]">{c.unit}</span>
+                        <span className="text-4xl font-bold tracking-tight tabular-nums text-[#105D1D]">{c.value}</span>{" "}
+                        <span className="text-lg font-semibold text-[#24422D]">{c.unit}</span>
                         <span className="mt-1 block text-lg leading-snug text-gray-700">{c.label}</span>
                       </p>
                     </div>
@@ -444,7 +444,7 @@ export function Charter() {
         <Rise className="mt-6">
           <FramedPanel className="grid grid-cols-1 items-center gap-6 p-6 sm:p-8 lg:grid-cols-12">
             <div className="lg:col-span-5">
-              <h2 className="flex items-center gap-3 text-xl font-bold tracking-tight text-[#14261A] sm:text-2xl">
+              <h2 className="flex items-center gap-3 text-xl font-bold tracking-tight text-[#24422D] sm:text-2xl">
                 <IconTile icon={MapPin} small />
                 Visit us in Abuja or at a zonal office
               </h2>
@@ -452,7 +452,7 @@ export function Charter() {
             </div>
             <ul className="flex flex-wrap gap-2 lg:col-span-4">
               {zonalOffices.map((z) => (
-                <li key={z} className="rounded-full bg-white px-4 py-2 text-base font-semibold text-[#0A4A13] ring-1 ring-[#117F21]/35">
+                <li key={z} className="rounded-full bg-white px-4 py-2 text-base font-semibold text-[#105D1D] ring-1 ring-[#14892A]/35">
                   {z}
                 </li>
               ))}
@@ -460,7 +460,7 @@ export function Charter() {
             <div className="lg:col-span-3 lg:text-right">
               <Link
                 to="/connect#zonal-offices"
-                className={cn("group inline-flex min-h-14 items-center gap-2 rounded-2xl bg-[#0A4A13] px-6 text-lg font-semibold text-white transition hover:bg-[#117F21]", focus)}
+                className={cn("group inline-flex min-h-14 items-center gap-2 rounded-2xl bg-[#105D1D] px-6 text-lg font-semibold text-white transition hover:bg-[#14892A]", focus)}
               >
                 Find an office
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />

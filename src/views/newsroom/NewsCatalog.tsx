@@ -111,7 +111,7 @@ export default function NewsCatalog() {
   return (
     <MotionConfig reducedMotion="user">
       <CookieConsent />
-      <div className="bg-[#FBF8F1] text-[#14261A]">
+      <div className="bg-[#FBF8F1] text-[#24422D]">
         <Hero lead={lead} q={q} onSearch={search} />
 
         <section id="catalogue" aria-labelledby="catalogue-title" className={sectionCls}>
@@ -171,7 +171,7 @@ export default function NewsCatalog() {
               {results.length > limit && (
                 <div className="mt-12 flex flex-col items-center gap-4">
                   <div className="h-2 w-56 overflow-hidden rounded-full bg-[#F1EFE8] ring-1 ring-black/10" aria-hidden="true">
-                    <motion.div className="h-full rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" animate={{ width: `${(limit / results.length) * 100}%` }} transition={{ duration: 0.5, ease }} />
+                    <motion.div className="h-full rounded-full bg-gradient-to-r from-[#14892A] to-[#CB9615]" animate={{ width: `${(limit / results.length) * 100}%` }} transition={{ duration: 0.5, ease }} />
                   </div>
                   <button
                     type="button"

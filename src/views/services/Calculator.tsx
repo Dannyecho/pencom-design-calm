@@ -69,10 +69,10 @@ function Slider({
     <div>
       <label
         htmlFor={id}
-        className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 text-lg font-semibold text-[#14261A]"
+        className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 text-lg font-semibold text-[#24422D]"
       >
         {label}
-        <span className="rounded-xl bg-[#E8F5E9] px-3 py-0.5 text-lg font-bold tabular-nums text-[#0A4A13]">
+        <span className="rounded-xl bg-[#E8F5E9] px-3 py-0.5 text-lg font-bold tabular-nums text-[#105D1D]">
           {format(value)}
         </span>
       </label>
@@ -88,11 +88,11 @@ function Slider({
         className={cn(
           "mt-4 h-3 w-full cursor-pointer appearance-none rounded-full focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[6px] focus-visible:outline-[#FFD84D]",
           // A large round thumb (28 px) that is easy to grab.
-          "[&::-webkit-slider-thumb]:h-7 [&::-webkit-slider-thumb]:w-7 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-4 [&::-webkit-slider-thumb]:border-[#117F21] [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-md",
-          "[&::-moz-range-thumb]:h-6 [&::-moz-range-thumb]:w-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-4 [&::-moz-range-thumb]:border-[#117F21] [&::-moz-range-thumb]:bg-white",
+          "[&::-webkit-slider-thumb]:h-7 [&::-webkit-slider-thumb]:w-7 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-4 [&::-webkit-slider-thumb]:border-[#14892A] [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-md",
+          "[&::-moz-range-thumb]:h-6 [&::-moz-range-thumb]:w-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-4 [&::-moz-range-thumb]:border-[#14892A] [&::-moz-range-thumb]:bg-white",
         )}
         style={{
-          background: `linear-gradient(to right, #117F21 ${pct}%, #E5E7EB ${pct}%)`,
+          background: `linear-gradient(to right, #14892A ${pct}%, #E5E7EB ${pct}%)`,
         }}
       />
       {hint && <p className="mt-2 text-base text-gray-600">{hint}</p>}
@@ -168,7 +168,7 @@ export default function Calculator() {
     // Each colour keeps at least 3:1 against the white card.
     { k: "Starting balance", v: r.start, c: "bg-[#6B7280]" },
     { k: "Your 8%", v: r.employee, c: "bg-[#2E913D]" },
-    { k: "Employer’s 10%", v: r.employer, c: "bg-[#0A4A13]" },
+    { k: "Employer’s 10%", v: r.employer, c: "bg-[#105D1D]" },
     { k: "Voluntary", v: r.vol, c: "bg-[#0E7490]" },
     { k: "Investment growth", v: Math.max(0, r.growthAmt), c: "bg-[#B07D00]" },
   ];
@@ -194,7 +194,7 @@ export default function Calculator() {
 
         <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-12">
           <Rise className="lg:col-span-5">
-            <div className="space-y-7 rounded-3xl bg-white p-6 text-[#14261A] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)] sm:p-8">
+            <div className="space-y-7 rounded-3xl bg-white p-6 text-[#24422D] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)] sm:p-8">
               <Slider
                 label="Your age"
                 value={age}
@@ -269,22 +269,22 @@ export default function Calculator() {
 
           <Rise delay={0.08} className="lg:col-span-7">
             {/* Results: a white card with plain bold figures */}
-            <div className="relative h-full overflow-hidden rounded-3xl bg-white p-6 text-[#14261A] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)] sm:p-8">
+            <div className="relative h-full overflow-hidden rounded-3xl bg-white p-6 text-[#24422D] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)] sm:p-8">
               <div className="flex items-start gap-4">
                 <span
                   aria-hidden="true"
-                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A]"
+                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#105D1D] text-[#F4D27A]"
                 >
                   <CalcIcon className="h-7 w-7" />
                 </span>
                 <div className="min-w-0">
-                  <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#0A4A13]">
+                  <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#105D1D]">
                     Estimated balance at {retire}
                   </p>
                   <p className="mt-1" aria-live="polite">
                     <Money
                       value={r.total}
-                      className="text-4xl font-bold tabular-nums tracking-tight text-[#14261A] sm:text-5xl"
+                      className="text-4xl font-bold tabular-nums tracking-tight text-[#24422D] sm:text-5xl"
                     />
                   </p>
                 </div>
@@ -294,7 +294,7 @@ export default function Calculator() {
                 <Money
                   value={r.total / 240}
                   compact={false}
-                  className="font-bold text-[#0A4A13]"
+                  className="font-bold text-[#105D1D]"
                 />{" "}
                 a month over 20 years, before any further returns.
               </p>
@@ -309,8 +309,8 @@ export default function Calculator() {
                 >
                   <defs>
                     <linearGradient id="calc-fill" x1="0" x2="0" y1="0" y2="1">
-                      <stop offset="0%" stopColor="#117F21" stopOpacity="0.28" />
-                      <stop offset="100%" stopColor="#117F21" stopOpacity="0" />
+                      <stop offset="0%" stopColor="#14892A" stopOpacity="0.28" />
+                      <stop offset="100%" stopColor="#14892A" stopOpacity="0" />
                     </linearGradient>
                   </defs>
                   <motion.path
@@ -324,7 +324,7 @@ export default function Calculator() {
                     initial={false}
                     d={toPath(r.series, false)}
                     fill="none"
-                    stroke="#117F21"
+                    stroke="#14892A"
                     strokeWidth="3"
                     vectorEffect="non-scaling-stroke"
                     animate={{ d: toPath(r.series, false) }}
@@ -349,7 +349,7 @@ export default function Calculator() {
                   </span>
                   <span className="mt-2 flex flex-wrap items-center justify-center gap-x-5 gap-y-1">
                     <span className="flex items-center gap-2">
-                      <span className="h-1 w-6 rounded-full bg-[#117F21]" /> Balance
+                      <span className="h-1 w-6 rounded-full bg-[#14892A]" /> Balance
                     </span>
                     <span className="flex items-center gap-2">
                       <span className="h-0 w-6 border-t-2 border-dashed border-[#7A5200]" />{" "}
@@ -386,7 +386,7 @@ export default function Calculator() {
                           />
                           {p.k}
                         </dt>
-                        <dd className="mt-0.5 text-xl font-bold tabular-nums text-[#14261A]">
+                        <dd className="mt-0.5 text-xl font-bold tabular-nums text-[#24422D]">
                           <Money value={p.v} />
                         </dd>
                       </div>

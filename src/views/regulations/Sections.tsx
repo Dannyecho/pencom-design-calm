@@ -19,7 +19,7 @@ import type { Filters } from "./Library";
 
 /** Green outline button that fills green on hover. */
 export const outlineBtn =
-  "group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border-2 border-[#117F21] bg-white px-6 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#117F21] hover:text-white";
+  "group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border-2 border-[#14892A] bg-white px-6 text-lg font-semibold text-[#105D1D] transition hover:bg-[#14892A] hover:text-white";
 const moveArrow = "h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1";
 
 /* ─────────────────────────── Latest issued (scroll-snap rail) ─────────────────────────── */
@@ -47,7 +47,7 @@ export function LatestRail({ onOpen }: { onOpen: (id: string) => void }) {
                   key={l}
                   type="button"
                   onClick={() => scroll(d)}
-                  className={cn("inline-flex min-h-12 items-center gap-2 rounded-full bg-white px-5 text-lg font-semibold text-[#14261A] ring-1 ring-[#117F21]/30 transition hover:bg-[#0A4A13] hover:text-white", focus)}
+                  className={cn("inline-flex min-h-12 items-center gap-2 rounded-full bg-white px-5 text-lg font-semibold text-[#24422D] ring-1 ring-[#14892A]/30 transition hover:bg-[#105D1D] hover:text-white", focus)}
                 >
                   {d < 0 && <I className="h-5 w-5" aria-hidden="true" />}
                   {l}
@@ -87,8 +87,8 @@ export function LatestRail({ onOpen }: { onOpen: (id: string) => void }) {
                 {first && (
                   <span className="relative mt-4 inline-flex w-fit items-center rounded-full bg-[#F4D27A] px-3 py-0.5 text-sm font-bold uppercase tracking-[0.14em] text-[#1A1206]">Newest</span>
                 )}
-                <span className={cn("relative line-clamp-4 text-xl font-bold leading-snug text-[#14261A] group-hover:text-[#0A4A13]", first ? "mt-3" : "mt-5")}>{d.title}</span>
-                <span className="relative mt-auto flex items-center justify-between gap-2 pt-5 text-lg font-semibold text-[#0A4A13]">
+                <span className={cn("relative line-clamp-4 text-xl font-bold leading-snug text-[#24422D] group-hover:text-[#105D1D]", first ? "mt-3" : "mt-5")}>{d.title}</span>
+                <span className="relative mt-auto flex items-center justify-between gap-2 pt-5 text-lg font-semibold text-[#105D1D]">
                   Read details
                   <ArrowChip />
                 </span>
@@ -253,7 +253,7 @@ export function ActSpotlight({ set }: { set: (p: Partial<Filters>) => void }) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: reduce ? 0 : -16 }}
                 transition={{ duration: 0.3, ease }}
-                className="grid grid-cols-1 gap-6 rounded-3xl bg-white p-6 text-[#14261A] sm:p-9 md:grid-cols-[1fr_220px]"
+                className="grid grid-cols-1 gap-6 rounded-3xl bg-white p-6 text-[#24422D] sm:p-9 md:grid-cols-[1fr_220px]"
               >
                 <div>
                   <h3 className="text-2xl font-bold">{p.title}</h3>
@@ -266,7 +266,7 @@ export function ActSpotlight({ set }: { set: (p: Partial<Filters>) => void }) {
                         transition={{ duration: 0.35, delay: 0.08 + i * 0.07, ease }}
                         className="flex gap-3 text-lg leading-relaxed text-gray-800"
                       >
-                        <span className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#E8F5E9] text-[#0A4A13]">
+                        <span className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#E8F5E9] text-[#105D1D]">
                           <Check className="h-4 w-4" strokeWidth={3} aria-hidden="true" />
                         </span>
                         {pt}
@@ -286,8 +286,8 @@ export function ActSpotlight({ set }: { set: (p: Partial<Filters>) => void }) {
                   </button>
                 </div>
                 <div className="flex flex-col justify-center rounded-3xl bg-[#F1EFE8] p-6">
-                  <span aria-hidden="true" className="mb-4 block h-1.5 w-12 rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" />
-                  <p className="text-5xl font-bold tracking-tight text-[#14261A]">{p.stat.value}</p>
+                  <span aria-hidden="true" className="mb-4 block h-1.5 w-12 rounded-full bg-gradient-to-r from-[#14892A] to-[#CB9615]" />
+                  <p className="text-5xl font-bold tracking-tight text-[#24422D]">{p.stat.value}</p>
                   <p className="mt-2 text-lg font-medium leading-snug text-gray-800">{p.stat.label}</p>
                 </div>
               </motion.div>
@@ -339,12 +339,12 @@ export function Compliance({ set }: { set: (p: Partial<Filters>) => void }) {
         <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-12">
           {/* Employer self-check */}
           <Rise className="lg:col-span-8">
-            <div className="rounded-[2rem] bg-white p-6 shadow-[0_30px_60px_-40px_rgba(10,74,19,0.45)] ring-1 ring-black/10 sm:p-8">
+            <div className="rounded-[2rem] bg-white p-6 shadow-[0_30px_60px_-40px_rgba(16,93,29,0.45)] ring-1 ring-black/10 sm:p-8">
               <div className="flex items-start gap-4">
                 <IconTile icon={Building2} />
                 <div>
                   <p className="text-base font-bold uppercase tracking-[0.14em] text-[#7A5200]">For employers</p>
-                  <h3 className="mt-1 text-2xl font-bold tracking-tight text-[#14261A]">Your pension duties: a self-check</h3>
+                  <h3 className="mt-1 text-2xl font-bold tracking-tight text-[#24422D]">Your pension duties: a self-check</h3>
                   <p className="mt-1 text-lg text-gray-700">Tick what you already do. Nothing is sent to PenCom.</p>
                 </div>
               </div>
@@ -352,14 +352,14 @@ export function Compliance({ set }: { set: (p: Partial<Filters>) => void }) {
               {/* Green progress line */}
               <div className="mt-6">
                 <div className="flex items-baseline justify-between gap-3">
-                  <p className="text-lg font-semibold text-[#14261A]" aria-live="polite">
+                  <p className="text-lg font-semibold text-[#24422D]" aria-live="polite">
                     {score} of {duties.length} done
                   </p>
-                  {pct === 1 && <p className="text-base font-semibold text-[#0A4A13]">All done</p>}
+                  {pct === 1 && <p className="text-base font-semibold text-[#105D1D]">All done</p>}
                 </div>
                 <div className="mt-2 h-3 overflow-hidden rounded-full bg-[#E8F5E9]" aria-hidden="true">
                   <motion.div
-                    className="h-full origin-left rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]"
+                    className="h-full origin-left rounded-full bg-gradient-to-r from-[#14892A] to-[#CB9615]"
                     initial={false}
                     animate={{ scaleX: pct }}
                     transition={{ duration: reduce ? 0 : 0.6, ease }}
@@ -373,7 +373,7 @@ export function Compliance({ set }: { set: (p: Partial<Filters>) => void }) {
                     <label
                       className={cn(
                         "group flex min-h-14 cursor-pointer gap-4 rounded-3xl p-4 ring-1 transition duration-300",
-                        done[i] ? "bg-[#E8F5E9] ring-[#117F21]/40" : "bg-white ring-black/10 hover:bg-[#FBF8F1] hover:ring-[#117F21]/40",
+                        done[i] ? "bg-[#E8F5E9] ring-[#14892A]/40" : "bg-white ring-black/10 hover:bg-[#FBF8F1] hover:ring-[#14892A]/40",
                       )}
                     >
                       <input type="checkbox" className="peer sr-only" checked={done[i]} onChange={() => setDone((x) => x.map((v, j) => (j === i ? !v : v)))} />
@@ -381,13 +381,13 @@ export function Compliance({ set }: { set: (p: Partial<Filters>) => void }) {
                         aria-hidden="true"
                         className={cn(
                           "mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border-2 transition duration-300 peer-focus-visible:outline peer-focus-visible:outline-[3px] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#FFD84D]",
-                          done[i] ? "border-[#0A4A13] bg-[#0A4A13] text-[#F4D27A]" : "border-gray-500 bg-white group-hover:border-[#117F21]",
+                          done[i] ? "border-[#105D1D] bg-[#105D1D] text-[#F4D27A]" : "border-gray-500 bg-white group-hover:border-[#14892A]",
                         )}
                       >
                         {done[i] && <Check className="h-5 w-5" strokeWidth={3} />}
                       </span>
                       <span className="flex-1">
-                        <span className="flex items-center gap-2 text-lg font-bold text-[#14261A]">
+                        <span className="flex items-center gap-2 text-lg font-bold text-[#24422D]">
                           <d.icon className="h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" />
                           {d.title}
                         </span>
@@ -406,12 +406,12 @@ export function Compliance({ set }: { set: (p: Partial<Filters>) => void }) {
                   exit={{ opacity: 0, y: reduce ? 0 : -8 }}
                   className={cn(
                     "relative mt-6 flex flex-col gap-4 overflow-hidden rounded-3xl p-5 pl-6 sm:flex-row sm:items-center",
-                    pct === 1 ? "bg-[#E8F5E9] ring-1 ring-[#117F21]/30" : "bg-[#F1EFE8]",
+                    pct === 1 ? "bg-[#E8F5E9] ring-1 ring-[#14892A]/30" : "bg-[#F1EFE8]",
                   )}
                   aria-live="polite"
                 >
-                  <span aria-hidden="true" className={cn("absolute inset-y-0 left-0 w-1.5", pct === 1 ? "bg-[#117F21]" : "bg-[#CB9615]")} />
-                  <p className="flex-1 text-lg text-[#14261A]">
+                  <span aria-hidden="true" className={cn("absolute inset-y-0 left-0 w-1.5", pct === 1 ? "bg-[#14892A]" : "bg-[#CB9615]")} />
+                  <p className="flex-1 text-lg text-[#24422D]">
                     {pct === 1
                       ? "You’re doing everything on the list. Keep your records ready for PenCom inspections."
                       : `${duties.length - score} to go. Late or unpaid contributions attract penalties under the Pension Reform Act 2014.`}
@@ -431,7 +431,7 @@ export function Compliance({ set }: { set: (p: Partial<Filters>) => void }) {
               <div className="rounded-[2rem] bg-white p-6 ring-1 ring-black/10 sm:p-7">
                 <IconTile icon={KeyRound} />
                 <p className="mt-5 text-base font-bold uppercase tracking-[0.14em] text-[#7A5200]">For licensed operators</p>
-                <h3 className="mt-1 text-xl font-bold tracking-tight text-[#14261A]">The rules that apply to you</h3>
+                <h3 className="mt-1 text-xl font-bold tracking-tight text-[#24422D]">The rules that apply to you</h3>
                 <ul className="mt-5 space-y-2">
                   {operatorLinks.map((o) => (
                     <li key={o.label}>
@@ -441,14 +441,14 @@ export function Compliance({ set }: { set: (p: Partial<Filters>) => void }) {
                           set({ q: "", types: [], years: [], who: [], subjects: [], status: "", ...o.patch });
                           document.getElementById("library")?.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
                         }}
-                        className={cn("group flex min-h-14 w-full items-center gap-3 rounded-2xl bg-[#FBF8F1] px-4 py-2 text-left text-lg font-semibold text-[#14261A] ring-1 ring-black/10 transition hover:bg-[#E8F5E9] hover:ring-[#117F21]/40", focus)}
+                        className={cn("group flex min-h-14 w-full items-center gap-3 rounded-2xl bg-[#FBF8F1] px-4 py-2 text-left text-lg font-semibold text-[#24422D] ring-1 ring-black/10 transition hover:bg-[#E8F5E9] hover:ring-[#14892A]/40", focus)}
                       >
                         <span className="flex-1">{o.label}</span>
-                        <span className="rounded-full bg-white px-2.5 py-0.5 text-base tabular-nums text-[#0A4A13] ring-1 ring-[#117F21]/20">
+                        <span className="rounded-full bg-white px-2.5 py-0.5 text-base tabular-nums text-[#105D1D] ring-1 ring-[#14892A]/20">
                           {o.n}
                           <span className="sr-only"> documents</span>
                         </span>
-                        <ArrowRight className={cn(moveArrow, "text-[#0A4A13]")} aria-hidden="true" />
+                        <ArrowRight className={cn(moveArrow, "text-[#105D1D]")} aria-hidden="true" />
                       </button>
                     </li>
                   ))}
@@ -464,7 +464,7 @@ export function Compliance({ set }: { set: (p: Partial<Filters>) => void }) {
                   <MessageSquareWarning className="h-7 w-7" aria-hidden="true" />
                 </span>
                 <span className="relative flex-1">
-                  <span className="block text-xl font-bold tracking-tight text-[#14261A]">Report an employer</span>
+                  <span className="block text-xl font-bold tracking-tight text-[#24422D]">Report an employer</span>
                   <span className="mt-1 block text-lg leading-relaxed text-gray-700">Is your employer deducting pension but not remitting it? Tell us and we will follow it up.</span>
                 </span>
                 <span className="relative self-end"><ArrowChip /></span>
@@ -502,7 +502,7 @@ export function Policies() {
               <div className={cn(calmCard, "h-full p-7 sm:p-8")}>
                 <Bubble />
                 <IconTile icon={it.icon} className="relative" />
-                <h3 className="relative mt-5 text-xl font-bold tracking-tight text-[#14261A]">{it.title}</h3>
+                <h3 className="relative mt-5 text-xl font-bold tracking-tight text-[#24422D]">{it.title}</h3>
                 <p className="relative mt-2 text-lg leading-relaxed text-gray-700">{it.body}</p>
                 <Link to="/connect#contact" className={cn(outlineBtn, "relative mt-6 h-auto py-3 text-left", focus)}>
                   Questions about your data? Contact us

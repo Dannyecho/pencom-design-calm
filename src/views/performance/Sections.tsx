@@ -21,21 +21,21 @@ const tn = (v: number) => `₦${v.toFixed(2)}tn`;
 const bn = (v: number) => `₦${v.toFixed(v >= 100 ? 0 : 1)}bn`;
 const mil = (v: number) => `${(v / 1e6).toFixed(2)}m`;
 /** Plain white card for charts (no hover lift: the chart itself is interactive). */
-const panel = "rounded-[2rem] bg-white ring-1 ring-black/10 shadow-[0_28px_50px_-36px_rgba(10,74,19,0.45)]";
+const panel = "rounded-[2rem] bg-white ring-1 ring-black/10 shadow-[0_28px_50px_-36px_rgba(16,93,29,0.45)]";
 /** Visible label over a control (labelled controls, DES-41). */
-const ctrlLabel = "mb-2 block text-base font-semibold text-[#14261A]";
-const field = "min-h-14 w-full rounded-2xl border-2 border-[#7A8A7E] bg-white text-lg text-[#14261A] focus:border-[#117F21] focus:outline-none focus:ring-4 focus:ring-[#FFD84D]";
-const outlineBtn = cn("group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border-2 border-[#117F21] bg-white px-6 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#117F21] hover:text-white", focus);
+const ctrlLabel = "mb-2 block text-base font-semibold text-[#24422D]";
+const field = "min-h-14 w-full rounded-2xl border-2 border-[#7A8A7E] bg-white text-lg text-[#24422D] focus:border-[#14892A] focus:outline-none focus:ring-4 focus:ring-[#FFD84D]";
+const outlineBtn = cn("group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border-2 border-[#14892A] bg-white px-6 text-lg font-semibold text-[#105D1D] transition hover:bg-[#14892A] hover:text-white", focus);
 
 /** White pill bar with a dark-green active pill (gold active pill on the green panel). Visible label above. */
 function Segmented<T extends string>({ value, options, onChange, label, id, dark }: { value: T; options: readonly T[]; onChange: (v: T) => void; label: string; id: string; dark?: boolean }) {
   return (
     <div>
       <span id={`seg-label-${id}`} className={cn(ctrlLabel, dark && "text-white")}>{label}</span>
-      <div role="radiogroup" aria-labelledby={`seg-label-${id}`} className={cn("inline-flex flex-wrap gap-1 rounded-[1.6rem] p-1.5", dark ? "bg-white/[0.07] ring-1 ring-white/15" : "bg-white ring-1 ring-black/10 shadow-[0_12px_28px_-20px_rgba(10,74,19,0.5)]")}>
+      <div role="radiogroup" aria-labelledby={`seg-label-${id}`} className={cn("inline-flex flex-wrap gap-1 rounded-[1.6rem] p-1.5", dark ? "bg-white/[0.07] ring-1 ring-white/15" : "bg-white ring-1 ring-black/10 shadow-[0_12px_28px_-20px_rgba(16,93,29,0.5)]")}>
         {options.map((o) => (
-          <button key={o} type="button" role="radio" aria-checked={value === o} onClick={() => onChange(o)} className={cn("relative min-h-12 rounded-full px-5 text-lg font-semibold transition-colors", focus, value === o ? (dark ? "text-[#1A1206]" : "text-[#F4D27A]") : dark ? "text-white hover:bg-white/10" : "text-[#14261A] hover:text-[#117F21]")}>
-            {value === o && <motion.span layoutId={`seg-${id}`} className={cn("absolute inset-0 rounded-full", dark ? "bg-[#F4D27A]" : "bg-[#0A4A13]")} transition={{ type: "spring", stiffness: 400, damping: 34 }} />}
+          <button key={o} type="button" role="radio" aria-checked={value === o} onClick={() => onChange(o)} className={cn("relative min-h-12 rounded-full px-5 text-lg font-semibold transition-colors", focus, value === o ? (dark ? "text-[#1A1206]" : "text-[#F4D27A]") : dark ? "text-white hover:bg-white/10" : "text-[#24422D] hover:text-[#117F21]")}>
+            {value === o && <motion.span layoutId={`seg-${id}`} className={cn("absolute inset-0 rounded-full", dark ? "bg-[#F4D27A]" : "bg-[#105D1D]")} transition={{ type: "spring", stiffness: 400, damping: 34 }} />}
             <span className="relative">{o}</span>
           </button>
         ))}
@@ -45,7 +45,7 @@ function Segmented<T extends string>({ value, options, onChange, label, id, dark
 }
 
 function AsAt({ children }: { children: React.ReactNode }) {
-  return <span className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#E8F5E9] px-3 py-1 text-sm font-semibold text-[#0A4A13]"><span className="h-2 w-2 rounded-full bg-[#117F21]" aria-hidden="true" />{children}</span>;
+  return <span className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#E8F5E9] px-3 py-1 text-sm font-semibold text-[#105D1D]"><span className="h-2 w-2 rounded-full bg-[#14892A]" aria-hidden="true" />{children}</span>;
 }
 
 /* ─────────────────────────── Hero ─────────────────────────── */
@@ -73,9 +73,9 @@ export function PerfHero() {
         <ul className="grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-3">
           {stats.map((s, i) => (
             <motion.li key={s.l} initial={{ opacity: 0, y: reduce ? 0 : 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 + i * 0.08, ease }} className="flex items-center gap-4 rounded-3xl bg-white p-4 ring-1 ring-black/10 sm:block">
-              <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A]"><s.icon className="h-5 w-5" /></span>
+              <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#105D1D] text-[#F4D27A]"><s.icon className="h-5 w-5" /></span>
               <span className="block sm:mt-3">
-                <span className="block text-2xl font-bold tabular-nums text-[#14261A]">{s.v}</span>
+                <span className="block text-2xl font-bold tabular-nums text-[#24422D]">{s.v}</span>
                 <span className="block text-base text-gray-700">{s.l}</span>
               </span>
             </motion.li>
@@ -87,30 +87,30 @@ export function PerfHero() {
           <div className="flex items-start justify-between gap-4">
             <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#7A5200]">Total pension assets</p>
             <span className="relative flex h-2.5 w-2.5" aria-hidden="true">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#117F21] opacity-50 [animation-iteration-count:2]" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#117F21]" />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#14892A] opacity-50 [animation-iteration-count:2]" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#14892A]" />
             </span>
           </div>
-          <p className="mt-2 text-5xl font-bold tracking-tight text-[#14261A] sm:text-6xl">
+          <p className="mt-2 text-5xl font-bold tracking-tight text-[#24422D] sm:text-6xl">
             <Ticker value={headline.assets} fmt={(v) => `₦${v.toFixed(2)}`} />
             <span className="ml-1 text-2xl font-semibold text-gray-700 sm:text-3xl">trillion</span>
           </p>
           <p className="mt-3 flex flex-wrap items-center gap-3 text-base">
-            <span className="inline-flex items-center gap-1 rounded-full bg-[#E8F5E9] px-3 py-1 font-bold text-[#0A4A13]">▲ {headline.ytd}% since January</span>
+            <span className="inline-flex items-center gap-1 rounded-full bg-[#E8F5E9] px-3 py-1 font-bold text-[#105D1D]">▲ {headline.ytd}% since January</span>
             <span className="text-gray-700">about ${headline.usd}bn</span>
           </p>
           <svg viewBox="0 0 300 80" className="mt-6 h-28 w-full overflow-visible" aria-hidden="true" preserveAspectRatio="none">
             <defs>
-              <linearGradient id="hero-spark" x1="0" y1="0" x2="1" y2="0"><stop stopColor="#117F21" /><stop offset="1" stopColor="#CB9615" /></linearGradient>
-              <linearGradient id="hero-fill" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#117F21" stopOpacity="0.16" /><stop offset="1" stopColor="#117F21" stopOpacity="0" /></linearGradient>
+              <linearGradient id="hero-spark" x1="0" y1="0" x2="1" y2="0"><stop stopColor="#14892A" /><stop offset="1" stopColor="#CB9615" /></linearGradient>
+              <linearGradient id="hero-fill" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#14892A" stopOpacity="0.16" /><stop offset="1" stopColor="#14892A" stopOpacity="0" /></linearGradient>
             </defs>
             <motion.polygon points={`0,80 ${pts} 300,80`} fill="url(#hero-fill)" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: reduce ? 0 : 1.2, duration: 0.8 }} />
             <motion.polyline points={pts} fill="none" stroke="url(#hero-spark)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" initial={{ pathLength: reduce ? 1 : 0 }} animate={{ pathLength: 1 }} transition={{ duration: reduce ? 0 : 1.8, delay: 0.4, ease }} />
           </svg>
           <div className="mt-1 flex justify-between text-sm text-gray-700"><span>{monthLabel(spark[0].m)}</span><span>{monthLabel(spark[spark.length - 1].m)}</span></div>
           <div className="mt-6 grid grid-cols-2 gap-3">
-            <p className="rounded-2xl bg-[#F1EFE8] p-4"><span className="block text-base text-gray-700">Paid in benefits to date*</span><span className="mt-1 block text-xl font-bold text-[#14261A]">₦{headline.benefitsPaid}tn</span></p>
-            <p className="rounded-2xl bg-[#F1EFE8] p-4"><span className="block text-base text-gray-700">New members in two years*</span><span className="mt-1 block text-xl font-bold text-[#14261A]">{headline.joined2y.toLocaleString("en-NG")}</span></p>
+            <p className="rounded-2xl bg-[#F1EFE8] p-4"><span className="block text-base text-gray-700">Paid in benefits to date*</span><span className="mt-1 block text-xl font-bold text-[#24422D]">₦{headline.benefitsPaid}tn</span></p>
+            <p className="rounded-2xl bg-[#F1EFE8] p-4"><span className="block text-base text-gray-700">New members in two years*</span><span className="mt-1 block text-xl font-bold text-[#24422D]">{headline.joined2y.toLocaleString("en-NG")}</span></p>
           </div>
           <p className="mt-4 text-sm text-gray-700">Unaudited. *As at July 2026.</p>
         </FramedPanel>
@@ -140,7 +140,7 @@ export function AssetsSection() {
         <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-12">
           <Rise className="lg:col-span-9">
             <div className={cn("relative overflow-hidden p-5 sm:p-8", panel)}>
-              <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[#117F21] to-[#CB9615]" />
+              <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[#14892A] to-[#CB9615]" />
               <DataPanel
                 title="Total pension assets" name={`assets-${range.replace(/\s/g, "-").toLowerCase()}`}
                 rows={data.map((d) => ({ month: d.m, assets_naira_trillion: d.v }))}
@@ -158,9 +158,9 @@ export function AssetsSection() {
             ].map((c, i) => (
               <Rise key={c.l} delay={i * 0.1} className="h-full">
                 <div className={cn("relative h-full overflow-hidden rounded-3xl p-5 ring-1 ring-black/10", i === 0 ? "bg-[#E8F5E9]" : "bg-[#FBF8F1]")}>
-                  {i === 0 && <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-[#117F21] to-[#CB9615]" />}
-                  <p className="text-base font-semibold text-[#0A4A13]">{c.l}</p>
-                  <AnimatePresence mode="wait"><motion.p key={c.v} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} className="mt-1 text-3xl font-bold tabular-nums text-[#14261A]">{c.v}</motion.p></AnimatePresence>
+                  {i === 0 && <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-[#14892A] to-[#CB9615]" />}
+                  <p className="text-base font-semibold text-[#105D1D]">{c.l}</p>
+                  <AnimatePresence mode="wait"><motion.p key={c.v} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} className="mt-1 text-3xl font-bold tabular-nums text-[#24422D]">{c.v}</motion.p></AnimatePresence>
                   <p className="mt-1 text-base text-gray-700">{c.s}</p>
                 </div>
               </Rise>
@@ -210,7 +210,7 @@ export function FundsSection() {
         <DarkBackdrop />
         <SectionHeading id="funds-title" dark eyebrow="Fund types" title="Savings by fund type" highlight="fund type" intro="Your PFA places your savings in a fund that matches your age and appetite for risk. Fund II holds the largest share." action={<Segmented dark value={p} options={fundTypes.map((x) => x.label)} onChange={setP} label="Reporting month" id="funds" />} />
         <Rise className="mt-10">
-          <div className="rounded-[1.75rem] bg-white p-5 text-[#14261A] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.45)] sm:p-8">
+          <div className="rounded-[1.75rem] bg-white p-5 text-[#24422D] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.45)] sm:p-8">
             <DataPanel
               title="Assets by fund type" name={`fund-types-${f.period}`}
               rows={f.rows.map((r) => ({ period: f.period, fund: r.k, naira_trillion: r.v, share_percent: +((r.v / f.total) * 100).toFixed(2) }))}
@@ -223,7 +223,7 @@ export function FundsSection() {
                         <p className="text-base text-gray-700">{r.who}</p>
                       </div>
                       <div className="h-4 rounded-full bg-[#E8F5E9]">
-                        <motion.div className="relative h-full rounded-full bg-gradient-to-r from-[#0A4A13] via-[#117F21] to-[#CB9615]" initial={{ width: 0 }} whileInView={{ width: `${(r.v / max) * 100}%` }} viewport={{ once: true }} transition={{ duration: reduce ? 0 : 1, delay: reduce ? 0 : i * 0.1, ease }}>
+                        <motion.div className="relative h-full rounded-full bg-gradient-to-r from-[#105D1D] via-[#14892A] to-[#CB9615]" initial={{ width: 0 }} whileInView={{ width: `${(r.v / max) * 100}%` }} viewport={{ once: true }} transition={{ duration: reduce ? 0 : 1, delay: reduce ? 0 : i * 0.1, ease }}>
                           <span aria-hidden="true" className="absolute -right-1 top-1/2 h-5 w-5 -translate-y-1/2 rounded-full bg-[#F4D27A] ring-4 ring-white transition-transform duration-300 group-hover:scale-110" />
                         </motion.div>
                       </div>
@@ -274,7 +274,7 @@ export function CoverageSection() {
               <p className="mt-1 text-lg text-gray-700">Money paid in by employers and workers each quarter.</p>
               <div className="mt-6">
                 <DataPanel title="Contributions" name="contributions" rows={contributions.map((c) => ({ quarter: c.label, naira_billion: c.v, derived: !!c.derived }))}
-                  chart={<Columns data={contributions.map((c) => ({ ...c, note: c.derived ? "derived" : undefined }))} fmt={bn} color="#0A4A13" />}
+                  chart={<Columns data={contributions.map((c) => ({ ...c, note: c.derived ? "derived" : undefined }))} fmt={bn} color="#105D1D" />}
                   table={<DataTable head={["Quarter", "₦ billion"]} rows={contributions.map((c) => [c.label + (c.derived ? " *" : ""), c.v.toFixed(2)])} />}
                   caption="* Worked out from the published Q3 2025 increase of 18%. Q4 2025 included one-off public-sector payments."
                 />
@@ -285,19 +285,19 @@ export function CoverageSection() {
           <Rise className="h-full">
             <div className={cn("h-full p-6 sm:p-8", calmCard)}>
               <Bubble />
-              <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-[#F4D27A] via-[#CB9615] to-[#117F21]" />
+              <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-[#F4D27A] via-[#CB9615] to-[#14892A]" />
               <div className="relative flex flex-wrap items-start justify-between gap-3"><h3 className="text-2xl font-bold tracking-tight">Personal Pension Plan</h3><AsAt>{ppp.asAt}</AsAt></div>
               <div className="relative mt-6 flex flex-col items-center gap-8 sm:flex-row">
                 <div className="relative h-40 w-40 shrink-0">
                   <svg viewBox="0 0 120 120" className="h-full w-full -rotate-90" role="img" aria-label={`${pct.toFixed(1)}% of Personal Pension Plan accounts have received a contribution`}>
-                    <defs><linearGradient id="ppp-ring" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#117F21" /><stop offset="1" stopColor="#CB9615" /></linearGradient></defs>
+                    <defs><linearGradient id="ppp-ring" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#14892A" /><stop offset="1" stopColor="#CB9615" /></linearGradient></defs>
                     <circle cx="60" cy="60" r={R} fill="none" stroke="#E8F5E9" strokeWidth="12" />
                     <motion.circle cx="60" cy="60" r={R} fill="none" stroke="url(#ppp-ring)" strokeWidth="12" strokeLinecap="round" strokeDasharray={C} initial={{ strokeDashoffset: C }} whileInView={{ strokeDashoffset: C * (1 - pct / 100) }} viewport={{ once: true }} transition={{ duration: reduce ? 0 : 1.4, ease }} />
                   </svg>
                   <span className="absolute inset-0 flex flex-col items-center justify-center"><span className="text-3xl font-bold">{pct.toFixed(1)}%</span><span className="text-sm font-semibold uppercase tracking-[0.14em] text-[#7A5200]">funded</span></span>
                 </div>
                 <div>
-                  <p className="text-lg text-gray-700"><strong className="text-[#14261A]">{ppp.registered.toLocaleString("en-NG")}</strong> accounts opened, but only <strong className="text-[#14261A]">{ppp.funded.toLocaleString("en-NG")}</strong> have received a contribution.</p>
+                  <p className="text-lg text-gray-700"><strong className="text-[#24422D]">{ppp.registered.toLocaleString("en-NG")}</strong> accounts opened, but only <strong className="text-[#24422D]">{ppp.funded.toLocaleString("en-NG")}</strong> have received a contribution.</p>
                   <Link to="/services#ppp" className={cn(goldBtn, focus, "mt-5")}>Start saving in a PPP <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" /></Link>
                 </div>
               </div>
@@ -362,7 +362,7 @@ export function CompareSection() {
                 <select value={period} onChange={(e) => setPeriod(e.target.value as PeriodKey)} className={cn(field, "appearance-none pl-4 pr-11 font-semibold")}>
                   {periods.map((p) => <option key={p}>{p}</option>)}
                 </select>
-                <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#0A4A13]" aria-hidden="true" />
+                <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#105D1D]" aria-hidden="true" />
               </span>
             </label>
             <label className="block">
@@ -401,12 +401,12 @@ export function CompareSection() {
                           <motion.li key={r.id} layout={!reduce ? "position" : false} transition={{ type: "spring", stiffness: 300, damping: 32 }}>
                             <label className={cn("group grid min-h-12 cursor-pointer grid-cols-[1.5rem_var(--name)_1fr_3.75rem] items-center gap-2 rounded-2xl px-2 py-1.5 transition has-[:focus-visible]:outline has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-[#FFD84D]", on ? "bg-[#FFF8E1] ring-1 ring-[#CB9615]/50" : "hover:bg-[#FBF8F1]")}>
                               <input type="checkbox" checked={on} onChange={() => toggle(r.id)} className="sr-only" />
-                              <span aria-hidden="true" className={cn("flex h-6 w-6 items-center justify-center rounded-md border-2 transition", on ? "border-[#0A4A13] bg-[#0A4A13] text-[#F4D27A]" : "border-[#7A8A7E] bg-white")}>{on && <Check className="h-4 w-4" strokeWidth={3} />}</span>
-                              <span className="truncate text-base font-semibold text-[#14261A] sm:text-lg" title={r.name}>{r.short}</span>
+                              <span aria-hidden="true" className={cn("flex h-6 w-6 items-center justify-center rounded-md border-2 transition", on ? "border-[#105D1D] bg-[#105D1D] text-[#F4D27A]" : "border-[#7A8A7E] bg-white")}>{on && <Check className="h-4 w-4" strokeWidth={3} />}</span>
+                              <span className="truncate text-base font-semibold text-[#24422D] sm:text-lg" title={r.name}>{r.short}</span>
                               <span className="h-3 overflow-hidden rounded-full bg-[#E8F5E9]">
-                                <motion.span className={cn("block h-full rounded-full", on ? "bg-gradient-to-r from-[#CB9615] to-[#F4D27A]" : "bg-gradient-to-r from-[#0A4A13] to-[#117F21]")} initial={{ width: 0 }} animate={{ width: `${(r.ret / max) * 100}%` }} transition={{ duration: reduce ? 0 : 0.7, ease }} />
+                                <motion.span className={cn("block h-full rounded-full", on ? "bg-gradient-to-r from-[#CB9615] to-[#F4D27A]" : "bg-gradient-to-r from-[#105D1D] to-[#14892A]")} initial={{ width: 0 }} animate={{ width: `${(r.ret / max) * 100}%` }} transition={{ duration: reduce ? 0 : 0.7, ease }} />
                               </span>
-                              <span className="text-right text-base font-bold tabular-nums text-[#14261A] sm:text-lg">{r.ret.toFixed(1)}%</span>
+                              <span className="text-right text-base font-bold tabular-nums text-[#24422D] sm:text-lg">{r.ret.toFixed(1)}%</span>
                             </label>
                           </motion.li>
                         );
@@ -422,7 +422,7 @@ export function CompareSection() {
           </div>
 
           <aside className="lg:col-span-4" aria-label="Your comparison">
-            <div className="sticky top-[180px] overflow-hidden rounded-[2rem] bg-white p-6 ring-1 ring-black/10 shadow-[0_28px_50px_-36px_rgba(10,74,19,0.45)]">
+            <div className="sticky top-[180px] overflow-hidden rounded-[2rem] bg-white p-6 ring-1 ring-black/10 shadow-[0_28px_50px_-36px_rgba(16,93,29,0.45)]">
               <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[#CB9615] to-[#F4D27A]" />
               <p className="text-xl font-bold">Your comparison</p>
               <AnimatePresence initial={false} mode="popLayout">
@@ -434,14 +434,14 @@ export function CompareSection() {
                       <motion.li key={c.id} layout initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -14 }} className="rounded-2xl bg-[#FBF8F1] p-4 ring-1 ring-black/10">
                         <div className="flex items-start justify-between gap-2">
                           <p className="text-lg font-semibold leading-snug">{c.name}</p>
-                          <button type="button" onClick={() => toggle(c.id)} aria-label={`Remove ${c.name}`} className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white ring-1 ring-black/10 transition hover:bg-[#0A4A13] hover:text-white", focus)}><X className="h-5 w-5" aria-hidden="true" /></button>
+                          <button type="button" onClick={() => toggle(c.id)} aria-label={`Remove ${c.name}`} className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white ring-1 ring-black/10 transition hover:bg-[#105D1D] hover:text-white", focus)}><X className="h-5 w-5" aria-hidden="true" /></button>
                         </div>
                         <dl className="mt-3 grid grid-cols-3 gap-2 text-center">
                           <div className="rounded-xl bg-white p-2"><dt className="text-sm text-gray-700">Return</dt><dd className="text-lg font-bold">{c.ret.toFixed(1)}%</dd></div>
                           <div className="rounded-xl bg-white p-2"><dt className="text-sm text-gray-700">vs median</dt><dd className={cn("text-lg font-bold", c.ret >= median ? "text-[#117F21]" : "text-[#B42318]")}>{c.ret >= median ? "+" : ""}{(c.ret - median).toFixed(1)}</dd></div>
                           <div className="rounded-xl bg-white p-2"><dt className="text-sm text-gray-700">Size</dt><dd className="text-lg font-bold">₦{(c.size * 1000).toFixed(0)}bn</dd></div>
                         </dl>
-                        <Link to={`/operators?op=${c.id}`} className={cn("group mt-2 inline-flex min-h-11 items-center gap-1.5 rounded text-base font-semibold text-[#0A4A13] underline-offset-4 hover:underline", focus)}>Contact details <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" /></Link>
+                        <Link to={`/operators?op=${c.id}`} className={cn("group mt-2 inline-flex min-h-11 items-center gap-1.5 rounded text-base font-semibold text-[#105D1D] underline-offset-4 hover:underline", focus)}>Contact details <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" /></Link>
                       </motion.li>
                     ))}
                   </motion.ul>
@@ -489,10 +489,10 @@ export function FeesSection() {
           <li>
             <Rise delay={fees.length * 0.07} className="h-full">
               <Link to="/regulations?q=fees#library" className={cn("flex h-full flex-col justify-between p-6", calmCard, "bg-[#F1EFE8]", focus)}>
-                <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-[#CB9615] to-[#117F21]" />
+                <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-[#CB9615] to-[#14892A]" />
                 <IconTile icon={FileText} />
                 <span><span className="mt-6 block text-xl font-bold tracking-tight">Read the fee regulations</span><span className="mt-1 block text-lg text-gray-700">Regulation on Fees Structure and later circulars, in the library.</span></span>
-                <span className="mt-4 inline-flex items-center gap-2 text-lg font-semibold text-[#0A4A13]">Open the library <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" /></span>
+                <span className="mt-4 inline-flex items-center gap-2 text-lg font-semibold text-[#105D1D]">Open the library <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" /></span>
               </Link>
             </Rise>
           </li>
@@ -528,11 +528,11 @@ export function MethodSection() {
           <SectionHeading id="method-title" eyebrow="About this data" title="Methodology" stacked />
           <ul className="mt-8 space-y-3">
             {notes.map((n, i) => (
-              <li key={n.q} className={cn("overflow-hidden rounded-3xl bg-white transition-shadow duration-300", open === i ? "shadow-[0_28px_50px_-36px_rgba(10,74,19,0.55)] ring-2 ring-[#117F21]" : "ring-1 ring-black/10")}>
+              <li key={n.q} className={cn("overflow-hidden rounded-3xl bg-white transition-shadow duration-300", open === i ? "shadow-[0_28px_50px_-36px_rgba(16,93,29,0.55)] ring-2 ring-[#14892A]" : "ring-1 ring-black/10")}>
                 <h3>
-                  <button type="button" aria-expanded={open === i} onClick={() => setOpen(open === i ? null : i)} className={cn("flex min-h-16 w-full items-center justify-between gap-4 px-5 py-3 text-left text-xl font-bold text-[#14261A]", focus)}>
+                  <button type="button" aria-expanded={open === i} onClick={() => setOpen(open === i ? null : i)} className={cn("flex min-h-16 w-full items-center justify-between gap-4 px-5 py-3 text-left text-xl font-bold text-[#24422D]", focus)}>
                     {n.q}
-                    <span aria-hidden="true" className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition", open === i ? "rotate-180 bg-[#0A4A13] text-[#F4D27A]" : "bg-[#E8F5E9] text-[#0A4A13]")}><ChevronDown className="h-5 w-5" /></span>
+                    <span aria-hidden="true" className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition", open === i ? "rotate-180 bg-[#105D1D] text-[#F4D27A]" : "bg-[#E8F5E9] text-[#105D1D]")}><ChevronDown className="h-5 w-5" /></span>
                   </button>
                 </h3>
                 <AnimatePresence initial={false}>
@@ -555,7 +555,7 @@ export function MethodSection() {
               <button type="button" onClick={everything} className={cn(goldBtn, focus, "mt-5")}><Download className="h-5 w-5 transition-transform duration-300 group-hover:translate-y-0.5" aria-hidden="true" /> Download CSV</button>
               <div className="mt-6 flex flex-wrap gap-2 border-t border-black/10 pt-5">
                 {([["/resources#monthly-reports", "Monthly reports"], ["/resources#quarterly-reports", "Quarterly reports"], ["/resources#annual-reports", "Annual reports"]] as const).map(([to, l]) => (
-                  <Link key={to} to={to} className={cn("inline-flex min-h-12 items-center rounded-full bg-white px-5 text-lg font-semibold text-[#14261A] ring-1 ring-[#117F21]/40 transition hover:bg-[#0A4A13] hover:text-white hover:ring-[#0A4A13]", focus)}>{l}</Link>
+                  <Link key={to} to={to} className={cn("inline-flex min-h-12 items-center rounded-full bg-white px-5 text-lg font-semibold text-[#24422D] ring-1 ring-[#14892A]/40 transition hover:bg-[#105D1D] hover:text-white hover:ring-[#105D1D]", focus)}>{l}</Link>
                 ))}
               </div>
             </div>
@@ -565,7 +565,7 @@ export function MethodSection() {
               <h3 className="text-xl font-bold">Sources</h3>
               <ul className="mt-3 divide-y divide-black/10">
                 {sources.map((s) => (
-                  <li key={s.url}><a href={s.url} target="_blank" rel="noopener noreferrer" className={cn("group flex min-h-12 items-center justify-between gap-3 py-3 text-lg font-medium text-[#14261A] transition-colors hover:text-[#117F21]", focus)}>{s.label}<span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#E8F5E9] text-[#0A4A13]"><ArrowUpRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" /></span><span className="sr-only">(opens in a new tab)</span></a></li>
+                  <li key={s.url}><a href={s.url} target="_blank" rel="noopener noreferrer" className={cn("group flex min-h-12 items-center justify-between gap-3 py-3 text-lg font-medium text-[#24422D] transition-colors hover:text-[#117F21]", focus)}>{s.label}<span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#E8F5E9] text-[#105D1D]"><ArrowUpRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" /></span><span className="sr-only">(opens in a new tab)</span></a></li>
                 ))}
               </ul>
             </div>

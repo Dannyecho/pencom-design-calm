@@ -141,7 +141,7 @@ export default function AccessibilityWidget() {
         onClick={() => setOpen(!open)}
         type="button"
         aria-expanded={open}
-        className="fixed bottom-[6.5rem] right-4 z-[70] flex h-14 w-14 items-center justify-center rounded-full bg-[#0A4A13] text-[#F4D27A] shadow-[0_16px_36px_-14px_rgba(10,74,19,0.9)] ring-2 ring-white transition-colors hover:bg-[#117F21] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D] sm:right-6 print:hidden"
+        className="fixed bottom-[6.5rem] right-4 z-[70] flex h-14 w-14 items-center justify-center rounded-full bg-[#105D1D] text-[#F4D27A] shadow-[0_16px_36px_-14px_rgba(16,93,29,0.9)] ring-2 ring-white transition-colors hover:bg-[#14892A] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D] sm:right-6 print:hidden"
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         aria-label="Accessibility options"
@@ -157,10 +157,10 @@ export default function AccessibilityWidget() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 16 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-[11rem] right-4 z-[70] max-h-[calc(100svh-13rem)] w-80 max-w-[calc(100vw-2rem)] overflow-y-auto rounded-3xl bg-white text-[#14261A] shadow-[0_30px_70px_-20px_rgba(10,74,19,0.55)] ring-1 ring-black/10 sm:right-6"
+            className="fixed bottom-[11rem] right-4 z-[70] max-h-[calc(100svh-13rem)] w-80 max-w-[calc(100vw-2rem)] overflow-y-auto rounded-3xl bg-white text-[#24422D] shadow-[0_30px_70px_-20px_rgba(16,93,29,0.55)] ring-1 ring-black/10 sm:right-6"
           >
             <div className="flex items-center gap-3 border-b border-black/10 bg-[#FBF8F1] px-4 py-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#0A4A13]"><Accessibility className="h-5 w-5 text-[#F4D27A]" aria-hidden="true" /></span>
+              <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#105D1D]"><Accessibility className="h-5 w-5 text-[#F4D27A]" aria-hidden="true" /></span>
               <h3 className="text-lg font-bold">
                 Accessibility Options
               </h3>
@@ -174,8 +174,8 @@ export default function AccessibilityWidget() {
                   onClick={option.action}
                   className={`flex min-h-14 w-full items-center gap-3 rounded-2xl px-3 py-2.5 text-left transition-colors focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D] ${
                     option.active
-                      ? "bg-[#E8F5E9] text-[#0A4A13]"
-                      : "text-[#14261A] hover:bg-[#F1EFE8]"
+                      ? "bg-[#E8F5E9] text-[#105D1D]"
+                      : "text-[#24422D] hover:bg-[#F1EFE8]"
                   }`}
                 >
                   <option.icon
@@ -188,7 +188,7 @@ export default function AccessibilityWidget() {
                     <p className="text-base font-semibold">{option.label}</p>
                     <p
                       className={`text-sm ${
-                        option.active ? "text-[#0A4A13]" : "text-gray-600"
+                        option.active ? "text-[#105D1D]" : "text-gray-600"
                       }`}
                     >
                       {option.value}
@@ -197,7 +197,7 @@ export default function AccessibilityWidget() {
                   <div
                     aria-hidden="true"
                     className={`relative h-6 w-10 shrink-0 rounded-full transition-colors ${
-                      option.active ? "bg-[#117F21]" : "bg-gray-400"
+                      option.active ? "bg-[#14892A]" : "bg-gray-400"
                     }`}
                   >
                     <div

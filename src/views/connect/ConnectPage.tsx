@@ -56,7 +56,7 @@ export default function ConnectPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-[#FBF8F1] text-[#14261A]">
+      <div className="bg-[#FBF8F1] text-[#24422D]">
         <Hero go={go} />
         <SectionNav sections={sections} pillId="connect-nav-pill" />
         <CaseForm topic={topic} setTopic={setTopic} onSubmitted={setLastRef} />
@@ -78,7 +78,7 @@ const actions: { id: string; topic?: TopicId; icon: typeof Send; title: string; 
 ];
 
 const row = "group flex min-h-14 items-center gap-4 rounded-2xl p-3 transition hover:bg-[#E8F5E9]";
-const tile = "flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-[-6deg]";
+const tile = "flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#105D1D] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-[-6deg]";
 const label = "block text-sm font-semibold uppercase tracking-[0.16em] text-[#7A5200]";
 
 function Hero({ go }: { go: (id: string, topic?: TopicId) => void }) {
@@ -99,15 +99,15 @@ function Hero({ go }: { go: (id: string, topic?: TopicId) => void }) {
                 type="button"
                 onClick={() => go(a.id, a.topic)}
                 className={cn(
-                  "group flex h-full w-full items-center gap-4 rounded-3xl bg-white p-4 text-left ring-1 min-[420px]:flex-col min-[420px]:gap-0 min-[420px]:p-5 min-[420px]:text-center ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)] hover:ring-2 hover:ring-[#117F21]",
+                  "group flex h-full w-full items-center gap-4 rounded-3xl bg-white p-4 text-left ring-1 min-[420px]:flex-col min-[420px]:gap-0 min-[420px]:p-5 min-[420px]:text-center ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(16,93,29,0.55)] hover:ring-2 hover:ring-[#14892A]",
                   focus,
                 )}
               >
-                <span aria-hidden="true" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#0A4A13] text-[#F4D27A] transition-transform duration-300 group-hover:scale-110">
+                <span aria-hidden="true" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#105D1D] text-[#F4D27A] transition-transform duration-300 group-hover:scale-110">
                   <a.icon className="h-7 w-7" />
                 </span>
                 <span className="min-w-0">
-                  <span className="block text-xl font-bold leading-snug text-[#14261A] min-[420px]:mt-3">{a.title}</span>
+                  <span className="block text-xl font-bold leading-snug text-[#24422D] min-[420px]:mt-3">{a.title}</span>
                   <span className="mt-1 block text-lg text-gray-700">{a.body}</span>
                 </span>
               </button>
@@ -119,7 +119,7 @@ function Hero({ go }: { go: (id: string, topic?: TopicId) => void }) {
         <FramedPanel>
           <div className="relative overflow-hidden border-b border-black/10 bg-[#E8F5E9] px-6 pb-6 pt-6 sm:px-7">
             <span aria-hidden="true" className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-[#CB9615]/20 blur-3xl" />
-            <p className="relative text-sm font-bold uppercase tracking-[0.18em] text-[#0A4A13]">National Pension Commission</p>
+            <p className="relative text-sm font-bold uppercase tracking-[0.18em] text-[#105D1D]">National Pension Commission</p>
             <p className="relative mt-2 text-2xl font-bold leading-tight tracking-tight sm:text-3xl">Talk to us directly</p>
             <p className="relative mt-1 text-lg text-gray-700">Call, email or visit the head office in Abuja.</p>
           </div>
@@ -167,7 +167,7 @@ function Hero({ go }: { go: (id: string, topic?: TopicId) => void }) {
             <ul className="mt-2 flex flex-wrap gap-2">
               {social.map((s) => (
                 <li key={s.name}>
-                  <a href={s.href} target="_blank" rel="noopener noreferrer" className={cn("inline-flex min-h-11 items-center rounded-full bg-white px-4 text-base font-semibold text-[#14261A] ring-1 ring-black/15 transition hover:bg-[#0A4A13] hover:text-white hover:ring-[#0A4A13]", focus)}>
+                  <a href={s.href} target="_blank" rel="noopener noreferrer" className={cn("inline-flex min-h-11 items-center rounded-full bg-white px-4 text-base font-semibold text-[#24422D] ring-1 ring-black/15 transition hover:bg-[#105D1D] hover:text-white hover:ring-[#105D1D]", focus)}>
                     {s.name}
                     <span className="sr-only"> {s.handle} (opens in a new tab)</span>
                   </a>

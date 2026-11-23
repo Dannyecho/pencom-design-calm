@@ -39,15 +39,15 @@ export function DataPanel({
   const btn = cn(
     "inline-flex min-h-12 items-center gap-2 rounded-full px-4 text-base font-semibold ring-1 transition-colors duration-300",
     ring,
-    dark ? "text-white ring-white/30 hover:bg-[#F4D27A] hover:text-[#1A1206] hover:ring-[#F4D27A]" : "bg-white text-[#0A4A13] ring-[#117F21]/40 hover:bg-[#0A4A13] hover:text-[#F4D27A] hover:ring-[#0A4A13]",
+    dark ? "text-white ring-white/30 hover:bg-[#F4D27A] hover:text-[#1A1206] hover:ring-[#F4D27A]" : "bg-white text-[#105D1D] ring-[#14892A]/40 hover:bg-[#105D1D] hover:text-[#F4D27A] hover:ring-[#105D1D]",
   );
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div role="group" aria-label={`${title}: view as`} className={cn("inline-flex gap-1 rounded-full p-1.5 ring-1", dark ? "bg-white/[0.07] ring-white/15" : "bg-[#FBF8F1] ring-black/10")}>
           {(["chart", "table"] as const).map((v) => (
-            <button key={v} type="button" aria-pressed={view === v} onClick={() => setView(v)} className={cn("relative inline-flex min-h-12 items-center gap-2 rounded-full px-5 text-base font-semibold capitalize transition-colors", ring, view === v ? (dark ? "text-[#1A1206]" : "text-[#F4D27A]") : dark ? "text-white hover:bg-white/10" : "text-[#14261A] hover:text-[#117F21]")}>
-              {view === v && <motion.span layoutId={`view-${name}`} className={cn("absolute inset-0 -z-0 rounded-full", dark ? "bg-[#F4D27A]" : "bg-[#0A4A13]")} transition={{ type: "spring", stiffness: 400, damping: 34 }} />}
+            <button key={v} type="button" aria-pressed={view === v} onClick={() => setView(v)} className={cn("relative inline-flex min-h-12 items-center gap-2 rounded-full px-5 text-base font-semibold capitalize transition-colors", ring, view === v ? (dark ? "text-[#1A1206]" : "text-[#F4D27A]") : dark ? "text-white hover:bg-white/10" : "text-[#24422D] hover:text-[#117F21]")}>
+              {view === v && <motion.span layoutId={`view-${name}`} className={cn("absolute inset-0 -z-0 rounded-full", dark ? "bg-[#F4D27A]" : "bg-[#105D1D]")} transition={{ type: "spring", stiffness: 400, damping: 34 }} />}
               <span className="relative flex items-center gap-2">{v === "chart" ? <BarChart3 className="h-5 w-5" aria-hidden="true" /> : <Table2 className="h-5 w-5" aria-hidden="true" />}{v}</span>
             </button>
           ))}
@@ -73,13 +73,13 @@ export function DataTable({ head, rows, dark }: { head: string[]; rows: (string 
   return (
     <div className={cn("max-h-[440px] overflow-auto rounded-2xl ring-1", dark ? "ring-white/15" : "bg-white ring-black/10")}>
       <table className="w-full min-w-[320px] text-left text-base">
-        <thead className={cn("sticky top-0", dark ? "bg-[#0A4A13]" : "bg-[#F1EFE8]")}>
-          <tr>{head.map((h, i) => <th key={h} scope="col" className={cn("px-4 py-3 text-sm font-bold", i > 0 && "text-right", dark ? "text-[#F4D27A]" : "text-[#14261A]")}>{h}</th>)}</tr>
+        <thead className={cn("sticky top-0", dark ? "bg-[#105D1D]" : "bg-[#F1EFE8]")}>
+          <tr>{head.map((h, i) => <th key={h} scope="col" className={cn("px-4 py-3 text-sm font-bold", i > 0 && "text-right", dark ? "text-[#F4D27A]" : "text-[#24422D]")}>{h}</th>)}</tr>
         </thead>
         <tbody>
           {rows.map((r, i) => (
             <tr key={i} className={cn("border-t transition-colors", dark ? "border-white/10 hover:bg-white/[0.07]" : "border-black/[0.07] hover:bg-[#FBF8F1]")}>
-              {r.map((c, j) => j === 0 ? <th key={j} scope="row" className={cn("px-4 py-3 font-semibold", dark ? "text-white" : "text-[#14261A]")}>{c}</th> : <td key={j} className={cn("px-4 py-3 text-right tabular-nums", dark ? "text-white/90" : "text-gray-700")}>{c}</td>)}
+              {r.map((c, j) => j === 0 ? <th key={j} scope="row" className={cn("px-4 py-3 font-semibold", dark ? "text-white" : "text-[#24422D]")}>{c}</th> : <td key={j} className={cn("px-4 py-3 text-right tabular-nums", dark ? "text-white/90" : "text-gray-700")}>{c}</td>)}
             </tr>
           ))}
         </tbody>
@@ -113,8 +113,8 @@ export function AreaChart({ data, fmt, label, dark, height = 320 }: { data: { la
   const h = hover ?? data.length - 1;
   // Axis text: gray-600 #4B5563 on white (7.6:1), white/80 on the green panel. Line: green on white, light gold on green.
   const tone = dark
-    ? { grid: "rgba(255,255,255,0.15)", base: "rgba(255,255,255,0.35)", txt: "rgba(255,255,255,0.8)", strong: "#F4D27A", line: "#F4D27A", dot: "#0A4A13" }
-    : { grid: "#E3E0D6", base: "#B8B3A4", txt: "#4B5563", strong: "#14261A", line: "#117F21", dot: "#fff" };
+    ? { grid: "rgba(255,255,255,0.15)", base: "rgba(255,255,255,0.35)", txt: "rgba(255,255,255,0.8)", strong: "#F4D27A", line: "#F4D27A", dot: "#105D1D" }
+    : { grid: "#E3E0D6", base: "#B8B3A4", txt: "#4B5563", strong: "#24422D", line: "#14892A", dot: "#fff" };
   const up = h > 0 && data[h].v >= data[h - 1].v;
 
   // measure the tooltip so it never runs past the chart's right edge
@@ -140,12 +140,12 @@ export function AreaChart({ data, fmt, label, dark, height = 320 }: { data: { la
         >
           <defs>
             <linearGradient id={`fill-${gid}`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={dark ? "#F4D27A" : "#117F21"} stopOpacity={dark ? 0.22 : 0.16} />
+              <stop offset="0%" stopColor={dark ? "#F4D27A" : "#14892A"} stopOpacity={dark ? 0.22 : 0.16} />
               <stop offset="100%" stopColor={tone.line} stopOpacity="0" />
             </linearGradient>
             <linearGradient id={`stroke-${gid}`} x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor={dark ? "#B9DB8A" : "#117F21"} />
-              <stop offset="100%" stopColor={dark ? "#F4D27A" : "#0A4A13"} />
+              <stop offset="0%" stopColor={dark ? "#B9DB8A" : "#14892A"} />
+              <stop offset="100%" stopColor={dark ? "#F4D27A" : "#105D1D"} />
             </linearGradient>
           </defs>
           {ticks.map((t, i) => (
@@ -170,14 +170,14 @@ export function AreaChart({ data, fmt, label, dark, height = 320 }: { data: { la
         <motion.div
           ref={tip}
           aria-hidden="true"
-          className="pointer-events-none absolute left-0 top-0 whitespace-nowrap rounded-2xl bg-white px-4 py-3 text-[#14261A] ring-1 ring-black/10 shadow-[0_20px_40px_-20px_rgba(10,74,19,0.5)]"
+          className="pointer-events-none absolute left-0 top-0 whitespace-nowrap rounded-2xl bg-white px-4 py-3 text-[#24422D] ring-1 ring-black/10 shadow-[0_20px_40px_-20px_rgba(16,93,29,0.5)]"
           // sits below the point when it is high on the chart, above it when low, so it never hides the point
           animate={{ left: Math.min(Math.max(x(h) - tw / 2, 0), W - tw), top: y(data[h].v) < H / 2 ? y(data[h].v) + 22 : Math.max(0, y(data[h].v) - 108) }}
           transition={{ type: "spring", stiffness: 500, damping: 40 }}
         >
           <span className="block text-sm font-semibold text-gray-700">{data[h].long}</span>
           <span className="block text-xl font-bold tabular-nums text-[#117F21]">{fmt(data[h].v)}</span>
-          {/* up/down on white: green #117F21 (5.1:1) / red #B42318 (6.5:1) */}
+          {/* up/down on white: green #14892A (5.1:1) / red #B42318 (6.5:1) */}
           {h > 0 && <span className={cn("block text-sm font-semibold", up ? "text-[#117F21]" : "text-[#B42318]")}>{up ? "▲" : "▼"} {(((data[h].v - data[h - 1].v) / data[h - 1].v) * 100).toFixed(2)}% on month</span>}
         </motion.div>
       )}
@@ -226,7 +226,7 @@ export function Donut({ items, colors, total, unit }: { items: { k: string; v: n
           <AnimatePresence mode="wait">
             <motion.div key={cur?.k ?? "total"} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.2 }}>
               <p className="text-base font-semibold leading-tight text-gray-700">{cur ? cur.k : "Total"}</p>
-              <p className="mt-1 text-3xl font-bold tabular-nums tracking-tight text-[#14261A]">{unit(cur ? cur.v : total)}</p>
+              <p className="mt-1 text-3xl font-bold tabular-nums tracking-tight text-[#24422D]">{unit(cur ? cur.v : total)}</p>
               {cur && <p className="mt-1 text-base font-semibold tabular-nums text-[#117F21]">{(cur.frac * 100).toFixed(1)}%</p>}
             </motion.div>
           </AnimatePresence>
@@ -238,9 +238,9 @@ export function Donut({ items, colors, total, unit }: { items: { k: string; v: n
           const act = on === it.k;
           return (
             <li key={it.k}>
-              <button type="button" onFocus={() => setOn(it.k)} onBlur={() => setOn(null)} onPointerEnter={() => setOn(it.k)} onPointerLeave={() => setOn(null)} disabled={it.v === 0} className={cn("w-full rounded-2xl p-3.5 text-left ring-1 transition duration-300", ring, act ? "bg-[#FBF8F1] ring-2 ring-[#117F21]" : "ring-transparent hover:bg-[#FBF8F1]", it.v === 0 && "opacity-60")}>
+              <button type="button" onFocus={() => setOn(it.k)} onBlur={() => setOn(null)} onPointerEnter={() => setOn(it.k)} onPointerLeave={() => setOn(null)} disabled={it.v === 0} className={cn("w-full rounded-2xl p-3.5 text-left ring-1 transition duration-300", ring, act ? "bg-[#FBF8F1] ring-2 ring-[#14892A]" : "ring-transparent hover:bg-[#FBF8F1]", it.v === 0 && "opacity-60")}>
                 <span className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-lg">
-                  <span className="flex items-center gap-3 font-bold text-[#14261A]"><span className="h-3.5 w-3.5 shrink-0 rounded-full" style={{ background: colors[it.k] }} />{it.k}</span>
+                  <span className="flex items-center gap-3 font-bold text-[#24422D]"><span className="h-3.5 w-3.5 shrink-0 rounded-full" style={{ background: colors[it.k] }} />{it.k}</span>
                   <span className="text-base tabular-nums text-gray-700">{it.v ? `${unit(it.v)} · ${pct.toFixed(1)}%` : "in Other"}</span>
                 </span>
                 <span className="mt-2.5 block h-2.5 overflow-hidden rounded-full bg-[#EDEAE1]">
@@ -258,7 +258,7 @@ export function Donut({ items, colors, total, unit }: { items: { k: string; v: n
 /* ─────────────────────────── Column chart ─────────────────────────── */
 
 /** Calm columns: plain bars on a warm track; the latest is gold with an ink figure chip. */
-export function Columns({ data, fmt, color = "#117F21", dark, highlightLast = true }: { data: { label: string; v: number; note?: string }[]; fmt: (v: number) => string; color?: string; dark?: boolean; highlightLast?: boolean }) {
+export function Columns({ data, fmt, color = "#14892A", dark, highlightLast = true }: { data: { label: string; v: number; note?: string }[]; fmt: (v: number) => string; color?: string; dark?: boolean; highlightLast?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const reduce = useReducedMotion();
@@ -289,13 +289,13 @@ export function Columns({ data, fmt, color = "#117F21", dark, highlightLast = tr
               >
                 <span className={cn(
                   "whitespace-nowrap text-xs font-bold tabular-nums sm:text-sm",
-                  last ? "rounded-full bg-[#F4D27A] px-2 py-0.5 text-[#1A1206] ring-1 ring-[#CB9615]" : dark ? "text-white" : "text-[#14261A]",
+                  last ? "rounded-full bg-[#F4D27A] px-2 py-0.5 text-[#1A1206] ring-1 ring-[#CB9615]" : dark ? "text-white" : "text-[#24422D]",
                 )}>
                   {fmt(d.v)}{d.note && <sup className={cn("ml-0.5", last ? "text-[#1A1206]" : dark ? "text-[#F4D27A]" : "text-[#7A5200]")}>*</sup>}
                 </span>
               </motion.span>
             </div>
-            <span className={cn("w-full border-t-2 pt-2 text-center text-xs leading-tight sm:text-sm", last && "font-bold", dark ? "border-white/30 text-white/85" : "border-[#B8B3A4] text-gray-700", last && !dark && "text-[#14261A]")}>{d.label}</span>
+            <span className={cn("w-full border-t-2 pt-2 text-center text-xs leading-tight sm:text-sm", last && "font-bold", dark ? "border-white/30 text-white/85" : "border-[#B8B3A4] text-gray-700", last && !dark && "text-[#24422D]")}>{d.label}</span>
           </div>
         );
       })}

@@ -60,7 +60,7 @@ export default function Showcase() {
   return (
     <section aria-label="Featured" className="px-4 pb-6 pt-2 sm:pt-4">
       <div
-        className="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-white shadow-[0_40px_90px_-50px_rgba(10,46,16,0.55)] ring-1 ring-black/10"
+        className="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-white shadow-[0_40px_90px_-50px_rgba(22,77,32,0.55)] ring-1 ring-black/10"
         role="region"
         aria-roledescription="carousel"
         aria-label="Featured announcements"
@@ -96,7 +96,7 @@ export default function Showcase() {
               />
             </AnimatePresence>
             {/* Soft curve where the photo meets the text panel (desktop) */}
-            <svg aria-hidden="true" viewBox="0 0 80 600" preserveAspectRatio="none" className="absolute inset-y-0 -left-px hidden h-full w-20 text-[#0A4A13] lg:block">
+            <svg aria-hidden="true" viewBox="0 0 80 600" preserveAspectRatio="none" className="absolute inset-y-0 -left-px hidden h-full w-20 text-[#105D1D] lg:block">
               <path d="M0 0 H50 C 10 150, 10 450, 50 600 H0 Z" fill="currentColor" />
             </svg>
             {slide.kind === "campaign" && (
@@ -108,7 +108,7 @@ export default function Showcase() {
           </div>
 
           {/* ── Words: always on a solid panel ── */}
-          <div className="relative order-2 min-h-[35rem] overflow-hidden bg-[#0A4A13] px-6 py-8 text-white sm:min-h-[26rem] sm:px-10 sm:py-10 lg:order-1 lg:min-h-0 lg:col-span-5 lg:flex lg:flex-col lg:justify-center lg:py-14 lg:pl-12 lg:pr-4">
+          <div className="relative order-2 min-h-[35rem] overflow-hidden bg-[#105D1D] px-6 py-8 text-white sm:min-h-[26rem] sm:px-10 sm:py-10 lg:order-1 lg:min-h-0 lg:col-span-5 lg:flex lg:flex-col lg:justify-center lg:py-14 lg:pl-12 lg:pr-4">
             <div aria-hidden="true" className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-[#CB9615]/25 blur-3xl" />
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
@@ -144,7 +144,7 @@ export default function Showcase() {
 
         {/* ── Controls: labelled; compact on phones, large from tablet up ── */}
         <div className="flex flex-wrap items-center justify-between gap-2 border-t border-gray-100 bg-white px-3 py-3 sm:gap-3 sm:px-6 sm:py-4">
-          <button type="button" onClick={() => goTo(index - 1)} className={cn(bigBtn, "border-gray-200 text-[#14261A] hover:border-[#117F21] hover:text-[#117F21]")}>
+          <button type="button" onClick={() => goTo(index - 1)} className={cn(bigBtn, "border-gray-200 text-[#24422D] hover:border-[#14892A] hover:text-[#117F21]")}>
             <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
             <span>{t("Previous")}</span>
           </button>
@@ -161,7 +161,7 @@ export default function Showcase() {
                     aria-label={t("Go to slide {n}: {title}", { n: i + 1, title: t(s.title) })}
                     className={cn(
                       "relative flex h-11 min-w-11 items-center justify-center overflow-hidden rounded-lg px-2.5 text-base font-bold transition sm:h-12 sm:min-w-12 sm:rounded-xl sm:px-3 sm:text-lg focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D]",
-                      on ? "bg-[#0A4A13] text-white" : "bg-[#F1EFE8] text-[#14261A] hover:bg-[#E8F5E9]",
+                      on ? "bg-[#105D1D] text-white" : "bg-[#F1EFE8] text-[#24422D] hover:bg-[#E8F5E9]",
                     )}
                   >
                     {i + 1}
@@ -186,12 +186,12 @@ export default function Showcase() {
             <button
               type="button"
               onClick={() => setPlaying((p) => !p)}
-              className={cn(bigBtn, "border-gray-200 text-[#14261A] hover:border-[#117F21] hover:text-[#117F21]")}
+              className={cn(bigBtn, "border-gray-200 text-[#24422D] hover:border-[#14892A] hover:text-[#117F21]")}
             >
               {playing ? <Pause className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" /> : <Play className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />}
               <span>{playing ? t("Pause") : t("Play")}</span>
             </button>
-            <button type="button" onClick={() => goTo(index + 1)} className={cn(bigBtn, "border-[#117F21] bg-[#117F21] text-white hover:bg-[#0A4A13]")}>
+            <button type="button" onClick={() => goTo(index + 1)} className={cn(bigBtn, "border-[#14892A] bg-[#14892A] text-white hover:bg-[#105D1D]")}>
               <span>{t("Next")}</span>
               <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
             </button>

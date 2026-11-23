@@ -22,12 +22,12 @@ export const ease = [0.22, 1, 0.36, 1] as const;
 export const focus = "focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D]";
 
 export const look: Record<Kind, { icon: LucideIcon; chip: string; dot: string }> = {
-  "Press release": { icon: Megaphone, chip: "bg-[#E8F5E9] text-[#0A4A13]", dot: "bg-[#117F21]" },
+  "Press release": { icon: Megaphone, chip: "bg-[#E8F5E9] text-[#105D1D]", dot: "bg-[#14892A]" },
   Statement: { icon: FileText, chip: "bg-[#E6F1FB] text-[#0B4F8A]", dot: "bg-[#1E88E5]" },
   Speech: { icon: Mic, chip: "bg-[#F1EAFB] text-[#5B2E91]", dot: "bg-[#7E57C2]" },
   Event: { icon: CalendarDays, chip: "bg-[#FAEEDA] text-[#854F0B]", dot: "bg-[#D97706]" },
   Reports: { icon: BarChart3, chip: "bg-[#FFF2CC] text-[#7A5200]", dot: "bg-[#CB9615]" },
-  Regulation: { icon: Scale, chip: "bg-[#EEF6EE] text-[#0A4A13]", dot: "bg-[#0A4A13]" },
+  Regulation: { icon: Scale, chip: "bg-[#EEF6EE] text-[#105D1D]", dot: "bg-[#105D1D]" },
   "Media coverage": { icon: Tv, chip: "bg-[#FCEBEB] text-[#A32D2D]", dot: "bg-[#D32F2F]" },
 };
 
@@ -65,7 +65,7 @@ export function Hero({ lead, q, onSearch }: { lead: NewsItem; q: string; onSearc
       actions={
         <div className="max-w-xl">
           <form role="search" onSubmit={submit}>
-            <label htmlFor="news-search" className="block text-lg font-semibold text-[#14261A]">
+            <label htmlFor="news-search" className="block text-lg font-semibold text-[#24422D]">
               Search the news
             </label>
             <div className="mt-2 flex flex-col gap-3 sm:flex-row">
@@ -78,7 +78,7 @@ export function Hero({ lead, q, onSearch }: { lead: NewsItem; q: string; onSearc
                   onChange={(e) => setText(e.target.value)}
                   placeholder={t("Search the news, e.g. “Pencare” or “report”")}
                   className={cn(
-                    "min-h-14 w-full rounded-2xl bg-white pl-12 pr-14 text-lg text-[#14261A] shadow-[0_18px_40px_-30px_rgba(10,74,19,0.6)] ring-1 ring-black/15 placeholder:text-gray-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#117F21] [&::-webkit-search-cancel-button]:hidden",
+                    "min-h-14 w-full rounded-2xl bg-white pl-12 pr-14 text-lg text-[#24422D] shadow-[0_18px_40px_-30px_rgba(16,93,29,0.6)] ring-1 ring-black/15 placeholder:text-gray-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#14892A] [&::-webkit-search-cancel-button]:hidden",
                     focus,
                   )}
                 />
@@ -87,7 +87,7 @@ export function Hero({ lead, q, onSearch }: { lead: NewsItem; q: string; onSearc
                     type="button"
                     onClick={() => { setText(""); onSearch(""); }}
                     aria-label={t("Clear search")}
-                    className={cn("absolute right-1.5 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-xl text-gray-700 transition hover:bg-[#E8F5E9] hover:text-[#0A4A13]", focus)}
+                    className={cn("absolute right-1.5 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-xl text-gray-700 transition hover:bg-[#E8F5E9] hover:text-[#105D1D]", focus)}
                   >
                     <X className="h-5 w-5" aria-hidden="true" />
                   </button>
@@ -108,7 +108,7 @@ export function Hero({ lead, q, onSearch }: { lead: NewsItem; q: string; onSearc
             ].map(([v, l]) => (
               <div key={l} className="rounded-2xl bg-white px-4 py-3 ring-1 ring-black/10">
                 <dt className="text-base text-gray-700">{l}</dt>
-                <dd className="mt-0.5 text-2xl font-bold tabular-nums text-[#14261A] sm:text-3xl">
+                <dd className="mt-0.5 text-2xl font-bold tabular-nums text-[#24422D] sm:text-3xl">
                   <CountUp value={String(v)} duration={1.2} />
                 </dd>
               </div>
@@ -126,7 +126,7 @@ function Featured({ item }: { item: NewsItem }) {
   const { t } = useI18n();
   return (
     <article className="group relative" aria-labelledby="lead-title">
-      <div className="relative overflow-hidden rounded-[2rem] bg-white shadow-[0_30px_60px_-36px_rgba(10,74,19,0.55)] ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:ring-2 hover:ring-[#117F21]">
+      <div className="relative overflow-hidden rounded-[2rem] bg-white shadow-[0_30px_60px_-36px_rgba(16,93,29,0.55)] ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:ring-2 hover:ring-[#14892A]">
         <div className="relative aspect-[16/10] overflow-hidden bg-[#E8F5E9] sm:aspect-[16/9]">
           <motion.img
             src={item.image}
@@ -142,8 +142,8 @@ function Featured({ item }: { item: NewsItem }) {
           <p className="flex flex-wrap items-center gap-x-3 gap-y-2 text-base text-gray-700">
             <span className="inline-flex items-center gap-2 rounded-full bg-[#F4D27A] px-3 py-1 text-[13px] font-bold uppercase tracking-[0.16em] text-[#1A1206] sm:text-sm">
               <span className="relative flex h-2 w-2" aria-hidden="true">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#0A4A13]/60 [animation-iteration-count:2]" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#0A4A13]" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#105D1D]/60 [animation-iteration-count:2]" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#105D1D]" />
               </span>
               Top story
             </span>
@@ -155,7 +155,7 @@ function Featured({ item }: { item: NewsItem }) {
             <span aria-hidden="true">·</span>
             <span>{t(item.meta)}</span>
           </p>
-          <h2 id="lead-title" className="mt-3 text-2xl font-bold leading-snug tracking-tight text-[#14261A] sm:text-[1.75rem]">
+          <h2 id="lead-title" className="mt-3 text-2xl font-bold leading-snug tracking-tight text-[#24422D] sm:text-[1.75rem]">
             <Link to={item.to} className={cn("rounded transition-colors after:absolute after:inset-0 after:rounded-[2rem] after:content-[''] group-hover:text-[#117F21]", focus)}>
               {t(item.title)}
             </Link>
@@ -192,7 +192,7 @@ export function FilterBar({
   ];
   const active = !!(kind || year || q);
   const select = cn(
-    "min-h-12 appearance-none rounded-full bg-white pl-4 pr-10 text-base font-semibold text-[#14261A] ring-1 ring-black/15 transition hover:ring-[#117F21]",
+    "min-h-12 appearance-none rounded-full bg-white pl-4 pr-10 text-base font-semibold text-[#24422D] ring-1 ring-black/15 transition hover:ring-[#14892A]",
     focus,
   );
   const fieldLabel = "flex items-center gap-2 text-base font-semibold text-gray-700";
@@ -200,7 +200,7 @@ export function FilterBar({
   return (
     <>
     <div className="relative z-30 -mx-4 mt-8 px-4 py-3 lg:sticky lg:top-[92px]">
-      <div className="rounded-[1.75rem] bg-white p-1.5 shadow-[0_20px_40px_-30px_rgba(10,74,19,0.6)] ring-1 ring-black/10">
+      <div className="rounded-[1.75rem] bg-white p-1.5 shadow-[0_20px_40px_-30px_rgba(16,93,29,0.6)] ring-1 ring-black/10">
         <div className="flex flex-col gap-1.5">
           <div role="group" aria-label={t("Type of news")} className="flex snap-x gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {chips.map((c) => {
@@ -211,9 +211,9 @@ export function FilterBar({
                   type="button"
                   aria-pressed={on}
                   onClick={() => setKind(c.id)}
-                  className={cn("relative flex min-h-12 shrink-0 snap-start items-center gap-2 rounded-full px-4 text-base font-semibold transition", on ? "text-[#F4D27A]" : "text-[#14261A] hover:bg-[#E8F5E9]", focus)}
+                  className={cn("relative flex min-h-12 shrink-0 snap-start items-center gap-2 rounded-full px-4 text-base font-semibold transition", on ? "text-[#F4D27A]" : "text-[#24422D] hover:bg-[#E8F5E9]", focus)}
                 >
-                  {on && <motion.span layoutId="news-kind-pill" className="absolute inset-0 rounded-full bg-[#0A4A13]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
+                  {on && <motion.span layoutId="news-kind-pill" className="absolute inset-0 rounded-full bg-[#105D1D]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
                   <span className="relative">{t(c.label)}</span>
                   <span className={cn("relative min-w-[1.75rem] rounded-full px-1.5 text-center text-sm font-bold tabular-nums", on ? "bg-[#F4D27A] text-[#1A1206]" : "bg-[#F1EFE8] text-gray-700")}>{c.n}</span>
                 </button>
@@ -249,9 +249,9 @@ export function FilterBar({
                   type="button"
                   aria-pressed={view === v}
                   onClick={() => setView(v)}
-                  className={cn("relative flex min-h-11 items-center gap-2 rounded-full px-3.5 text-base font-semibold transition", view === v ? "text-[#F4D27A]" : "text-gray-700 hover:text-[#0A4A13]", focus)}
+                  className={cn("relative flex min-h-11 items-center gap-2 rounded-full px-3.5 text-base font-semibold transition", view === v ? "text-[#F4D27A]" : "text-gray-700 hover:text-[#105D1D]", focus)}
                 >
-                  {view === v && <motion.span layoutId="news-view-pill" className="absolute inset-0 rounded-full bg-[#0A4A13]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
+                  {view === v && <motion.span layoutId="news-view-pill" className="absolute inset-0 rounded-full bg-[#105D1D]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
                   <Icon className="relative h-4 w-4" aria-hidden="true" />
                   <span className="relative">{t(label)}</span>
                 </button>
@@ -268,7 +268,7 @@ export function FilterBar({
           {q && <> {t("for “{q}”", { q })}</>}
         </p>
         {active && (
-          <button type="button" onClick={clear} className={cn("inline-flex min-h-11 items-center gap-1.5 rounded-full bg-white px-4 font-semibold text-[#14261A] ring-1 ring-[#117F21]/40 transition hover:bg-[#0A4A13] hover:text-white", focus)}>
+          <button type="button" onClick={clear} className={cn("inline-flex min-h-11 items-center gap-1.5 rounded-full bg-white px-4 font-semibold text-[#24422D] ring-1 ring-[#14892A]/40 transition hover:bg-[#105D1D] hover:text-white", focus)}>
             <X className="h-4 w-4" aria-hidden="true" />
             Clear filters
           </button>
@@ -320,7 +320,7 @@ export function NewsCard({ item, view, onShare }: { item: NewsItem; view: View; 
             <span className="hidden sm:inline">{t(item.meta)}</span>
             {item.attachment && <PdfTag />}
           </p>
-          <h3 className="mt-2 text-lg font-bold leading-snug text-[#14261A] sm:text-xl">
+          <h3 className="mt-2 text-lg font-bold leading-snug text-[#24422D] sm:text-xl">
             <Link to={item.to} className={cn("rounded transition-colors after:absolute after:inset-0 after:rounded-3xl after:content-[''] group-hover:text-[#117F21]", focus)}>
               {t(item.title)}
             </Link>
@@ -352,7 +352,7 @@ export function NewsCard({ item, view, onShare }: { item: NewsItem; view: View; 
           <span aria-hidden="true">·</span>
           <span>{t(item.meta)}</span>
         </p>
-        <h3 className="mt-2 text-xl font-bold leading-snug tracking-tight text-[#14261A]">
+        <h3 className="mt-2 text-xl font-bold leading-snug tracking-tight text-[#24422D]">
           <Link to={item.to} className={cn("rounded transition-colors after:absolute after:inset-0 after:rounded-3xl after:content-[''] group-hover:text-[#117F21]", focus)}>
             {t(item.title)}
           </Link>
@@ -378,7 +378,7 @@ function ShareButton({ item, onShare, className }: { item: NewsItem; onShare: (i
       onClick={() => onShare(item)}
       aria-label={`${t("Share")}: ${t(item.title)}`}
       data-i18n-done
-      className={cn("relative z-10 inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full bg-white px-4 text-base font-semibold text-[#14261A] ring-1 ring-[#117F21]/40 transition hover:bg-[#0A4A13] hover:text-white", focus, className)}
+      className={cn("relative z-10 inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full bg-white px-4 text-base font-semibold text-[#24422D] ring-1 ring-[#14892A]/40 transition hover:bg-[#105D1D] hover:text-white", focus, className)}
     >
       <Share2 className="h-4 w-4" aria-hidden="true" />
       <span aria-hidden="true">{t("Share")}</span>
@@ -397,7 +397,7 @@ export function Toast({ text }: { text: string | null }) {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
-            className="inline-flex items-center gap-2.5 rounded-2xl bg-[#0A4A13] px-5 py-3 text-lg font-semibold text-white shadow-xl"
+            className="inline-flex items-center gap-2.5 rounded-2xl bg-[#105D1D] px-5 py-3 text-lg font-semibold text-white shadow-xl"
           >
             <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#F4D27A] text-[#1A1206]">
               <Check className="h-4 w-4" aria-hidden="true" />
@@ -414,7 +414,7 @@ export function Empty({ clear }: { clear: () => void }) {
   return (
     <div className="rounded-[2rem] bg-white px-6 py-14 text-center ring-1 ring-black/10">
       <IconTile icon={Search} className="mx-auto" />
-      <h3 className="mt-5 text-2xl font-bold tracking-tight text-[#14261A]">No news matches your search</h3>
+      <h3 className="mt-5 text-2xl font-bold tracking-tight text-[#24422D]">No news matches your search</h3>
       <p className="mx-auto mt-2 max-w-md text-lg text-gray-700">Try a different word, choose another year, or look in the regulatory library for circulars and guidelines.</p>
       <div className="mt-7 flex flex-wrap justify-center gap-3">
         <button type="button" onClick={clear} className={cn(goldBtn, focus)}>
@@ -465,7 +465,7 @@ export function Galleries() {
                         alt={k === 0 ? c.alt : ""}
                         loading="lazy"
                         className={cn(
-                          "absolute inset-x-4 top-3 h-48 w-[calc(100%-2rem)] rounded-2xl object-cover shadow-[0_18px_40px_-22px_rgba(10,74,19,0.6)] ring-4 ring-white transition duration-500 ease-out",
+                          "absolute inset-x-4 top-3 h-48 w-[calc(100%-2rem)] rounded-2xl object-cover shadow-[0_18px_40px_-22px_rgba(16,93,29,0.6)] ring-4 ring-white transition duration-500 ease-out",
                           k === 0 && "z-30 group-hover:-translate-y-1",
                           k === 1 && "z-20 -rotate-2 scale-[0.96] group-hover:-rotate-[5deg]",
                           k === 2 && "z-10 rotate-2 scale-[0.92] group-hover:rotate-[5deg]",
@@ -478,7 +478,7 @@ export function Galleries() {
                       <Images className="h-5 w-5" aria-hidden="true" />
                       <span data-i18n-done>{t("{n} photos", { n: g.count })}</span>
                     </p>
-                    <h3 className="mt-1 text-xl font-bold leading-snug text-[#14261A] transition-colors group-hover:text-[#117F21]">{t(g.title)}</h3>
+                    <h3 className="mt-1 text-xl font-bold leading-snug text-[#24422D] transition-colors group-hover:text-[#117F21]">{t(g.title)}</h3>
                     <p className="mt-1 flex-1 text-lg leading-relaxed text-gray-700">{t(g.blurb)}</p>
                     <span className="mt-4 inline-flex items-center gap-2 text-lg font-semibold text-[#117F21]">
                       {t("See the photos")}
@@ -570,7 +570,7 @@ export function MediaDesk() {
                 { label: "Reports and publications", to: "/resources#publications" },
                 { label: "Circulars and regulations", to: "/regulations#library" },
               ].map((l) => (
-                <Link key={l.to} to={l.to} className={cn("group flex min-h-14 items-center justify-between gap-3 rounded-2xl bg-white px-5 text-lg font-semibold text-[#14261A] transition hover:bg-[#F4D27A] hover:text-[#1A1206]", focus)}>
+                <Link key={l.to} to={l.to} className={cn("group flex min-h-14 items-center justify-between gap-3 rounded-2xl bg-white px-5 text-lg font-semibold text-[#24422D] transition hover:bg-[#F4D27A] hover:text-[#1A1206]", focus)}>
                   {t(l.label)}
                   <ArrowRight className={cn(moveArrow, "text-[#117F21] group-hover:text-[#1A1206]")} aria-hidden="true" />
                 </Link>

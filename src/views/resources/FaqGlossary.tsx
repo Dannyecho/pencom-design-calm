@@ -40,7 +40,7 @@ export function FaqSection({ openQ, setOpenQ }: { openQ: string | null; setOpenQ
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-[180px]">
               <SectionHeading stacked id="faq-title" eyebrow="Frequently asked" title="Answers in plain language" highlight="plain language" intro="Short answers to the questions we hear most. Choose a group or search." />
-              <div className="group relative mt-8 overflow-hidden rounded-3xl bg-white p-6 ring-1 ring-black/10 shadow-[0_28px_50px_-34px_rgba(10,74,19,0.5)]">
+              <div className="group relative mt-8 overflow-hidden rounded-3xl bg-white p-6 ring-1 ring-black/10 shadow-[0_28px_50px_-34px_rgba(16,93,29,0.5)]">
                 <Bubble />
                 <IconTile icon={MessageCircle} className="relative" />
                 <p className="relative mt-4 text-xl font-bold tracking-tight">Still have a question?</p>
@@ -56,7 +56,7 @@ export function FaqSection({ openQ, setOpenQ }: { openQ: string | null; setOpenQ
           <div className="lg:col-span-8">
             <div className="rounded-3xl bg-[#F1EFE8] p-4 sm:p-5">
               <label htmlFor="faq-q" className="block text-lg font-semibold">Search questions</label>
-              <div className="mt-2 flex min-w-0 items-center gap-3 rounded-2xl bg-white px-4 ring-1 ring-black/15 transition focus-within:ring-2 focus-within:ring-[#117F21]">
+              <div className="mt-2 flex min-w-0 items-center gap-3 rounded-2xl bg-white px-4 ring-1 ring-black/15 transition focus-within:ring-2 focus-within:ring-[#14892A]">
                 <Search className="h-6 w-6 shrink-0 text-[#117F21]" aria-hidden="true" />
                 <input id="faq-q" type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search questions" className="min-h-14 w-full min-w-0 bg-transparent text-lg placeholder:text-gray-500 focus:outline-none focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0" />
               </div>
@@ -85,10 +85,10 @@ export function FaqSection({ openQ, setOpenQ }: { openQ: string | null; setOpenQ
                       transition={{ duration: 0.25, ease }}
                       className={cn(
                         "relative overflow-hidden rounded-3xl bg-white transition-shadow duration-300",
-                        isOpen ? "shadow-[0_28px_50px_-30px_rgba(10,74,19,0.55)] ring-2 ring-[#117F21]" : "ring-1 ring-black/10 hover:shadow-[0_24px_44px_-32px_rgba(10,74,19,0.5)] hover:ring-2 hover:ring-[#117F21]",
+                        isOpen ? "shadow-[0_28px_50px_-30px_rgba(16,93,29,0.55)] ring-2 ring-[#14892A]" : "ring-1 ring-black/10 hover:shadow-[0_24px_44px_-32px_rgba(16,93,29,0.5)] hover:ring-2 hover:ring-[#14892A]",
                       )}
                     >
-                      <span aria-hidden="true" className={cn("absolute inset-y-5 left-0 w-1 origin-top rounded-r-full bg-gradient-to-b from-[#117F21] to-[#CB9615] transition-transform duration-500", isOpen ? "scale-y-100" : "scale-y-0")} />
+                      <span aria-hidden="true" className={cn("absolute inset-y-5 left-0 w-1 origin-top rounded-r-full bg-gradient-to-b from-[#14892A] to-[#CB9615] transition-transform duration-500", isOpen ? "scale-y-100" : "scale-y-0")} />
                       <h3>
                         <button
                           id={`${id}-btn`}
@@ -99,14 +99,14 @@ export function FaqSection({ openQ, setOpenQ }: { openQ: string | null; setOpenQ
                           className="group flex min-h-16 w-full items-center gap-4 rounded-3xl px-5 py-4 text-left focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D] sm:px-6"
                         >
                           <span className="flex-1">
-                            <span className="mb-1.5 hidden w-fit rounded-full bg-[#E8F5E9] px-3 py-0.5 text-sm font-bold uppercase tracking-[0.12em] text-[#0A4A13] sm:block">{f.cat}</span>
+                            <span className="mb-1.5 hidden w-fit rounded-full bg-[#E8F5E9] px-3 py-0.5 text-sm font-bold uppercase tracking-[0.12em] text-[#105D1D] sm:block">{f.cat}</span>
                             <span className="block text-xl font-semibold leading-snug">{f.q}</span>
                           </span>
                           <span
                             aria-hidden="true"
                             className={cn(
                               "flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition duration-300",
-                              isOpen ? "rotate-180 bg-[#0A4A13] text-[#F4D27A]" : "bg-[#E8F5E9] text-[#0A4A13] group-hover:bg-[#0A4A13] group-hover:text-[#F4D27A]",
+                              isOpen ? "rotate-180 bg-[#105D1D] text-[#F4D27A]" : "bg-[#E8F5E9] text-[#105D1D] group-hover:bg-[#105D1D] group-hover:text-[#F4D27A]",
                             )}
                           >
                             <ChevronDown className="h-5 w-5" />
@@ -132,7 +132,7 @@ export function FaqSection({ openQ, setOpenQ }: { openQ: string | null; setOpenQ
                                       className={cn(
                                         "inline-flex min-h-12 items-center gap-2 rounded-2xl px-4 text-lg font-semibold transition duration-300",
                                         focus,
-                                        on ? "bg-[#0A4A13] text-[#F4D27A]" : "border-2 border-[#117F21] bg-white text-[#0A4A13] hover:bg-[#117F21] hover:text-white",
+                                        on ? "bg-[#105D1D] text-[#F4D27A]" : "border-2 border-[#14892A] bg-white text-[#105D1D] hover:bg-[#14892A] hover:text-white",
                                       )}
                                     >
                                       <I className="h-5 w-5" aria-hidden="true" />
@@ -140,7 +140,7 @@ export function FaqSection({ openQ, setOpenQ }: { openQ: string | null; setOpenQ
                                     </button>
                                   );
                                 })}
-                                <span aria-live="polite" className="font-semibold text-[#0A4A13]">{vote[f.q] ? "Thanks for your feedback." : ""}</span>
+                                <span aria-live="polite" className="font-semibold text-[#105D1D]">{vote[f.q] ? "Thanks for your feedback." : ""}</span>
                               </div>
                             </div>
                           </motion.div>
@@ -188,7 +188,7 @@ export function Glossary({ focusTerm }: { focusTerm: string | null }) {
             <button
               type="button"
               onClick={() => setOpen(Object.fromEntries(list.map((g) => [g.term, !anyOpen])))}
-              className={cn("inline-flex min-h-14 w-fit items-center gap-2 rounded-2xl border-2 border-[#117F21] bg-white px-6 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#117F21] hover:text-white", focus)}
+              className={cn("inline-flex min-h-14 w-fit items-center gap-2 rounded-2xl border-2 border-[#14892A] bg-white px-6 text-lg font-semibold text-[#105D1D] transition hover:bg-[#14892A] hover:text-white", focus)}
             >
               {anyOpen ? "Show terms" : "Show all meanings"}
             </button>
@@ -221,13 +221,13 @@ export function Glossary({ focusTerm }: { focusTerm: string | null }) {
               return (
                 <motion.li key={g.term} layout initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.3, ease }}>
                   {/* Hover lift on the inner card, not on the layout-animated li. */}
-                  <div className={cn("group relative overflow-hidden rounded-3xl bg-white transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)]", on ? "ring-2 ring-[#117F21]" : "ring-1 ring-black/10 hover:ring-2 hover:ring-[#117F21]")}>
+                  <div className={cn("group relative overflow-hidden rounded-3xl bg-white transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(16,93,29,0.55)]", on ? "ring-2 ring-[#14892A]" : "ring-1 ring-black/10 hover:ring-2 hover:ring-[#14892A]")}>
                     <Bubble />
                     <button type="button" aria-expanded={on} aria-controls={id} onClick={() => setOpen((f) => ({ ...f, [g.term]: !f[g.term] }))} className="relative flex w-full flex-col items-start rounded-3xl p-5 text-left focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D] sm:p-6">
                       <span className="pr-10 text-2xl font-bold tracking-tight">{g.term}</span>
                       {g.full && <span className="mt-1 block text-lg text-gray-700">{g.full}</span>}
-                      <span className="mt-4 inline-flex min-h-11 items-center gap-2 text-lg font-semibold text-[#0A4A13]">
-                        <span aria-hidden="true" className={cn("flex h-9 w-9 items-center justify-center rounded-full transition duration-300", on ? "rotate-180 bg-[#0A4A13] text-[#F4D27A]" : "bg-[#E8F5E9] text-[#0A4A13] group-hover:bg-[#0A4A13] group-hover:text-[#F4D27A]")}>
+                      <span className="mt-4 inline-flex min-h-11 items-center gap-2 text-lg font-semibold text-[#105D1D]">
+                        <span aria-hidden="true" className={cn("flex h-9 w-9 items-center justify-center rounded-full transition duration-300", on ? "rotate-180 bg-[#105D1D] text-[#F4D27A]" : "bg-[#E8F5E9] text-[#105D1D] group-hover:bg-[#105D1D] group-hover:text-[#F4D27A]")}>
                           <ChevronDown className="h-5 w-5" />
                         </span>
                         What it means

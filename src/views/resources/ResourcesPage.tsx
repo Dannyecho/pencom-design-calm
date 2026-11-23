@@ -80,7 +80,7 @@ export default function ResourcesPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-[#FBF8F1] text-[#14261A]">
+      <div className="bg-[#FBF8F1] text-[#24422D]">
         <Hero
           openGuide={(id) => setGuide(id)}
           openFaq={(q) => {
@@ -172,7 +172,7 @@ function Hero({
             Search guides, questions, terms and publications
           </label>
           <div className="mt-3 flex flex-col gap-3 sm:flex-row">
-            <div className="flex min-w-0 flex-1 items-center gap-3 rounded-2xl bg-white px-4 shadow-[0_18px_40px_-26px_rgba(10,74,19,0.6)] ring-1 ring-black/15 transition focus-within:ring-2 focus-within:ring-[#117F21]">
+            <div className="flex min-w-0 flex-1 items-center gap-3 rounded-2xl bg-white px-4 shadow-[0_18px_40px_-26px_rgba(16,93,29,0.6)] ring-1 ring-black/15 transition focus-within:ring-2 focus-within:ring-[#14892A]">
               <Search className="h-6 w-6 shrink-0 text-[#117F21]" aria-hidden="true" />
               <input
                 ref={inputRef}
@@ -205,7 +205,7 @@ function Hero({
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 6 }}
                 transition={{ duration: 0.25, ease }}
-                className="mt-3 rounded-3xl bg-white p-2 shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)] ring-1 ring-black/10"
+                className="mt-3 rounded-3xl bg-white p-2 shadow-[0_28px_50px_-28px_rgba(16,93,29,0.55)] ring-1 ring-black/10"
               >
                 {hits.length ? (
                   <ul ref={resultsRef} id="kb-results" role="listbox" aria-label="Results">
@@ -221,14 +221,14 @@ function Hero({
                             }}
                             className={cn("group flex min-h-16 w-full items-center gap-3 rounded-2xl px-3 py-2 text-left transition hover:bg-[#E8F5E9]", focus)}
                           >
-                            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0A4A13] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-[-6deg]">
+                            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#105D1D] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-[-6deg]">
                               <I className="h-5 w-5" aria-hidden="true" />
                             </span>
                             <span className="min-w-0 flex-1">
                               <span className="block truncate text-lg font-semibold">{h.label}</span>
                               <span className="block text-sm font-bold uppercase tracking-[0.14em] text-[#7A5200]">{h.kind}</span>
                             </span>
-                            <ArrowRight className="h-5 w-5 shrink-0 text-[#0A4A13] transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+                            <ArrowRight className="h-5 w-5 shrink-0 text-[#105D1D] transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
                           </button>
                         </li>
                       );
@@ -237,7 +237,7 @@ function Hero({
                 ) : (
                   <p className="px-4 py-4 text-lg text-gray-700">
                     Nothing found. Try another word, or{" "}
-                    <button type="button" onClick={() => document.getElementById("chat-trigger")?.click()} className={cn("rounded font-semibold text-[#0A4A13] underline underline-offset-4", focus)}>
+                    <button type="button" onClick={() => document.getElementById("chat-trigger")?.click()} className={cn("rounded font-semibold text-[#105D1D] underline underline-offset-4", focus)}>
                       ask PenCom Assistant
                     </button>
                     .
@@ -251,7 +251,7 @@ function Hero({
       aside={
         <FramedPanel className="p-5 sm:p-7">
           <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-[#E8F5E9]" />
-          <p className="relative flex items-center gap-2 px-1 text-sm font-bold uppercase tracking-[0.18em] text-[#0A4A13]">
+          <p className="relative flex items-center gap-2 px-1 text-sm font-bold uppercase tracking-[0.18em] text-[#105D1D]">
             <span aria-hidden="true" className="h-2 w-2 rounded-full bg-[#CB9615]" />
             What’s here
           </p>
@@ -261,17 +261,17 @@ function Hero({
                 <button
                   type="button"
                   onClick={() => jump(t.id)}
-                  className={cn("group flex min-h-[4.5rem] w-full items-center gap-4 rounded-2xl bg-[#FBF8F1] p-3 text-left ring-1 ring-black/10 transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_20px_40px_-26px_rgba(10,74,19,0.55)] hover:ring-2 hover:ring-[#117F21]", focus)}
+                  className={cn("group flex min-h-[4.5rem] w-full items-center gap-4 rounded-2xl bg-[#FBF8F1] p-3 text-left ring-1 ring-black/10 transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_20px_40px_-26px_rgba(16,93,29,0.55)] hover:ring-2 hover:ring-[#14892A]", focus)}
                 >
-                  <span aria-hidden="true" className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#0A4A13] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-[-6deg]">
+                  <span aria-hidden="true" className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#105D1D] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-[-6deg]">
                     <t.icon className="h-6 w-6" />
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block text-lg font-bold leading-snug">{t.label}</span>
                     <span className="block text-base text-gray-600">{t.note}</span>
                   </span>
-                  <span className="text-2xl font-bold tabular-nums text-[#0A4A13]">{t.n}</span>
-                  <ArrowRight className="hidden h-5 w-5 shrink-0 text-[#0A4A13] transition-transform duration-300 group-hover:translate-x-1 sm:block" aria-hidden="true" />
+                  <span className="text-2xl font-bold tabular-nums text-[#105D1D]">{t.n}</span>
+                  <ArrowRight className="hidden h-5 w-5 shrink-0 text-[#105D1D] transition-transform duration-300 group-hover:translate-x-1 sm:block" aria-hidden="true" />
                 </button>
               </motion.li>
             ))}

@@ -47,7 +47,7 @@ export default function AboutPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-[#FBF8F1] text-[#14261A]">
+      <div className="bg-[#FBF8F1] text-[#24422D]">
         <Hero />
         <SectionNav sections={onThisPage} pillId="about-nav-pill" />
         <Overview />
@@ -93,7 +93,7 @@ function Hero() {
             type="button"
             onClick={() => scrollToId("structure", !reduce)}
             className={cn(
-              "group inline-flex min-h-14 items-center gap-2 rounded-2xl border-2 border-[#117F21] px-6 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#117F21] hover:text-white",
+              "group inline-flex min-h-14 items-center gap-2 rounded-2xl border-2 border-[#14892A] px-6 text-lg font-semibold text-[#105D1D] transition hover:bg-[#14892A] hover:text-white",
               focus,
             )}
           >
@@ -120,13 +120,13 @@ function Hero() {
               />
             </div>
           </div>
-          <div className="relative mx-1 -mt-14 rounded-3xl bg-white p-4 shadow-[0_30px_60px_-30px_rgba(10,74,19,0.55)] ring-1 ring-black/10 sm:mx-8 sm:p-5">
-            <p className="inline-flex items-center rounded-full bg-[#E8F5E9] px-3 py-1 text-sm font-bold uppercase tracking-[0.14em] text-[#0A4A13]">Since 2004</p>
+          <div className="relative mx-1 -mt-14 rounded-3xl bg-white p-4 shadow-[0_30px_60px_-30px_rgba(16,93,29,0.55)] ring-1 ring-black/10 sm:mx-8 sm:p-5">
+            <p className="inline-flex items-center rounded-full bg-[#E8F5E9] px-3 py-1 text-sm font-bold uppercase tracking-[0.14em] text-[#105D1D]">Since 2004</p>
             <dl className="mt-3 grid grid-cols-3 divide-x divide-black/10">
               {heroStats.map((s) => (
                 <div key={s.label} className="px-2 first:pl-0 last:pr-0 sm:px-4">
                   <dt className="text-base font-semibold leading-snug text-gray-700">{s.label}</dt>
-                  <dd className="mt-1 text-2xl font-bold tracking-tight text-[#14261A] sm:text-3xl">
+                  <dd className="mt-1 text-2xl font-bold tracking-tight text-[#24422D] sm:text-3xl">
                     <CountUp value={s.value} />
                   </dd>
                   <dd className="text-sm text-gray-600 sm:text-base">{s.note}</dd>

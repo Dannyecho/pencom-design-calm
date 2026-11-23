@@ -23,15 +23,15 @@ import { awards, issue, launchSource, sections, shelf } from "./data";
 
 /** The calm card: white, thin ring; on hover it lifts 4 px, gets a green ring and a soft green shadow. */
 const calmCard =
-  "group relative overflow-hidden rounded-3xl bg-white ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)] hover:ring-2 hover:ring-[#117F21]";
+  "group relative overflow-hidden rounded-3xl bg-white ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(16,93,29,0.55)] hover:ring-2 hover:ring-[#14892A]";
 /** Large gold primary and green outline buttons. */
 const goldBtn =
   "group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-[#F4D27A] px-6 text-lg font-bold text-[#1A1206] shadow-[0_14px_30px_-18px_rgba(122,82,0,0.8)] transition hover:bg-[#FFE08F]";
 const outlineBtn =
-  "group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border-2 border-[#117F21] bg-white px-6 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#117F21] hover:text-white";
+  "group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border-2 border-[#14892A] bg-white px-6 text-lg font-semibold text-[#105D1D] transition hover:bg-[#14892A] hover:text-white";
 /** Dark-green icon tile with a gold icon that tips on hover. */
 const iconTile =
-  "relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A] transition duration-300 group-hover:-rotate-6";
+  "relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#105D1D] text-[#F4D27A] transition duration-300 group-hover:-rotate-6";
 
 /* ─────────────────────────── Cover ─────────────────────────── */
 
@@ -52,7 +52,7 @@ function CoverFrame() {
         <span className="sr-only">Read the issue (PDF, opens in a new tab)</span>
         {/* offset gold outline behind the cover */}
         <span aria-hidden="true" className="absolute inset-0 translate-x-3 translate-y-3 rounded-2xl ring-2 ring-[#CB9615]/70 transition duration-500 group-hover:translate-x-4 group-hover:translate-y-4" />
-        <span aria-hidden="true" className="relative block overflow-hidden rounded-2xl bg-white shadow-[0_34px_60px_-30px_rgba(10,74,19,0.6)] ring-1 ring-black/10" style={{ aspectRatio: `${W} / ${H}` }}>
+        <span aria-hidden="true" className="relative block overflow-hidden rounded-2xl bg-white shadow-[0_34px_60px_-30px_rgba(16,93,29,0.6)] ring-1 ring-black/10" style={{ aspectRatio: `${W} / ${H}` }}>
           <span className="pointer-events-none absolute left-0 top-0 block" style={{ width: 420, height: 594, transform: `scale(${W / 420})`, transformOrigin: "top left" }}>{previewPages[0].node}</span>
         </span>
       </a>
@@ -83,7 +83,7 @@ export default function ChroniclesPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-[#FBF8F1] text-[#14261A]">
+      <div className="bg-[#FBF8F1] text-[#24422D]">
         <Hero />
         <SectionNav sections={nav} pillId="mag-nav-pill" />
         <Inside />
@@ -105,7 +105,7 @@ function Hero() {
     transition: { duration: 0.7, delay, ease },
   });
   return (
-    <section aria-labelledby="mag-title" className="relative isolate overflow-hidden bg-[#FBF8F1] text-[#14261A]">
+    <section aria-labelledby="mag-title" className="relative isolate overflow-hidden bg-[#FBF8F1] text-[#24422D]">
       <div aria-hidden="true" className="pointer-events-none absolute -right-40 -top-40 -z-10 h-[30rem] w-[30rem] rounded-full bg-[#E8F5E9] blur-3xl" />
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 pb-14 pt-8 sm:pt-10 lg:grid-cols-12 lg:gap-12 lg:pb-20">
         <div className="lg:col-span-7">
@@ -114,10 +114,10 @@ function Hero() {
             <EyebrowPill icon={Sparkles} label={<>New · Issue 01 · {issue.date}</>} />
           </motion.div>
           <h1 id="mag-title" data-no-translate className="mt-6 font-serif text-6xl font-bold leading-[0.98] tracking-tight sm:text-7xl lg:text-[5.25rem]">
-            <motion.span {...up(0.08, 24)} className="inline-block text-[#0A4A13]">PenCom</motion.span>
+            <motion.span {...up(0.08, 24)} className="inline-block text-[#105D1D]">PenCom</motion.span>
             <br />
             <motion.span {...up(0.22, 24)} className="relative inline-block pb-2 pr-3 italic">
-              <span className="bg-gradient-to-r from-[#117F21] via-[#2E913D] to-[#9A6B00] bg-clip-text pr-1 text-transparent">Chronicles</span>
+              <span className="bg-gradient-to-r from-[#14892A] via-[#36A045] to-[#9A6B00] bg-clip-text pr-1 text-transparent">Chronicles</span>
               <svg aria-hidden="true" viewBox="0 0 300 16" preserveAspectRatio="none" className="absolute -bottom-1 left-0 h-3.5 w-full overflow-visible">
                 <motion.path d="M3 11 C 70 3, 190 2, 297 8" fill="none" stroke="#CB9615" strokeWidth="5" strokeLinecap="round" initial={{ pathLength: reduce ? 1 : 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1, delay: 0.7, ease: [0.65, 0, 0.35, 1] }} />
               </svg>
@@ -139,7 +139,7 @@ function Hero() {
             {[["Published", issue.date], ["Launched", issue.launched], ["Publisher", "Corporate Communications"]].map(([k, v]) => (
               <div key={k} className="rounded-2xl bg-white p-4 ring-1 ring-black/10">
                 <dt className="text-sm font-bold uppercase tracking-[0.14em] text-[#7A5200]">{k}</dt>
-                <dd className="mt-1 text-lg font-bold leading-snug text-[#14261A]">{v}</dd>
+                <dd className="mt-1 text-lg font-bold leading-snug text-[#24422D]">{v}</dd>
               </div>
             ))}
           </motion.dl>
@@ -244,7 +244,7 @@ function Issues() {
             <motion.li key={s.n} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: i * 0.1, ease }} className="w-48">
               {s.live ? (
                 <a href={issue.localPdf} target="_blank" rel="noopener noreferrer" className={cn("group block rounded-2xl", focus)}>
-                  <span className="relative block h-[272px] w-48 overflow-hidden rounded-2xl ring-1 ring-black/10 shadow-[0_18px_36px_-22px_rgba(10,74,19,0.55)] transition duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_28px_50px_-28px_rgba(10,74,19,0.6)] group-hover:ring-2 group-hover:ring-[#117F21]">
+                  <span className="relative block h-[272px] w-48 overflow-hidden rounded-2xl ring-1 ring-black/10 shadow-[0_18px_36px_-22px_rgba(16,93,29,0.55)] transition duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_28px_50px_-28px_rgba(16,93,29,0.6)] group-hover:ring-2 group-hover:ring-[#14892A]">
                     <span aria-hidden="true" className="pointer-events-none absolute left-0 top-0 block" style={{ width: 420, height: 594, transform: `scale(${192 / 420})`, transformOrigin: "top left" }}>{previewPages[0].node}</span>
                   </span>
                   <span className="mt-4 flex items-center gap-2 text-xl font-bold tracking-tight transition group-hover:text-[#117F21]">
@@ -255,8 +255,8 @@ function Issues() {
                 </a>
               ) : (
                 <div aria-label={`${s.label}, coming soon`}>
-                  <span className="flex h-[272px] w-48 flex-col items-center justify-center rounded-2xl border-2 border-dashed border-[#14261A]/25 bg-[#FBF8F1] text-center text-gray-700">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A]"><Lock className="h-5 w-5" aria-hidden="true" /></span>
+                  <span className="flex h-[272px] w-48 flex-col items-center justify-center rounded-2xl border-2 border-dashed border-[#24422D]/25 bg-[#FBF8F1] text-center text-gray-700">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#105D1D] text-[#F4D27A]"><Lock className="h-5 w-5" aria-hidden="true" /></span>
                     <span className="mt-3 text-base font-semibold">Next edition</span>
                   </span>
                   <span className="mt-4 block text-xl font-bold tracking-tight text-gray-700">{s.label}</span>
@@ -303,21 +303,21 @@ function Subscribe() {
     <section id="subscribe" aria-labelledby="sub-title" className={cn("bg-[#FBF8F1]", sectionCls)}>
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 lg:grid-cols-2">
         <Rise className="h-full">
-          <div className="relative h-full overflow-hidden rounded-[2rem] bg-white p-7 shadow-[0_30px_60px_-40px_rgba(10,74,19,0.5)] ring-1 ring-black/10 sm:p-10">
-            <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[#117F21] to-[#CB9615]" />
-            <span aria-hidden="true" className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A]"><Mail className="h-6 w-6" /></span>
+          <div className="relative h-full overflow-hidden rounded-[2rem] bg-white p-7 shadow-[0_30px_60px_-40px_rgba(16,93,29,0.5)] ring-1 ring-black/10 sm:p-10">
+            <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[#14892A] to-[#CB9615]" />
+            <span aria-hidden="true" className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#105D1D] text-[#F4D27A]"><Mail className="h-6 w-6" /></span>
             <h2 id="sub-title" className="mt-5 text-3xl font-bold tracking-tight">Get new issues by email</h2>
             <p className="mt-2 text-lg leading-relaxed text-gray-700">We’ll email you when a new edition of PenCom Chronicles is published. Nothing else.</p>
             <AnimatePresence mode="wait" initial={false}>
               {done ? (
-                <motion.p key="ok" role="status" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="mt-6 flex items-center gap-3 rounded-2xl bg-[#E8F5E9] p-4 text-lg font-semibold text-[#0A4A13] ring-1 ring-[#117F21]/20">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#117F21] text-white"><Check className="h-5 w-5" strokeWidth={3} aria-hidden="true" /></span>
+                <motion.p key="ok" role="status" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="mt-6 flex items-center gap-3 rounded-2xl bg-[#E8F5E9] p-4 text-lg font-semibold text-[#105D1D] ring-1 ring-[#14892A]/20">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#14892A] text-white"><Check className="h-5 w-5" strokeWidth={3} aria-hidden="true" /></span>
                   Thank you. We’ll let you know when Issue 02 is out.
                 </motion.p>
               ) : (
                 <motion.form key="form" onSubmit={submit} noValidate initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} className="mt-6 space-y-5">
                   <div>
-                    <label htmlFor="sub-email" className="block text-lg font-semibold text-[#14261A]">Email address</label>
+                    <label htmlFor="sub-email" className="block text-lg font-semibold text-[#24422D]">Email address</label>
                     <div className="mt-2 flex flex-col gap-3 sm:flex-row">
                       <input
                         ref={input}
@@ -330,7 +330,7 @@ function Subscribe() {
                         aria-describedby={errField === "email" ? "sub-err" : undefined}
                         placeholder="name@example.com"
                         className={cn(
-                          "min-h-14 flex-1 rounded-2xl border-2 bg-white px-4 text-lg text-[#14261A] placeholder:text-gray-500 focus:border-[#117F21] focus:outline-none focus:ring-[3px] focus:ring-[#FFD84D]",
+                          "min-h-14 flex-1 rounded-2xl border-2 bg-white px-4 text-lg text-[#24422D] placeholder:text-gray-500 focus:border-[#14892A] focus:outline-none focus:ring-[3px] focus:ring-[#FFD84D]",
                           errField === "email" ? "border-[#B52026]" : "border-gray-400",
                         )}
                       />
@@ -348,9 +348,9 @@ function Subscribe() {
                       onChange={(e) => setConsent(e.target.checked)}
                       aria-invalid={errField === "consent"}
                       aria-describedby={errField === "consent" ? "sub-err" : undefined}
-                      className={cn("mt-1 h-7 w-7 shrink-0 rounded accent-[#117F21]", focus)}
+                      className={cn("mt-1 h-7 w-7 shrink-0 rounded accent-[#14892A]", focus)}
                     />
-                    <span>I agree that PenCom may use my email address to tell me about new issues. I can unsubscribe at any time. <Link to="/regulations#policies" className={cn("rounded font-semibold text-[#0A4A13] underline underline-offset-4", focus)}>Privacy notice</Link></span>
+                    <span>I agree that PenCom may use my email address to tell me about new issues. I can unsubscribe at any time. <Link to="/regulations#policies" className={cn("rounded font-semibold text-[#105D1D] underline underline-offset-4", focus)}>Privacy notice</Link></span>
                   </label>
                   {err && <p id="sub-err" role="alert" className="rounded-2xl border-l-4 border-[#B52026] bg-[#FDECEC] px-4 py-3 text-lg font-semibold text-[#8A1419]">{err}</p>}
                   <p className="text-base text-gray-700">Prototype: no email is sent yet.</p>

@@ -16,21 +16,21 @@ function Related({ label, docs, onOpen }: { label: string; docs: RegDoc[]; onOpe
   if (!docs.length) return null;
   return (
     <div>
-      <h3 className="text-lg font-bold text-[#14261A]">{label}</h3>
+      <h3 className="text-lg font-bold text-[#24422D]">{label}</h3>
       <ul className="mt-2 space-y-2">
         {docs.map((d) => (
           <li key={d.id}>
             <button
               type="button"
               onClick={() => onOpen(d.id)}
-              className={cn("group flex w-full items-start gap-3 rounded-2xl bg-white p-4 text-left ring-1 ring-black/10 transition duration-300 hover:bg-[#FBF8F1] hover:ring-2 hover:ring-[#117F21]", focus)}
+              className={cn("group flex w-full items-start gap-3 rounded-2xl bg-white p-4 text-left ring-1 ring-black/10 transition duration-300 hover:bg-[#FBF8F1] hover:ring-2 hover:ring-[#14892A]", focus)}
             >
               <span aria-hidden="true" className={cn("mt-2 h-2.5 w-2.5 shrink-0 rounded-full", typeStyle[d.type].dot)} />
               <span className="flex-1">
-                <span className="block text-lg font-semibold leading-snug text-[#14261A] group-hover:text-[#0A4A13]">{d.title}</span>
+                <span className="block text-lg font-semibold leading-snug text-[#24422D] group-hover:text-[#105D1D]">{d.title}</span>
                 <span className="mt-0.5 block text-base text-gray-700">{d.type} · {fmtDate(d.date)}</span>
               </span>
-              <ArrowRight aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-[#0A4A13] transition-transform duration-300 group-hover:translate-x-1" />
+              <ArrowRight aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-[#105D1D] transition-transform duration-300 group-hover:translate-x-1" />
             </button>
           </li>
         ))}
@@ -64,14 +64,14 @@ export default function DocDrawer({ id, onClose, onOpen }: { id: string | null; 
         {d && (
           <motion.div key={d.id} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, ease }}>
             {/* Header */}
-            <div className="relative isolate overflow-hidden bg-[#E8F5E9] px-6 pb-8 pt-7 text-[#14261A] sm:px-8">
+            <div className="relative isolate overflow-hidden bg-[#E8F5E9] px-6 pb-8 pt-7 text-[#24422D] sm:px-8">
               <span aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 -z-10 h-48 w-48 rounded-full bg-white/70 blur-2xl" />
               <div className="flex flex-wrap items-center gap-2 text-sm">
                 <span className={cn("rounded-full px-2.5 py-0.5 font-bold uppercase tracking-wider", typeStyle[d.type].chip)}>{d.type}</span>
                 <span className={cn("rounded-full px-2.5 py-0.5 font-semibold ring-1", statusStyle[d.status])}>{d.status}</span>
               </div>
-              <h2 id="doc-drawer-title" className="mt-4 text-2xl font-bold leading-snug tracking-tight text-[#14261A]">{d.title}</h2>
-              <span aria-hidden="true" className="mt-4 block h-1.5 w-16 rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" />
+              <h2 id="doc-drawer-title" className="mt-4 text-2xl font-bold leading-snug tracking-tight text-[#24422D]">{d.title}</h2>
+              <span aria-hidden="true" className="mt-4 block h-1.5 w-16 rounded-full bg-gradient-to-r from-[#14892A] to-[#CB9615]" />
               <p className="mt-3 text-lg text-gray-700">
                 Issued {fmtDate(d.date)} by the National Pension Commission
               </p>
@@ -97,7 +97,7 @@ export default function DocDrawer({ id, onClose, onOpen }: { id: string | null; 
                     setCopied(true);
                     window.setTimeout(() => setCopied(false), 2000);
                   }}
-                  className={cn("inline-flex min-h-14 items-center gap-2 rounded-2xl bg-white px-5 text-lg font-semibold text-[#14261A] ring-1 ring-black/10 transition hover:bg-[#0A4A13] hover:text-white", focus)}
+                  className={cn("inline-flex min-h-14 items-center gap-2 rounded-2xl bg-white px-5 text-lg font-semibold text-[#24422D] ring-1 ring-black/10 transition hover:bg-[#105D1D] hover:text-white", focus)}
                 >
                   {copied ? <Check className="h-5 w-5" aria-hidden="true" /> : <Link2 className="h-5 w-5" aria-hidden="true" />}
                   {copied ? "Link copied" : "Copy link"}
@@ -135,7 +135,7 @@ export default function DocDrawer({ id, onClose, onOpen }: { id: string | null; 
                       <m.icon className="h-4 w-4 shrink-0" aria-hidden="true" />
                       {m.k}
                     </dt>
-                    <dd className={cn("mt-1 font-semibold text-[#14261A]", !m.v && "text-base font-normal italic text-gray-700")}>
+                    <dd className={cn("mt-1 font-semibold text-[#24422D]", !m.v && "text-base font-normal italic text-gray-700")}>
                       {m.v ?? "To be added from the CMS"}
                     </dd>
                   </div>
@@ -143,7 +143,7 @@ export default function DocDrawer({ id, onClose, onOpen }: { id: string | null; 
               </dl>
 
               <div>
-                <h3 className="text-lg font-bold text-[#14261A]">Summary</h3>
+                <h3 className="text-lg font-bold text-[#24422D]">Summary</h3>
                 {d.summary ? (
                   <p className="mt-2 text-lg leading-relaxed text-gray-800">{d.summary}</p>
                 ) : (

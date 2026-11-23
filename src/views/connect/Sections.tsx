@@ -61,7 +61,7 @@ export function Tracker({ prefill }: { prefill: string | null }) {
                   onChange={(e) => setRef(e.target.value)}
                   placeholder="e.g. PC-2611-AB12C"
                   autoComplete="off"
-                  className={cn("min-h-14 w-full min-w-0 flex-1 rounded-2xl bg-white px-5 font-mono text-lg uppercase text-[#14261A] ring-1 ring-black/10 placeholder:font-sans placeholder:normal-case placeholder:text-gray-600", focus)}
+                  className={cn("min-h-14 w-full min-w-0 flex-1 rounded-2xl bg-white px-5 font-mono text-lg uppercase text-[#24422D] ring-1 ring-black/10 placeholder:font-sans placeholder:normal-case placeholder:text-gray-600", focus)}
                 />
                 <button type="submit" className={cn(goldBtn, "shrink-0", focus)}>
                   <Search className="h-5 w-5" aria-hidden="true" /> Track
@@ -83,16 +83,16 @@ export function Tracker({ prefill }: { prefill: string | null }) {
                 </motion.div>
               )}
               {result === "none" && (
-                <motion.div key="none" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="rounded-3xl border-l-8 border-[#B52026] bg-white p-7 text-[#14261A] sm:p-8">
+                <motion.div key="none" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="rounded-3xl border-l-8 border-[#B52026] bg-white p-7 text-[#24422D] sm:p-8">
                   <p className="text-xl font-bold text-[#B52026]">We couldn’t find that reference.</p>
                   <p className="mt-2 text-lg text-gray-700">Check it matches the one in your confirmation, including the dashes. Still stuck? Call {headOffice.phone}.</p>
                 </motion.div>
               )}
               {result && result !== "none" && (
-                <motion.div key={result.ref} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.35, ease }} className="rounded-3xl bg-white p-7 text-[#14261A] shadow-[0_28px_50px_-28px_rgba(0,0,0,0.6)] sm:p-9">
+                <motion.div key={result.ref} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.35, ease }} className="rounded-3xl bg-white p-7 text-[#24422D] shadow-[0_28px_50px_-28px_rgba(0,0,0,0.6)] sm:p-9">
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
-                      <p className="font-mono text-xl font-bold text-[#0A4A13] sm:text-2xl">{result.ref}</p>
+                      <p className="font-mono text-xl font-bold text-[#105D1D] sm:text-2xl">{result.ref}</p>
                       <p className="mt-1 text-lg text-gray-700">{result.topic} · opened {fmt(result.date)}</p>
                     </div>
                     {result.sample && <span className="rounded-full bg-[#F4D27A] px-3 py-1 text-sm font-bold uppercase tracking-wider text-[#1A1206]">Sample</span>}
@@ -104,10 +104,10 @@ export function Tracker({ prefill }: { prefill: string | null }) {
                         <li key={s} className="relative flex gap-4 pb-7 last:pb-0">
                           {i < STAGES.length - 1 && (
                             <span aria-hidden="true" className="absolute left-[23px] top-12 h-[calc(100%-3rem)] w-1 rounded-full bg-gray-200">
-                              <motion.span className="block w-full origin-top rounded-full bg-gradient-to-b from-[#117F21] to-[#CB9615]" initial={{ height: 0 }} animate={{ height: i < result.stage ? "100%" : "0%" }} transition={{ duration: reduce ? 0 : 0.5, delay: 0.2 + i * 0.25 }} />
+                              <motion.span className="block w-full origin-top rounded-full bg-gradient-to-b from-[#14892A] to-[#CB9615]" initial={{ height: 0 }} animate={{ height: i < result.stage ? "100%" : "0%" }} transition={{ duration: reduce ? 0 : 0.5, delay: 0.2 + i * 0.25 }} />
                             </span>
                           )}
-                          <motion.span initial={{ scale: reduce ? 1 : 0.6, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.1 + i * 0.2 }} className={cn("relative flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-lg font-bold", state === "done" ? "bg-[#117F21] text-white" : state === "now" ? "bg-[#F4D27A] text-[#1A1206]" : "bg-white text-gray-700 ring-2 ring-gray-300")}>
+                          <motion.span initial={{ scale: reduce ? 1 : 0.6, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.1 + i * 0.2 }} className={cn("relative flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-lg font-bold", state === "done" ? "bg-[#14892A] text-white" : state === "now" ? "bg-[#F4D27A] text-[#1A1206]" : "bg-white text-gray-700 ring-2 ring-gray-300")}>
                             {state === "done" ? <Check className="h-6 w-6" strokeWidth={3} aria-hidden="true" /> : state === "now" ? <Clock className="h-6 w-6" aria-hidden="true" /> : i + 1}
                             {state === "now" && !reduce && <span aria-hidden="true" className="absolute inset-0 animate-ping rounded-2xl border-2 border-[#CB9615]/60 [animation-iteration-count:2]" />}
                           </motion.span>
@@ -165,8 +165,8 @@ export function Offices() {
           intro="Choose your state and we’ll show you the office that serves it, or pick a pin on the map."
           action={
             <label className="block w-full max-w-xs">
-              <span className="text-lg font-semibold text-[#14261A]">I live in</span>
-              <select value={state} onChange={(e) => setState(e.target.value)} className={cn("mt-2 min-h-14 w-full cursor-pointer rounded-2xl bg-white px-5 text-lg font-semibold text-[#14261A] ring-1 ring-black/15 transition hover:ring-2 hover:ring-[#117F21]", focus)}>
+              <span className="text-lg font-semibold text-[#24422D]">I live in</span>
+              <select value={state} onChange={(e) => setState(e.target.value)} className={cn("mt-2 min-h-14 w-full cursor-pointer rounded-2xl bg-white px-5 text-lg font-semibold text-[#24422D] ring-1 ring-black/15 transition hover:ring-2 hover:ring-[#14892A]", focus)}>
                 <option value="">Choose your state</option>
                 {allStates.map((s) => <option key={s}>{s}</option>)}
               </select>
@@ -178,14 +178,14 @@ export function Offices() {
           {/* Map */}
           <Rise className="lg:col-span-7">
             <div className="relative h-full overflow-hidden rounded-3xl bg-[#F1EFE8] p-5 sm:p-6">
-              <div aria-hidden="true" className="absolute left-[12%] top-[10%] h-[80%] w-[76%] rounded-[45%_55%_48%_52%/52%_45%_55%_48%] bg-[#FBF8F1] ring-1 ring-[#117F21]/15" />
+              <div aria-hidden="true" className="absolute left-[12%] top-[10%] h-[80%] w-[76%] rounded-[45%_55%_48%_52%/52%_45%_55%_48%] bg-[#FBF8F1] ring-1 ring-[#14892A]/15" />
               <div className="relative mx-auto aspect-[0.95] w-full max-w-2xl sm:aspect-[1.25]">
                 {/* Route from the head office to the chosen zonal office (shares px/py with the pins) */}
                 <svg aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full overflow-visible" viewBox="0 0 100 100" preserveAspectRatio="none">
                   <defs>
                     <linearGradient id="office-route" x1="0" y1="0" x2="1" y2="1">
                       <stop offset="0%" stopColor="#CB9615" />
-                      <stop offset="100%" stopColor="#117F21" />
+                      <stop offset="100%" stopColor="#14892A" />
                     </linearGradient>
                   </defs>
                   {office && (
@@ -210,10 +210,10 @@ export function Offices() {
                       <li key={p.id} className="absolute -translate-x-1/2 -translate-y-1/2" style={{ left: `${px(p.x)}%`, top: `${py(p.y)}%` }}>
                         <button type="button" onClick={() => setSel(p.id)} aria-pressed={on} className="group relative flex flex-col items-center focus-visible:outline-none">
                           {on && !reduce && <span aria-hidden="true" className="absolute top-0 h-9 w-9 animate-ping rounded-full bg-[#CB9615]/35 [animation-iteration-count:2] sm:h-12 sm:w-12" />}
-                          <motion.span animate={{ scale: on ? 1.12 : 1 }} className={cn("relative flex h-9 w-9 items-center justify-center rounded-full shadow-[0_12px_24px_-12px_rgba(10,74,19,0.6)] ring-[3px] transition group-hover:-translate-y-0.5 group-focus-visible:outline group-focus-visible:outline-[3px] group-focus-visible:outline-[#FFD84D] sm:h-12 sm:w-12", on ? "bg-[#0A4A13] text-[#F4D27A] ring-[#F4D27A]" : p.hq ? "bg-[#F4D27A] text-[#1A1206] ring-white" : "bg-white text-[#117F21] ring-[#117F21]/30 group-hover:bg-[#E8F5E9]")}>
+                          <motion.span animate={{ scale: on ? 1.12 : 1 }} className={cn("relative flex h-9 w-9 items-center justify-center rounded-full shadow-[0_12px_24px_-12px_rgba(16,93,29,0.6)] ring-[3px] transition group-hover:-translate-y-0.5 group-focus-visible:outline group-focus-visible:outline-[3px] group-focus-visible:outline-[#FFD84D] sm:h-12 sm:w-12", on ? "bg-[#105D1D] text-[#F4D27A] ring-[#F4D27A]" : p.hq ? "bg-[#F4D27A] text-[#1A1206] ring-white" : "bg-white text-[#117F21] ring-[#14892A]/30 group-hover:bg-[#E8F5E9]")}>
                             {p.hq ? <Landmark className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" /> : <MapPin className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />}
                           </motion.span>
-                          <span className={cn("mt-1 whitespace-nowrap rounded-full px-2 py-0.5 text-xs font-bold shadow-sm ring-1 sm:mt-1.5 sm:px-3 sm:text-sm", on ? "bg-[#0A4A13] text-[#F4D27A] ring-[#0A4A13]" : "bg-white text-[#14261A] ring-black/10")}>
+                          <span className={cn("mt-1 whitespace-nowrap rounded-full px-2 py-0.5 text-xs font-bold shadow-sm ring-1 sm:mt-1.5 sm:px-3 sm:text-sm", on ? "bg-[#105D1D] text-[#F4D27A] ring-[#105D1D]" : "bg-white text-[#24422D] ring-black/10")}>
                             {p.city}{p.hq && " (HQ)"}
                           </span>
                         </button>
@@ -236,9 +236,9 @@ export function Offices() {
           {/* Office card */}
           <div className="lg:col-span-5" aria-live="polite">
             <AnimatePresence mode="wait">
-              <motion.article key={sel} initial={{ opacity: 0, y: reduce ? 0 : 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: reduce ? 0 : -16 }} transition={{ duration: 0.3, ease }} className="relative h-full overflow-hidden rounded-3xl bg-white p-7 ring-1 ring-black/10 shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)] sm:p-9">
-                <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[#117F21] to-[#CB9615]" />
-                <p className="inline-flex max-w-full items-center gap-2 rounded-full bg-[#E8F5E9] px-3 py-1.5 text-sm font-bold uppercase tracking-[0.08em] text-[#0A4A13] sm:tracking-[0.16em]">
+              <motion.article key={sel} initial={{ opacity: 0, y: reduce ? 0 : 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: reduce ? 0 : -16 }} transition={{ duration: 0.3, ease }} className="relative h-full overflow-hidden rounded-3xl bg-white p-7 ring-1 ring-black/10 shadow-[0_28px_50px_-28px_rgba(16,93,29,0.55)] sm:p-9">
+                <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[#14892A] to-[#CB9615]" />
+                <p className="inline-flex max-w-full items-center gap-2 rounded-full bg-[#E8F5E9] px-3 py-1.5 text-sm font-bold uppercase tracking-[0.08em] text-[#105D1D] sm:tracking-[0.16em]">
                   {office ? <MapPin className="h-4 w-4" aria-hidden="true" /> : <Landmark className="h-4 w-4" aria-hidden="true" />}
                   {card.title}
                 </p>
@@ -252,7 +252,7 @@ export function Offices() {
                     <li className="flex gap-4">
                       <IconTile icon={Phone} className="h-11 w-11 [&>svg]:h-5 [&>svg]:w-5" />
                       <span className="pt-1.5">
-                        <a href={`tel:${card.phone.replace(/\s/g, "")}`} className={cn("rounded font-semibold text-[#0A4A13] underline underline-offset-4 hover:text-[#117F21]", focus)}>{card.phone}</a>
+                        <a href={`tel:${card.phone.replace(/\s/g, "")}`} className={cn("rounded font-semibold text-[#105D1D] underline underline-offset-4 hover:text-[#117F21]", focus)}>{card.phone}</a>
                         {card.confirm && <span className="ml-2 inline-block rounded-full bg-[#F4D27A] px-2.5 py-0.5 text-sm font-bold text-[#1A1206]">To be confirmed</span>}
                       </span>
                     </li>
@@ -261,7 +261,7 @@ export function Offices() {
                 <p className="mt-7 text-sm font-semibold uppercase tracking-[0.16em] text-[#7A5200]">Serves</p>
                 <ul className="mt-2 flex flex-wrap gap-2">
                   {card.states.map((s) => (
-                    <li key={s} className={cn("rounded-full px-3 py-1 text-base font-semibold", s === state ? "bg-[#0A4A13] text-[#F4D27A]" : "bg-[#F1EFE8] text-[#14261A]")}>{s}</li>
+                    <li key={s} className={cn("rounded-full px-3 py-1 text-base font-semibold", s === state ? "bg-[#105D1D] text-[#F4D27A]" : "bg-[#F1EFE8] text-[#24422D]")}>{s}</li>
                   ))}
                 </ul>
                 <a href={mapsUrl(card.address)} target="_blank" rel="noopener noreferrer" className={cn(goldBtn, "mt-8", focus)}>
@@ -311,12 +311,12 @@ export function Newsroom() {
           {media.map((m) => (
             <li key={m.k}>
               {"to" in m && m.to ? (
-                <Link to={m.to} className={cn("group inline-flex min-h-12 items-center gap-2 rounded-full bg-[#0A4A13] px-5 text-lg font-semibold text-white transition hover:bg-[#117F21]", focus)}>
+                <Link to={m.to} className={cn("group inline-flex min-h-12 items-center gap-2 rounded-full bg-[#105D1D] px-5 text-lg font-semibold text-white transition hover:bg-[#14892A]", focus)}>
                   <m.icon className="h-5 w-5 text-[#F4D27A]" aria-hidden="true" /> {m.k}
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
                 </Link>
               ) : (
-                <span className="inline-flex min-h-12 items-center gap-2 rounded-full bg-white px-5 text-lg font-semibold text-[#14261A] ring-1 ring-black/10">
+                <span className="inline-flex min-h-12 items-center gap-2 rounded-full bg-white px-5 text-lg font-semibold text-[#24422D] ring-1 ring-black/10">
                   <m.icon className="h-5 w-5 text-[#117F21]" aria-hidden="true" /> {m.k}
                 </span>
               )}
@@ -333,10 +333,10 @@ export function Newsroom() {
                 </span>
                 <span className="flex flex-1 flex-col p-6 sm:p-8">
                   <span className="flex flex-wrap items-center gap-3 text-base">
-                    <span className="rounded-full bg-[#E8F5E9] px-3 py-1 text-sm font-bold uppercase tracking-wider text-[#0A4A13]">{lead.category}</span>
+                    <span className="rounded-full bg-[#E8F5E9] px-3 py-1 text-sm font-bold uppercase tracking-wider text-[#105D1D]">{lead.category}</span>
                     <span className="text-gray-700">{fmt(lead.date)}</span>
                   </span>
-                  <span className="mt-4 block text-2xl font-bold leading-tight tracking-tight text-[#14261A] sm:text-3xl">{lead.title}</span>
+                  <span className="mt-4 block text-2xl font-bold leading-tight tracking-tight text-[#24422D] sm:text-3xl">{lead.title}</span>
                   <span className="mt-3 line-clamp-2 block max-w-xl text-lg text-gray-700">{lead.excerpt}</span>
                   <span className="mt-5 inline-flex items-center gap-2 text-lg font-semibold text-[#117F21]">
                     Read the story <ArrowRight className={moveArrow} aria-hidden="true" />
@@ -355,7 +355,7 @@ export function Newsroom() {
                     </span>
                     <span className="flex min-w-0 flex-1 flex-col justify-center py-2 pr-2">
                       <span className="text-sm font-bold uppercase tracking-wider text-[#117F21]">{n.category} · <span className="font-normal normal-case text-gray-700">{fmt(n.date)}</span></span>
-                      <span className="mt-1 block text-lg font-bold leading-snug text-[#14261A] transition group-hover:text-[#117F21]">{n.title}</span>
+                      <span className="mt-1 block text-lg font-bold leading-snug text-[#24422D] transition group-hover:text-[#117F21]">{n.title}</span>
                     </span>
                   </Link>
                 </article>
@@ -368,12 +368,12 @@ export function Newsroom() {
                   <IconTile icon={Megaphone} className="h-12 w-12 [&>svg]:h-6 [&>svg]:w-6" />
                   <div className="min-w-0">
                     <p className="text-xl font-bold">Media enquiries</p>
-                    <p className="mt-1 text-lg text-gray-700">Journalists can contact Corporate Communications at <a href={`mailto:${headOffice.email}`} className={cn("break-all rounded font-semibold text-[#0A4A13] underline underline-offset-2 hover:text-[#117F21]", focus)}>{headOffice.email}</a>.</p>
+                    <p className="mt-1 text-lg text-gray-700">Journalists can contact Corporate Communications at <a href={`mailto:${headOffice.email}`} className={cn("break-all rounded font-semibold text-[#105D1D] underline underline-offset-2 hover:text-[#117F21]", focus)}>{headOffice.email}</a>.</p>
                   </div>
                 </div>
                 <ul className="relative mt-4 flex flex-wrap gap-2">
                   {social.map((s) => (
-                    <li key={s.name}><a href={s.href} target="_blank" rel="noopener noreferrer" className={cn("inline-flex min-h-11 items-center rounded-full bg-white px-4 text-base font-semibold text-[#14261A] ring-1 ring-black/15 transition hover:bg-[#0A4A13] hover:text-white hover:ring-[#0A4A13]", focus)}>{s.name}<span className="sr-only"> (opens in a new tab)</span></a></li>
+                    <li key={s.name}><a href={s.href} target="_blank" rel="noopener noreferrer" className={cn("inline-flex min-h-11 items-center rounded-full bg-white px-4 text-base font-semibold text-[#24422D] ring-1 ring-black/15 transition hover:bg-[#105D1D] hover:text-white hover:ring-[#105D1D]", focus)}>{s.name}<span className="sr-only"> (opens in a new tab)</span></a></li>
                   ))}
                 </ul>
               </div>

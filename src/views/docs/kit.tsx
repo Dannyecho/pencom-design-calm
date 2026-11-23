@@ -13,8 +13,8 @@ import { Crumbs } from "@/views/theme/ui";
 export const ring = "focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]";
 /** Retired in calm (no pointer spotlight); kept as an empty class string so call sites compile. */
 export const glowLight = "";
-/** Dark-green card (calm): solid #0A4A13, no spotlight. */
-export const darkCard = "bg-[#0A4A13]";
+/** Dark-green card (calm): solid #105D1D, no spotlight. */
+export const darkCard = "bg-[#105D1D]";
 
 /** `url` null: the document has no web version; report "error" without a request (no 404 in the console). */
 export function useDocJson<T>(url: string | null) {
@@ -60,7 +60,7 @@ export function Mark({ text, q }: { text: string; q: string }) {
 export function ReadingBar() {
   const { scrollYProgress } = useScroll();
   const x = useSpring(scrollYProgress, { stiffness: 140, damping: 30, restDelta: 0.001 });
-  return <motion.div aria-hidden="true" style={{ scaleX: x }} className="pointer-events-none fixed inset-x-0 top-0 z-[60] h-[3px] origin-left bg-gradient-to-r from-[#117F21] via-[#2E913D] to-[#CB9615] print:hidden" />;
+  return <motion.div aria-hidden="true" style={{ scaleX: x }} className="pointer-events-none fixed inset-x-0 top-0 z-[60] h-[3px] origin-left bg-gradient-to-r from-[#14892A] via-[#36A045] to-[#CB9615] print:hidden" />;
 }
 
 export function DocHero({
@@ -77,15 +77,15 @@ export function DocHero({
 }) {
   const reduce = useReducedMotion();
   return (
-    <header className="relative isolate overflow-hidden bg-[#FBF8F1] text-[#14261A] print:bg-white print:text-black">
+    <header className="relative isolate overflow-hidden bg-[#FBF8F1] text-[#24422D] print:bg-white print:text-black">
       <div aria-hidden="true" className="pointer-events-none absolute -right-40 -top-40 -z-10 h-[30rem] w-[30rem] rounded-full bg-[#E8F5E9] blur-3xl print:hidden" />
       <div className="relative mx-auto max-w-7xl px-4 pb-14 pt-8 sm:pt-10 lg:pb-16">
         <Crumbs crumbs={crumbs} className="print:hidden" />
         <div className="mt-7 grid grid-cols-1 items-end gap-10 lg:grid-cols-12">
           <div className="lg:col-span-8">
             <motion.p initial={{ opacity: 0, y: reduce ? 0 : 12 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-2.5 rounded-full bg-[#E8F5E9]/80 py-1 pl-1 pr-4 text-[13px] font-bold uppercase tracking-[0.18em] text-[#0A4A13] ring-1 ring-[#117F21]/15 sm:text-sm">
-                <span aria-hidden="true" className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[#2E913D] to-[#0A4A13] text-[#F4D27A] [&_svg]:h-3.5 [&_svg]:w-3.5">{icon ?? <FileText />}</span>
+              <span className="inline-flex items-center gap-2.5 rounded-full bg-[#E8F5E9]/80 py-1 pl-1 pr-4 text-[13px] font-bold uppercase tracking-[0.18em] text-[#105D1D] ring-1 ring-[#14892A]/15 sm:text-sm">
+                <span aria-hidden="true" className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[#36A045] to-[#105D1D] text-[#F4D27A] [&_svg]:h-3.5 [&_svg]:w-3.5">{icon ?? <FileText />}</span>
                 {kind}
               </span>
               {badge}
@@ -98,13 +98,13 @@ export function DocHero({
               initial={{ scaleX: reduce ? 1 : 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 0.7, delay: 0.25, ease }}
-              className="mt-5 block h-1.5 w-20 origin-left rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615] print:hidden"
+              className="mt-5 block h-1.5 w-20 origin-left rounded-full bg-gradient-to-r from-[#14892A] to-[#CB9615] print:hidden"
             />
             {lead && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }} className="mt-5 max-w-2xl text-lg leading-relaxed text-gray-700">{lead}</motion.div>}
             {actions && <motion.div initial={{ opacity: 0, y: reduce ? 0 : 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="mt-8 flex flex-wrap gap-3 print:hidden">{actions}</motion.div>}
           </div>
           <motion.div initial={{ opacity: 0, y: reduce ? 0 : 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7, ease }} className="relative lg:col-span-4">
-            <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-[2rem] bg-black/10 shadow-[0_30px_60px_-36px_rgba(10,74,19,0.45)] ring-1 ring-black/10 print:shadow-none">
+            <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-[2rem] bg-black/10 shadow-[0_30px_60px_-36px_rgba(16,93,29,0.45)] ring-1 ring-black/10 print:shadow-none">
               {meta.map((m) => (
                 <div key={m.label} className="bg-white p-5">
                   <dt className="text-sm font-bold uppercase tracking-[0.14em] text-[#7A5200]">{m.label}</dt>
@@ -124,7 +124,7 @@ export function PrimaryBtn({ href, children, external }: { href: string; childre
   return external ? <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>{children}<span className="sr-only"> (opens in a new tab)</span></a> : <Link to={href} className={cls}>{children}</Link>;
 }
 export function GhostBtn({ onClick, children, href }: { onClick?: () => void; children: ReactNode; href?: string }) {
-  const cls = cn("inline-flex min-h-14 items-center gap-2 rounded-2xl border-2 border-[#117F21] bg-white px-6 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#117F21] hover:text-white", ring);
+  const cls = cn("inline-flex min-h-14 items-center gap-2 rounded-2xl border-2 border-[#14892A] bg-white px-6 text-lg font-semibold text-[#105D1D] transition hover:bg-[#14892A] hover:text-white", ring);
   if (href) return <a href={href} onClick={onClick} className={cls}>{children}</a>;
   return <button type="button" onClick={onClick} className={cls}>{children}</button>;
 }
@@ -132,7 +132,7 @@ export function GhostBtn({ onClick, children, href }: { onClick?: () => void; ch
 /** Plain arrow tile; the arrow moves 4 px on hover (put inside a `group`). No rotation in the calm theme. */
 export function ArrowChip({ dark }: { dark?: boolean }) {
   return (
-    <span aria-hidden="true" className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-xl", dark ? "bg-[#F4D27A] text-[#1A1206]" : "bg-[#E8F5E9] text-[#0A4A13]")}>
+    <span aria-hidden="true" className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-xl", dark ? "bg-[#F4D27A] text-[#1A1206]" : "bg-[#E8F5E9] text-[#105D1D]")}>
       <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
     </span>
   );
@@ -141,12 +141,12 @@ export function ArrowChip({ dark }: { dark?: boolean }) {
 /** Text size, print and copy-link tools. */
 export function DocTools({ size, setSize }: { size: number; setSize: (n: number) => void }) {
   const [copied, setCopied] = useState(false);
-  const btn = cn("flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[#14261A] ring-1 ring-black/10 transition hover:bg-[#0A4A13] hover:text-[#F4D27A] disabled:pointer-events-none disabled:opacity-30", ring);
+  const btn = cn("flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[#24422D] ring-1 ring-black/10 transition hover:bg-[#105D1D] hover:text-[#F4D27A] disabled:pointer-events-none disabled:opacity-30", ring);
   return (
     <div className="flex flex-wrap items-center gap-2 print:hidden">
       <div role="group" aria-label="Text size" className="flex items-center gap-1">
         <button type="button" className={btn} onClick={() => setSize(Math.max(0, size - 1))} disabled={size === 0} aria-label="Smaller text"><Minus className="h-4 w-4" aria-hidden="true" /></button>
-        <span className="w-8 text-center text-base font-bold text-[#14261A]/75" aria-live="polite">A<span className="sr-only"> size {size + 1} of 3</span></span>
+        <span className="w-8 text-center text-base font-bold text-[#24422D]/75" aria-live="polite">A<span className="sr-only"> size {size + 1} of 3</span></span>
         <button type="button" className={btn} onClick={() => setSize(Math.min(2, size + 1))} disabled={size === 2} aria-label="Larger text"><Plus className="h-4 w-4" aria-hidden="true" /></button>
       </div>
       <button type="button" className={btn} onClick={() => window.print()} aria-label="Print"><Printer className="h-4 w-4" aria-hidden="true" /></button>
@@ -187,14 +187,14 @@ export function Toc({ items, title = "Contents", className }: { items: { id: str
   return (
     <nav aria-label={title} className={cn("rounded-3xl bg-white p-4 ring-1 ring-black/10", className)}>
       <p className="px-2 text-sm font-bold uppercase tracking-[0.18em] text-[#7A5200]">{title}</p>
-      <ol ref={listRef} className="mt-3 max-h-[60vh] space-y-0.5 overflow-y-auto border-l-2 border-[#14261A]/10 pr-1 [scrollbar-width:thin]">
+      <ol ref={listRef} className="mt-3 max-h-[60vh] space-y-0.5 overflow-y-auto border-l-2 border-[#24422D]/10 pr-1 [scrollbar-width:thin]">
         {items.map((i) => (
           <li key={i.id} data-id={i.id}>
             <a
               href={`#${i.id}`}
               onClick={(e) => { e.preventDefault(); document.getElementById(i.id)?.scrollIntoView({ behavior: "smooth", block: "start" }); }}
               aria-current={active === i.id ? "location" : undefined}
-              className={cn("-ml-0.5 block rounded-r-xl border-l-2 py-2 pr-2 text-base leading-snug transition", (i.level ?? 1) > 1 ? "pl-7 text-[15px]" : "pl-4", active === i.id ? "border-[#CB9615] bg-[#E8F5E9] font-semibold text-[#0A4A13]" : "border-transparent text-[#14261A]/75 hover:bg-[#E8F5E9]/60 hover:text-[#14261A]")}
+              className={cn("-ml-0.5 block rounded-r-xl border-l-2 py-2 pr-2 text-base leading-snug transition", (i.level ?? 1) > 1 ? "pl-7 text-[15px]" : "pl-4", active === i.id ? "border-[#CB9615] bg-[#E8F5E9] font-semibold text-[#105D1D]" : "border-transparent text-[#24422D]/75 hover:bg-[#E8F5E9]/60 hover:text-[#24422D]")}
             >
               {i.label}
             </a>
@@ -207,7 +207,7 @@ export function Toc({ items, title = "Contents", className }: { items: { id: str
 
 export function PdfCard({ href, title, meta }: { href: string; title: string; meta: string }) {
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className={cn("group relative flex items-center gap-5 overflow-hidden rounded-3xl p-6 text-white shadow-[0_28px_50px_-30px_rgba(10,74,19,0.7)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-24px_rgba(10,74,19,0.8)]", darkCard, ring)}>
+    <a href={href} target="_blank" rel="noopener noreferrer" className={cn("group relative flex items-center gap-5 overflow-hidden rounded-3xl p-6 text-white shadow-[0_28px_50px_-30px_rgba(16,93,29,0.7)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-24px_rgba(16,93,29,0.8)]", darkCard, ring)}>
       <span aria-hidden="true" className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#CB9615]/20 blur-3xl" />
       <span className="relative flex h-16 w-14 shrink-0 flex-col items-center justify-center rounded-xl bg-white text-[#B52026] shadow-lg transition group-hover:-rotate-6">
         <FileText className="h-6 w-6" aria-hidden="true" /><span className="text-[11px] font-bold">PDF</span>
@@ -227,7 +227,7 @@ export function VerifyNote({ children }: { children?: ReactNode }) {
   return (
     <p className="relative flex gap-4 overflow-hidden rounded-3xl bg-white p-5 text-lg leading-relaxed text-gray-700 ring-1 ring-black/10">
       <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-[#F4D27A] to-[#CB9615]" />
-      <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0A4A13] text-[#F4D27A]"><Info className="h-5 w-5" /></span>
+      <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#105D1D] text-[#F4D27A]"><Info className="h-5 w-5" /></span>
       <span>{children ?? "This web version was prepared from the official PDF so it is easier to read, search and link to. If the two ever differ, the signed PDF is the authoritative text."}</span>
     </p>
   );
@@ -235,8 +235,8 @@ export function VerifyNote({ children }: { children?: ReactNode }) {
 
 export function Loading({ label = "Loading the document" }: { label?: string }) {
   return (
-    <div className="flex min-h-[40vh] flex-col items-center justify-center gap-3 text-lg text-[#14261A]/80" role="status">
-      <span className="h-10 w-10 animate-spin rounded-full border-4 border-[#117F21]/20 border-t-[#CB9615]" aria-hidden="true" />
+    <div className="flex min-h-[40vh] flex-col items-center justify-center gap-3 text-lg text-[#24422D]/80" role="status">
+      <span className="h-10 w-10 animate-spin rounded-full border-4 border-[#14892A]/20 border-t-[#CB9615]" aria-hidden="true" />
       {label}…
     </div>
   );

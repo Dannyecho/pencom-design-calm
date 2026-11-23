@@ -31,7 +31,7 @@ export default function HomeCalm() {
     <MotionConfig reducedMotion="user">
       <CookieConsent />
       <PromoPopup />
-      <div className="bg-[#FBF8F1] text-[#14261A]">
+      <div className="bg-[#FBF8F1] text-[#24422D]">
         <WelcomeBar />
         <Showcase />
         <TopTasks />

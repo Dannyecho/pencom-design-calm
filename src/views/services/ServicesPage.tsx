@@ -81,12 +81,12 @@ const portalIcons: Record<string, LucideIcon> = {
 
 /** The calm card: white, thin ring; on hover it lifts 4 px, gets a green ring and a soft green shadow. */
 const calmCard =
-  "group relative overflow-hidden rounded-3xl bg-white ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)] hover:ring-2 hover:ring-[#117F21]";
+  "group relative overflow-hidden rounded-3xl bg-white ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(16,93,29,0.55)] hover:ring-2 hover:ring-[#14892A]";
 /** Large gold primary and green outline buttons. */
 const goldBtn =
   "group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-[#F4D27A] px-6 text-lg font-semibold text-[#1A1206] shadow-[0_14px_30px_-18px_rgba(122,82,0,0.8)] transition hover:bg-[#FFE08F]";
 const outlineBtn =
-  "inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border-2 border-[#117F21] bg-white px-6 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#117F21] hover:text-white";
+  "inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border-2 border-[#14892A] bg-white px-6 text-lg font-semibold text-[#105D1D] transition hover:bg-[#14892A] hover:text-white";
 
 /** Dark-green icon tile with a gold icon that tips on card hover. */
 function IconTile({ icon: Icon, small = false }: { icon: LucideIcon; small?: boolean }) {
@@ -94,7 +94,7 @@ function IconTile({ icon: Icon, small = false }: { icon: LucideIcon; small?: boo
     <span
       aria-hidden="true"
       className={cn(
-        "relative flex shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-[-6deg]",
+        "relative flex shrink-0 items-center justify-center rounded-2xl bg-[#105D1D] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-[-6deg]",
         small ? "h-12 w-12" : "h-16 w-16",
       )}
     >
@@ -106,7 +106,7 @@ function IconTile({ icon: Icon, small = false }: { icon: LucideIcon; small?: boo
 /** Small uppercase label above each part of a journey. */
 function Label({ children, icon: Icon }: { children: ReactNode; icon?: LucideIcon }) {
   return (
-    <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-[0.16em] text-[#0A4A13]">
+    <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-[0.16em] text-[#105D1D]">
       {Icon && <Icon className="h-4 w-4" aria-hidden="true" />}
       {children}
     </h4>
@@ -166,7 +166,7 @@ export default function ServicesPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-[#FBF8F1] text-[#14261A]">
+      <div className="bg-[#FBF8F1] text-[#24422D]">
         <Hero onPick={(a) => choose(a, true)} />
         <SectionNav sections={onThisPage} pillId="svc-nav-pill" />
         <Journeys
@@ -201,11 +201,11 @@ function Hero({ onPick }: { onPick: (anchor: string) => void }) {
             e.preventDefault();
             onPick(pick);
           }}
-          className="max-w-xl rounded-3xl bg-white p-3 shadow-[0_20px_40px_-28px_rgba(10,74,19,0.6)] ring-1 ring-black/10 sm:p-4"
+          className="max-w-xl rounded-3xl bg-white p-3 shadow-[0_20px_40px_-28px_rgba(16,93,29,0.6)] ring-1 ring-black/10 sm:p-4"
         >
           <label
             htmlFor="svc-pick"
-            className="block px-1 text-lg font-semibold text-[#0A4A13]"
+            className="block px-1 text-lg font-semibold text-[#105D1D]"
           >
             I want to
           </label>
@@ -216,7 +216,7 @@ function Hero({ onPick }: { onPick: (anchor: string) => void }) {
                 value={pick}
                 onChange={(e) => setPick(e.target.value)}
                 className={cn(
-                  "min-h-14 w-full appearance-none truncate rounded-2xl bg-[#FBF8F1] pl-4 pr-11 text-lg font-semibold text-[#14261A] ring-1 ring-black/15",
+                  "min-h-14 w-full appearance-none truncate rounded-2xl bg-[#FBF8F1] pl-4 pr-11 text-lg font-semibold text-[#24422D] ring-1 ring-black/15",
                   focus,
                 )}
               >
@@ -244,7 +244,7 @@ function Hero({ onPick }: { onPick: (anchor: string) => void }) {
       aside={
         <FramedPanel className="hidden p-5 sm:block sm:p-6">
           {/* Hidden on phones: the picker beside it and the journey rail below offer the same choices. */}
-          <p className="px-1 text-sm font-bold uppercase tracking-[0.18em] text-[#0A4A13]">
+          <p className="px-1 text-sm font-bold uppercase tracking-[0.18em] text-[#105D1D]">
             Most used services
           </p>
           <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -261,13 +261,13 @@ function Hero({ onPick }: { onPick: (anchor: string) => void }) {
                     type="button"
                     onClick={() => onPick(j.anchor)}
                     className={cn(
-                      "group flex h-full min-h-16 w-full items-center gap-3 rounded-2xl bg-[#FBF8F1] p-3 text-left ring-1 ring-black/10 transition duration-300 hover:-translate-y-0.5 hover:bg-[#E8F5E9] hover:ring-2 hover:ring-[#117F21]",
+                      "group flex h-full min-h-16 w-full items-center gap-3 rounded-2xl bg-[#FBF8F1] p-3 text-left ring-1 ring-black/10 transition duration-300 hover:-translate-y-0.5 hover:bg-[#E8F5E9] hover:ring-2 hover:ring-[#14892A]",
                       focus,
                     )}
                   >
                     <IconTile icon={Icon} small />
                     <span className="min-w-0">
-                      <span className="block text-lg font-bold leading-snug text-[#14261A]">
+                      <span className="block text-lg font-bold leading-snug text-[#24422D]">
                         {j.short}
                       </span>
                       <span className="block text-base text-gray-700">
@@ -306,7 +306,7 @@ function Eligibility({ j }: { j: Journey }) {
               <legend className="sr-only">{q}</legend>
               <span
                 aria-hidden="true"
-                className="flex-1 text-lg leading-snug text-[#14261A]"
+                className="flex-1 text-lg leading-snug text-[#24422D]"
               >
                 {q}
               </span>
@@ -318,9 +318,9 @@ function Eligibility({ j }: { j: Journey }) {
                       "flex min-h-12 min-w-20 cursor-pointer items-center justify-center gap-1.5 rounded-2xl px-4 text-lg font-semibold ring-1 transition has-[:focus-visible]:outline has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-[#FFD84D]",
                       ans[i] === v
                         ? v
-                          ? "bg-[#0A4A13] text-[#F4D27A] ring-[#0A4A13]"
+                          ? "bg-[#105D1D] text-[#F4D27A] ring-[#105D1D]"
                           : "bg-[#B52026] text-white ring-[#B52026]"
-                        : "bg-white text-[#14261A] ring-black/20 hover:ring-2 hover:ring-[#117F21]",
+                        : "bg-white text-[#24422D] ring-black/20 hover:ring-2 hover:ring-[#14892A]",
                     )}
                   >
                     <input
@@ -357,7 +357,7 @@ function Eligibility({ j }: { j: Journey }) {
               className={cn(
                 "mt-4 flex gap-3 rounded-2xl p-4 text-lg font-medium ring-1",
                 ok
-                  ? "bg-[#E8F5E9] text-[#0A4A13] ring-[#117F21]/30"
+                  ? "bg-[#E8F5E9] text-[#105D1D] ring-[#14892A]/30"
                   : "bg-[#FDE8E8] text-[#5C1013] ring-[#B52026]/25",
               )}
             >
@@ -392,10 +392,10 @@ function Panel({
       exit={{ opacity: 0, y: reduce ? 0 : -16 }}
       transition={{ duration: 0.35, ease }}
       aria-labelledby={`${j.anchor}-title`}
-      className="overflow-hidden rounded-[2rem] bg-white shadow-[0_30px_60px_-36px_rgba(10,74,19,0.45)] ring-1 ring-black/10"
+      className="overflow-hidden rounded-[2rem] bg-white shadow-[0_30px_60px_-36px_rgba(16,93,29,0.45)] ring-1 ring-black/10"
     >
       {/* Green header: the journey's name, who it's for, where and how long */}
-      <header className="relative isolate flex flex-col gap-5 overflow-hidden bg-[#0A4A13] p-6 text-white sm:flex-row sm:p-8">
+      <header className="relative isolate flex flex-col gap-5 overflow-hidden bg-[#105D1D] p-6 text-white sm:flex-row sm:p-8">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -right-20 -top-24 -z-10 h-64 w-64 rounded-full bg-[#CB9615]/20 blur-3xl"
@@ -404,7 +404,7 @@ function Panel({
           <Icon className="h-8 w-8" aria-hidden="true" />
         </span>
         <div className="min-w-0">
-          <p className="inline-flex rounded-full bg-white px-3 py-1 text-sm font-bold uppercase tracking-[0.14em] text-[#0A4A13]">
+          <p className="inline-flex rounded-full bg-white px-3 py-1 text-sm font-bold uppercase tracking-[0.14em] text-[#105D1D]">
             For {j.audience.toLowerCase()}
           </p>
           <h3
@@ -459,7 +459,7 @@ function Panel({
               initial={{ scaleY: reduce ? 1 : 0 }}
               animate={{ scaleY: 1 }}
               transition={{ duration: 0.8, delay: 0.2, ease }}
-              className="absolute bottom-4 left-[27px] top-4 w-0.5 origin-top rounded-full bg-gradient-to-b from-[#117F21] to-[#CB9615]"
+              className="absolute bottom-4 left-[27px] top-4 w-0.5 origin-top rounded-full bg-gradient-to-b from-[#14892A] to-[#CB9615]"
             />
             {j.steps.map((s, i) => (
               <motion.li
@@ -576,14 +576,14 @@ function Journeys({
                           "relative isolate flex min-h-16 w-full items-center gap-3 rounded-2xl px-3 text-left text-lg font-semibold transition-colors",
                           on
                             ? "text-white"
-                            : "bg-white text-[#14261A] ring-1 ring-black/10 hover:bg-[#E8F5E9] lg:bg-transparent lg:ring-0",
+                            : "bg-white text-[#24422D] ring-1 ring-black/10 hover:bg-[#E8F5E9] lg:bg-transparent lg:ring-0",
                           focus,
                         )}
                       >
                         {on && (
                           <motion.span
                             layoutId="svc-rail-pill"
-                            className="absolute inset-0 -z-10 rounded-2xl bg-[#0A4A13] shadow-[0_18px_36px_-18px_rgba(10,74,19,0.8)]"
+                            className="absolute inset-0 -z-10 rounded-2xl bg-[#105D1D] shadow-[0_18px_36px_-18px_rgba(16,93,29,0.8)]"
                             transition={{
                               type: "spring",
                               stiffness: 380,
@@ -596,7 +596,7 @@ function Journeys({
                             "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl",
                             on
                               ? "bg-[#F4D27A] text-[#1A1206]"
-                              : "bg-[#E8F5E9] text-[#0A4A13]",
+                              : "bg-[#E8F5E9] text-[#105D1D]",
                           )}
                         >
                           <I className="h-5 w-5" aria-hidden="true" />
@@ -670,7 +670,7 @@ function Portals({ onHandoff }: { onHandoff: (key: string) => void }) {
                     />
                     <IconTile icon={I} />
                     <span className="relative flex min-w-0 flex-1 flex-col self-stretch">
-                      <span className="block text-2xl font-bold tracking-tight text-[#14261A]">
+                      <span className="block text-2xl font-bold tracking-tight text-[#24422D]">
                         {p.name}
                       </span>
                       <span className="mt-0.5 block text-base text-gray-600">
@@ -728,13 +728,13 @@ function Handoff({
             <div className="flex items-start gap-4">
               <IconTile icon={I} small />
               <div className="min-w-0">
-                <p className="flex items-center gap-2 text-sm font-bold uppercase tracking-[0.16em] text-[#0A4A13]">
+                <p className="flex items-center gap-2 text-sm font-bold uppercase tracking-[0.16em] text-[#105D1D]">
                   <LogOut className="h-4 w-4" aria-hidden="true" />
                   You’re about to leave this site
                 </p>
                 <h2
                   id="handoff-title"
-                  className="mt-2 text-2xl font-bold leading-tight tracking-tight text-[#14261A]"
+                  className="mt-2 text-2xl font-bold leading-tight tracking-tight text-[#24422D]"
                 >
                   {p.full}
                 </h2>
@@ -768,7 +768,7 @@ function Handoff({
                 <p className="mt-2 text-lg text-gray-800">{p.next}</p>
               </div>
             )}
-            <p className="relative flex gap-3 overflow-hidden rounded-2xl bg-[#F1EFE8] p-4 pl-5 text-base text-[#14261A]">
+            <p className="relative flex gap-3 overflow-hidden rounded-2xl bg-[#F1EFE8] p-4 pl-5 text-base text-[#24422D]">
               <span
                 aria-hidden="true"
                 className="absolute inset-y-0 left-0 w-1.5 bg-[#CB9615]"
@@ -856,7 +856,7 @@ function Help() {
         <ul className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
           {cards.map((c, i) => {
             const cls = cn(
-              "group flex h-full w-full flex-col items-center rounded-3xl bg-white p-7 text-center ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)] hover:ring-2 hover:ring-[#117F21]",
+              "group flex h-full w-full flex-col items-center rounded-3xl bg-white p-7 text-center ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(16,93,29,0.55)] hover:ring-2 hover:ring-[#14892A]",
               focus,
             );
             const inner = (
@@ -866,12 +866,12 @@ function Help() {
                     "flex h-16 w-16 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110",
                     c.tone === "red"
                       ? "bg-[#B52026] text-white"
-                      : "bg-[#0A4A13] text-[#F4D27A]",
+                      : "bg-[#105D1D] text-[#F4D27A]",
                   )}
                 >
                   <c.icon className="h-8 w-8" aria-hidden="true" />
                 </span>
-                <span className="mt-5 block text-xl font-bold text-[#14261A]">
+                <span className="mt-5 block text-xl font-bold text-[#24422D]">
                   {c.title}
                 </span>
                 <span className="mt-2 block text-lg leading-relaxed text-gray-700">

@@ -33,22 +33,22 @@ const onThisPage = [
 
 /** The calm card: white, thin ring; on hover it lifts 4 px, gets a green ring and a soft green shadow. */
 const calmCard =
-  "group relative overflow-hidden rounded-3xl bg-white ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)] hover:ring-2 hover:ring-[#117F21]";
+  "group relative overflow-hidden rounded-3xl bg-white ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(16,93,29,0.55)] hover:ring-2 hover:ring-[#14892A]";
 /** Large gold primary and green outline buttons. */
 const goldBtn =
   "group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-[#F4D27A] px-6 text-lg font-semibold text-[#1A1206] shadow-[0_14px_30px_-18px_rgba(122,82,0,0.8)] transition hover:bg-[#FFE08F]";
 const outlineBtn =
-  "group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border-2 border-[#117F21] bg-white px-6 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#117F21] hover:text-white";
+  "group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border-2 border-[#14892A] bg-white px-6 text-lg font-semibold text-[#105D1D] transition hover:bg-[#14892A] hover:text-white";
 /** Large round thumb (28 px) for the age slider, as on the services calculator. */
 const thumb = [
-  "[&::-webkit-slider-thumb]:h-7 [&::-webkit-slider-thumb]:w-7 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-4 [&::-webkit-slider-thumb]:border-[#117F21] [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-md",
-  "[&::-moz-range-thumb]:h-6 [&::-moz-range-thumb]:w-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-4 [&::-moz-range-thumb]:border-[#117F21] [&::-moz-range-thumb]:bg-white",
+  "[&::-webkit-slider-thumb]:h-7 [&::-webkit-slider-thumb]:w-7 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-4 [&::-webkit-slider-thumb]:border-[#14892A] [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-md",
+  "[&::-moz-range-thumb]:h-6 [&::-moz-range-thumb]:w-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-4 [&::-moz-range-thumb]:border-[#14892A] [&::-moz-range-thumb]:bg-white",
 ].join(" ");
 
 /** Dark-green icon tile with a gold icon that tips on card hover. */
 function IconTile({ icon: Icon, className }: { icon: typeof Phone; className?: string }) {
   return (
-    <span aria-hidden="true" className={cn("flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-[-6deg]", className)}>
+    <span aria-hidden="true" className={cn("flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#105D1D] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-[-6deg]", className)}>
       <Icon className="h-7 w-7" />
     </span>
   );
@@ -72,7 +72,7 @@ const initials = (n: string) =>
     .map((w) => w[0])
     .join("")
     .toUpperCase();
-const tones = ["bg-[#0A4A13] text-[#F4D27A]", "bg-[#117F21] text-white", "bg-[#CB9615] text-[#1A1206]", "bg-[#E8F5E9] text-[#0A4A13]"];
+const tones = ["bg-[#105D1D] text-[#F4D27A]", "bg-[#14892A] text-white", "bg-[#CB9615] text-[#1A1206]", "bg-[#E8F5E9] text-[#105D1D]"];
 const tone = (id: string) => tones[[...id].reduce((a, c) => a + c.charCodeAt(0), 0) % tones.length];
 
 function Monogram({ o, size = "md", className }: { o: Operator; size?: "md" | "lg"; className?: string }) {
@@ -100,7 +100,7 @@ function ContactActions({ o, compact = false, grid = false }: { o: Operator; com
           title={it.text}
           {...(it.ext ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           className={cn(
-            "inline-flex items-center justify-center gap-1.5 rounded-full bg-white font-semibold text-[#0A4A13] ring-1 ring-[#117F21]/40 transition hover:bg-[#0A4A13] hover:text-white hover:ring-[#0A4A13]",
+            "inline-flex items-center justify-center gap-1.5 rounded-full bg-white font-semibold text-[#105D1D] ring-1 ring-[#14892A]/40 transition hover:bg-[#105D1D] hover:text-white hover:ring-[#105D1D]",
             compact ? "min-h-11 px-3 text-base" : "min-h-12 px-4 text-lg",
             focus,
           )}
@@ -145,7 +145,7 @@ export default function OperatorsPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-[#FBF8F1] text-[#14261A]">
+      <div className="bg-[#FBF8F1] text-[#24422D]">
         <Hero onOpen={open} />
         <SectionNav sections={onThisPage} pillId="ops-nav-pill" />
         <Directory onOpen={open} tabHint={tabHint} />
@@ -179,8 +179,8 @@ function Hero({ onOpen }: { onOpen: (id: string) => void }) {
         <dl className="grid max-w-lg grid-cols-3 gap-3">
           {(["PFA", "PFC", "CPFA"] as const).map((t) => (
             <div key={t} className="rounded-3xl bg-white px-4 py-4 ring-1 ring-black/10 sm:px-5">
-              <dt className="text-base font-semibold text-[#0A4A13]">{typeInfo[t].short}</dt>
-              <dd className="mt-1 text-4xl font-bold tabular-nums text-[#14261A]">
+              <dt className="text-base font-semibold text-[#105D1D]">{typeInfo[t].short}</dt>
+              <dd className="mt-1 text-4xl font-bold tabular-nums text-[#24422D]">
                 <CountUp value={String(count(t))} duration={1.2} />
               </dd>
             </div>
@@ -194,7 +194,7 @@ function Hero({ onOpen }: { onOpen: (id: string) => void }) {
             <div className="flex items-center gap-4">
               <IconTile icon={BadgeCheck} />
               <div>
-                <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#0A4A13]">Licence check</p>
+                <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#105D1D]">Licence check</p>
                 <h2 className="mt-1 text-2xl font-bold tracking-tight">Is this company licensed?</h2>
               </div>
             </div>
@@ -202,7 +202,7 @@ function Hero({ onOpen }: { onOpen: (id: string) => void }) {
             <label htmlFor="verify-q" className="mt-5 block text-lg font-semibold">
               Company name
             </label>
-            <div className="mt-2 flex items-center gap-2 rounded-2xl bg-[#FBF8F1] px-4 ring-1 ring-black/15 focus-within:ring-2 focus-within:ring-[#117F21]">
+            <div className="mt-2 flex items-center gap-2 rounded-2xl bg-[#FBF8F1] px-4 ring-1 ring-black/15 focus-within:ring-2 focus-within:ring-[#14892A]">
               <Search className="h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" />
               <input id="verify-q" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Type at least 3 letters, e.g. “Leadway”" autoComplete="off" className="min-h-14 w-full min-w-0 bg-transparent text-lg placeholder:text-gray-500 focus:outline-none" />
               {q && (
@@ -222,7 +222,7 @@ function Hero({ onOpen }: { onOpen: (id: string) => void }) {
                   <motion.ul key="found" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-2">
                     {matches.slice(0, 3).map((o) => (
                       <li key={o.id}>
-                        <button type="button" onClick={() => onOpen(o.id)} className={cn("group flex min-h-14 w-full items-center gap-3 rounded-2xl bg-[#E8F5E9] p-3 text-left transition hover:bg-[#0A4A13] hover:text-white", focus)}>
+                        <button type="button" onClick={() => onOpen(o.id)} className={cn("group flex min-h-14 w-full items-center gap-3 rounded-2xl bg-[#E8F5E9] p-3 text-left transition hover:bg-[#105D1D] hover:text-white", focus)}>
                           <ShieldCheck className="h-6 w-6 shrink-0 text-[#117F21] group-hover:text-[#F4D27A]" aria-hidden="true" />
                           <span className="min-w-0 flex-1">
                             <span className="block truncate text-lg font-bold">{o.name}</span>
@@ -274,7 +274,7 @@ function ToolGroup({ label, children }: { label: string; children: ReactNode }) 
 const toolBtn = (on: boolean) =>
   cn(
     "inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-base font-semibold transition",
-    on ? "bg-[#0A4A13] text-white" : "bg-white text-[#0A4A13] ring-1 ring-[#117F21]/40 hover:bg-[#E8F5E9]",
+    on ? "bg-[#105D1D] text-white" : "bg-white text-[#105D1D] ring-1 ring-[#14892A]/40 hover:bg-[#E8F5E9]",
     focus,
   );
 
@@ -325,11 +325,11 @@ function Directory({ onOpen, tabHint }: { onOpen: (id: string) => void; tabHint:
                     aria-selected={on}
                     aria-controls="ops-panel"
                     onClick={() => setTab(t.id)}
-                    className={cn("relative flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl px-4 text-lg font-semibold transition sm:flex-none", on ? "text-white" : "text-[#14261A] hover:bg-[#E8F5E9]", focus)}
+                    className={cn("relative flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl px-4 text-lg font-semibold transition sm:flex-none", on ? "text-white" : "text-[#24422D] hover:bg-[#E8F5E9]", focus)}
                   >
-                    {on && <motion.span layoutId="ops-tab-pill" className="absolute inset-0 rounded-xl bg-[#0A4A13]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
+                    {on && <motion.span layoutId="ops-tab-pill" className="absolute inset-0 rounded-xl bg-[#105D1D]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
                     <span className="relative">{t.label}</span>
-                    <span className={cn("relative rounded-full px-2 text-base tabular-nums", on ? "bg-[#F4D27A] text-[#1A1206]" : "bg-[#E8F5E9] text-[#0A4A13]")}>{t.n}</span>
+                    <span className={cn("relative rounded-full px-2 text-base tabular-nums", on ? "bg-[#F4D27A] text-[#1A1206]" : "bg-[#E8F5E9] text-[#105D1D]")}>{t.n}</span>
                   </button>
                 );
               })}
@@ -341,7 +341,7 @@ function Directory({ onOpen, tabHint }: { onOpen: (id: string) => void; tabHint:
                 <label htmlFor="ops-q" className="sr-only">
                   Search operators
                 </label>
-                <div className="flex items-center gap-2 rounded-2xl bg-white px-4 ring-1 ring-black/15 focus-within:ring-2 focus-within:ring-[#117F21]">
+                <div className="flex items-center gap-2 rounded-2xl bg-white px-4 ring-1 ring-black/15 focus-within:ring-2 focus-within:ring-[#14892A]">
                   <Search className="h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" />
                   <input id="ops-q" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name or address" className="min-h-12 w-full min-w-0 bg-transparent text-lg placeholder:text-gray-500 focus:outline-none" />
                 </div>
@@ -414,11 +414,11 @@ function Directory({ onOpen, tabHint }: { onOpen: (id: string) => void; tabHint:
                               <Monogram o={o} />
                               <div className="min-w-0">
                                 <h3 className="text-xl font-bold leading-snug tracking-tight">
-                                  <button type="button" onClick={() => onOpen(o.id)} className={cn("text-left after:absolute after:inset-0 after:rounded-3xl after:content-[''] group-hover:text-[#0A4A13]", focus)}>
+                                  <button type="button" onClick={() => onOpen(o.id)} className={cn("text-left after:absolute after:inset-0 after:rounded-3xl after:content-[''] group-hover:text-[#105D1D]", focus)}>
                                     {o.name}
                                   </button>
                                 </h3>
-                                <p className="mt-1.5 inline-flex items-center gap-1 rounded-full bg-[#E8F5E9] px-2.5 py-0.5 text-sm font-bold text-[#0A4A13]">
+                                <p className="mt-1.5 inline-flex items-center gap-1 rounded-full bg-[#E8F5E9] px-2.5 py-0.5 text-sm font-bold text-[#105D1D]">
                                   <BadgeCheck className="h-4 w-4" aria-hidden="true" />
                                   Licensed
                                 </p>
@@ -445,7 +445,7 @@ function Directory({ onOpen, tabHint }: { onOpen: (id: string) => void; tabHint:
                             <Monogram o={o} />
                             <div className="min-w-0 flex-1">
                               <h3 className="text-lg font-bold">
-                                <button type="button" onClick={() => onOpen(o.id)} className={cn("text-left after:absolute after:inset-0 after:rounded-3xl after:content-[''] group-hover:text-[#0A4A13]", focus)}>
+                                <button type="button" onClick={() => onOpen(o.id)} className={cn("text-left after:absolute after:inset-0 after:rounded-3xl after:content-[''] group-hover:text-[#105D1D]", focus)}>
                                   {o.name}
                                 </button>
                               </h3>
@@ -477,7 +477,7 @@ function Directory({ onOpen, tabHint }: { onOpen: (id: string) => void; tabHint:
 
 function Details({ id, onClose }: { id: string | null; onClose: () => void }) {
   const o = operators.find((x) => x.id === id);
-  const linkCls = cn(calmCard, "flex min-h-16 items-center gap-3 p-4 text-[#14261A]", focus);
+  const linkCls = cn(calmCard, "flex min-h-16 items-center gap-3 p-4 text-[#24422D]", focus);
   return (
     <Drawer open={!!o} onClose={onClose} labelledBy="op-name">
       {o && (
@@ -487,14 +487,14 @@ function Details({ id, onClose }: { id: string | null; onClose: () => void }) {
             <div className="flex items-center gap-4">
               <Monogram o={o} size="lg" className="ring-4 ring-white" />
               <div>
-                <span className="inline-flex items-center gap-1 rounded-full bg-[#0A4A13] px-3 py-1 text-sm font-bold text-[#F4D27A]">
+                <span className="inline-flex items-center gap-1 rounded-full bg-[#105D1D] px-3 py-1 text-sm font-bold text-[#F4D27A]">
                   <BadgeCheck className="h-4 w-4" aria-hidden="true" />
                   Licensed
                 </span>
-                <p className="mt-1.5 text-base font-semibold text-[#0A4A13]">{typeInfo[o.type].label}</p>
+                <p className="mt-1.5 text-base font-semibold text-[#105D1D]">{typeInfo[o.type].label}</p>
               </div>
             </div>
-            <h2 id="op-name" className="mt-5 text-2xl font-bold leading-snug tracking-tight text-[#14261A] sm:text-[1.75rem]">
+            <h2 id="op-name" className="mt-5 text-2xl font-bold leading-snug tracking-tight text-[#24422D] sm:text-[1.75rem]">
               {o.name}
             </h2>
             <p className="mt-2 text-lg leading-relaxed text-gray-700">{typeInfo[o.type].role}</p>
@@ -509,7 +509,7 @@ function Details({ id, onClose }: { id: string | null; onClose: () => void }) {
                 { icon: Globe, k: "Website", v: o.website },
               ].map((r) => (
                 <div key={r.k} className="flex gap-4">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A]">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#105D1D] text-[#F4D27A]">
                     <r.icon className="h-5 w-5" aria-hidden="true" />
                   </span>
                   <div className="min-w-0">
@@ -558,7 +558,7 @@ function HowItWorks() {
         <Headline id="how-title" kicker="How it works" title="Three safeguards around your savings" mark="Three safeguards" intro="The company that invests your money never holds it. A separate custodian keeps the assets, and PenCom supervises both." />
         <Rise className="mt-10">
           <div className="rounded-[2rem] bg-[#F1EFE8] p-5 sm:p-8 lg:p-10">
-            <p className="mx-auto flex w-fit items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-center text-lg font-semibold text-[#0A4A13] ring-1 ring-[#117F21]/30">
+            <p className="mx-auto flex w-fit items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-center text-lg font-semibold text-[#105D1D] ring-1 ring-[#14892A]/30">
               <ShieldCheck className="h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" />
               PenCom licenses, supervises and inspects every operator
             </p>
@@ -566,7 +566,7 @@ function HowItWorks() {
               {nodes.map((n, i) => (
                 <li key={n.title} className="relative md:px-4">
                   {i > 0 && (
-                    <span aria-hidden="true" className="absolute left-0 top-1/2 hidden h-[3px] w-8 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full bg-[#117F21]/25 md:block">
+                    <span aria-hidden="true" className="absolute left-0 top-1/2 hidden h-[3px] w-8 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full bg-[#14892A]/25 md:block">
                       {!reduce && (
                         <motion.span className="absolute inset-y-0 w-3 rounded-full bg-[#CB9615]" initial={{ left: "-40%" }} whileInView={{ left: "110%" }} viewport={{ once: true }} transition={{ duration: 1.4, ease: "easeInOut", delay: 0.4 + i * 0.3 }} />
                       )}
@@ -610,7 +610,7 @@ function Funds() {
         <Headline id="funds-title" kicker="RSA funds" title="Which fund is your money in?" mark="your money" intro="Every PFA runs the same set of RSA funds. Which one you’re in depends on your age and situation. Try it." dark />
         <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-12">
           <div className="h-fit lg:sticky lg:top-[170px] lg:col-span-5">
-            <div className="rounded-3xl bg-white p-6 text-[#14261A] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)] sm:p-8">
+            <div className="rounded-3xl bg-white p-6 text-[#24422D] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)] sm:p-8">
               <fieldset>
                 <legend className="text-xl font-bold tracking-tight">I am…</legend>
                 <div className="mt-3 grid grid-cols-1 gap-2">
@@ -621,7 +621,7 @@ function Funds() {
                         key={v}
                         className={cn(
                           "flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl px-4 text-lg font-semibold ring-1 transition has-[:focus-visible]:outline has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-[#FFD84D]",
-                          on ? "bg-[#0A4A13] text-white ring-[#0A4A13]" : "bg-white text-[#14261A] ring-black/15 hover:ring-2 hover:ring-[#117F21]",
+                          on ? "bg-[#105D1D] text-white ring-[#105D1D]" : "bg-white text-[#24422D] ring-black/15 hover:ring-2 hover:ring-[#14892A]",
                         )}
                       >
                         <input type="radio" name="fund-status" value={v} checked={on} onChange={() => setStatus(v)} className="sr-only" />
@@ -637,7 +637,7 @@ function Funds() {
               <div className={cn("mt-7 transition-opacity", status !== "working" && "pointer-events-none opacity-40")}>
                 <label htmlFor="fund-age" className="flex items-baseline justify-between text-xl font-bold tracking-tight">
                   My age
-                  <span className="rounded-xl bg-[#E8F5E9] px-3 py-0.5 text-lg font-bold tabular-nums text-[#0A4A13]">{age}</span>
+                  <span className="rounded-xl bg-[#E8F5E9] px-3 py-0.5 text-lg font-bold tabular-nums text-[#105D1D]">{age}</span>
                 </label>
                 <input
                   id="fund-age"
@@ -648,11 +648,11 @@ function Funds() {
                   disabled={status !== "working"}
                   onChange={(e) => setAge(Number(e.target.value))}
                   className={cn("mt-4 h-3 w-full cursor-pointer appearance-none rounded-full focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[6px] focus-visible:outline-[#FFD84D]", thumb)}
-                  style={{ background: `linear-gradient(to right, #117F21 ${pct}%, #E5E7EB ${pct}%)` }}
+                  style={{ background: `linear-gradient(to right, #14892A ${pct}%, #E5E7EB ${pct}%)` }}
                 />
               </div>
               <label className="mt-7 flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl bg-[#F1EFE8] p-4">
-                <input type="checkbox" checked={nonInterest} onChange={(e) => setNonInterest(e.target.checked)} className="h-6 w-6 shrink-0 accent-[#117F21]" />
+                <input type="checkbox" checked={nonInterest} onChange={(e) => setNonInterest(e.target.checked)} className="h-6 w-6 shrink-0 accent-[#14892A]" />
                 <span className="text-lg font-semibold">I want non-interest (ethical) investments</span>
               </label>
               <p className="mt-5 text-base leading-relaxed text-gray-700">A simplified guide. Your PFA can confirm which fund you are in and help you move between funds where the rules allow.</p>
@@ -670,7 +670,7 @@ function Funds() {
                   className={cn(
                     "relative overflow-hidden rounded-3xl p-6 ring-1 transition-[background-color,box-shadow,color] duration-300",
                     mine
-                      ? "bg-white text-[#14261A] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.55)] ring-transparent"
+                      ? "bg-white text-[#24422D] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.55)] ring-transparent"
                       : open
                         ? "bg-white/[0.09] ring-[#F4D27A]/60"
                         : "bg-white/[0.07] ring-white/10",
@@ -678,11 +678,11 @@ function Funds() {
                 >
                   {mine && <span aria-hidden="true" className="absolute inset-y-0 left-0 w-2 bg-[#F4D27A]" />}
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span className={cn("text-2xl font-bold tabular-nums", mine ? "text-[#0A4A13]" : "text-[#F4D27A]")}>Fund {f.key}</span>
-                    {mine && <span className="rounded-full bg-[#0A4A13] px-3 py-1 text-sm font-bold text-[#F4D27A]">Your fund</span>}
+                    <span className={cn("text-2xl font-bold tabular-nums", mine ? "text-[#105D1D]" : "text-[#F4D27A]")}>Fund {f.key}</span>
+                    {mine && <span className="rounded-full bg-[#105D1D] px-3 py-1 text-sm font-bold text-[#F4D27A]">Your fund</span>}
                     {open && <span className="rounded-full px-3 py-1 text-sm font-bold text-[#F4D27A] ring-1 ring-[#F4D27A]/70">You can choose this</span>}
                   </div>
-                  <p className={cn("mt-3 text-lg font-semibold", mine ? "text-[#14261A]" : "text-white")}>{f.who}</p>
+                  <p className={cn("mt-3 text-lg font-semibold", mine ? "text-[#24422D]" : "text-white")}>{f.who}</p>
                   <p className={cn("mt-1 text-base leading-relaxed", mine ? "text-gray-700" : "text-white/80")}>{f.note}</p>
                 </motion.li>
               );
@@ -701,7 +701,7 @@ function Performance() {
     <section id="performance" aria-labelledby="perf-title" className={cn(sectionCls, "pb-24")}>
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-5 lg:grid-cols-12">
         <Rise className="lg:col-span-8">
-          <div className="relative h-full overflow-hidden rounded-[2rem] bg-white p-7 shadow-[0_30px_60px_-36px_rgba(10,74,19,0.45)] ring-1 ring-black/10 sm:p-10">
+          <div className="relative h-full overflow-hidden rounded-[2rem] bg-white p-7 shadow-[0_30px_60px_-36px_rgba(16,93,29,0.45)] ring-1 ring-black/10 sm:p-10">
             <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 rounded-full bg-[#E8F5E9]" />
             <BarChart3 aria-hidden="true" className="pointer-events-none absolute right-8 top-8 hidden h-20 w-20 text-[#117F21]/25 sm:block" />
             <div className="relative">

@@ -126,7 +126,7 @@ export default function Header() {
   return (
     <header className="fixed left-0 right-0 top-0 z-50 print:hidden">
       {/* Utility bar (28 px) */}
-      <div className="bg-[#0A4A13] text-[13px] text-white">
+      <div className="bg-[#105D1D] text-[13px] text-white">
         <div className="mx-auto flex h-7 max-w-7xl items-center justify-between px-4">
           <div className="flex items-center gap-4 whitespace-nowrap">
             <span className="text-white/85">Federal Republic of Nigeria</span>
@@ -152,7 +152,7 @@ export default function Header() {
         aria-label="Main"
         className={cn(
           "relative bg-white transition-shadow duration-300",
-          scrolled ? "shadow-[0_1px_0_rgba(0,0,0,0.08),0_14px_30px_-24px_rgba(10,74,19,0.55)]" : "shadow-none",
+          scrolled ? "shadow-[0_1px_0_rgba(0,0,0,0.08),0_14px_30px_-24px_rgba(16,93,29,0.55)]" : "shadow-none",
         )}
       >
         <div className="mx-auto max-w-7xl px-4">
@@ -160,7 +160,7 @@ export default function Header() {
             <Link to="/" className={cn("flex shrink-0 items-center gap-3 rounded-xl", focus)} aria-label="PenCom Home">
               <img src="/pencom-logo.png" alt="PenCom Logo" className="h-11 w-auto object-contain" />
               <span className="hidden sm:block lg:hidden xl:block">
-                <span className="block text-lg font-bold leading-tight text-[#14261A]">PenCom</span>
+                <span className="block text-lg font-bold leading-tight text-[#24422D]">PenCom</span>
                 <span className="block text-[13px] leading-tight text-gray-600">National Pension Commission</span>
               </span>
             </Link>
@@ -191,13 +191,13 @@ export default function Header() {
                       aria-expanded={mega ? openNow : undefined}
                       className={cn(
                         "relative flex min-h-11 items-center gap-1 whitespace-nowrap rounded-full px-2.5 text-[15px] font-semibold transition-colors xl:px-3 xl:text-base",
-                        on ? "bg-[#E8F5E9] text-[#0A4A13]" : "text-[#14261A] hover:bg-[#F1EFE8] hover:text-[#0A4A13]",
+                        on ? "bg-[#E8F5E9] text-[#105D1D]" : "text-[#24422D] hover:bg-[#F1EFE8] hover:text-[#105D1D]",
                         focus,
                       )}
                     >
                       {item.label}
                       {mega && <ChevronDown className={cn("h-4 w-4 transition-transform", openNow && "rotate-180")} aria-hidden="true" />}
-                      {on && <span aria-hidden="true" className="absolute inset-x-4 -bottom-[3px] h-[3px] rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" />}
+                      {on && <span aria-hidden="true" className="absolute inset-x-4 -bottom-[3px] h-[3px] rounded-full bg-gradient-to-r from-[#14892A] to-[#CB9615]" />}
                     </Link>
 
                     <AnimatePresence>
@@ -220,7 +220,7 @@ export default function Header() {
                 aria-label={searchOpen ? "Close search" : undefined}
                 className={cn(
                   "inline-flex min-h-11 min-w-11 items-center justify-center gap-2 whitespace-nowrap rounded-full px-2.5 text-base font-semibold transition-colors sm:px-4",
-                  searchOpen ? "bg-[#0A4A13] text-[#F4D27A]" : "text-[#14261A] ring-1 ring-[#117F21]/30 hover:bg-[#0A4A13] hover:text-white",
+                  searchOpen ? "bg-[#105D1D] text-[#F4D27A]" : "text-[#24422D] ring-1 ring-[#14892A]/30 hover:bg-[#105D1D] hover:text-white",
                   focus,
                 )}
               >
@@ -240,7 +240,7 @@ export default function Header() {
                 aria-expanded={mobileOpen}
                 aria-controls="mobile-menu"
                 className={cn(
-                  "inline-flex min-h-11 items-center gap-2 rounded-full bg-[#0A4A13] px-4 text-base font-semibold text-white transition-colors hover:bg-[#117F21] lg:hidden",
+                  "inline-flex min-h-11 items-center gap-2 rounded-full bg-[#105D1D] px-4 text-base font-semibold text-white transition-colors hover:bg-[#14892A] lg:hidden",
                   focus,
                 )}
               >
@@ -263,10 +263,10 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: reduce ? 0 : -8 }}
             transition={{ duration: 0.2 }}
-            className="border-b border-black/10 bg-[#FBF8F1] shadow-[0_24px_40px_-30px_rgba(10,74,19,0.6)]"
+            className="border-b border-black/10 bg-[#FBF8F1] shadow-[0_24px_40px_-30px_rgba(16,93,29,0.6)]"
           >
             <div ref={searchBox} className="mx-auto max-w-3xl px-4 py-5">
-              <p className="mb-3 text-lg font-bold text-[#14261A]">What are you looking for?</p>
+              <p className="mb-3 text-lg font-bold text-[#24422D]">What are you looking for?</p>
               <SiteSearch />
             </div>
           </motion.div>
@@ -294,11 +294,11 @@ export default function Header() {
                       aria-current={location.pathname === item.href ? "page" : undefined}
                       className={cn(
                         "flex min-h-12 items-center gap-3 rounded-2xl px-3 text-lg font-bold transition-colors",
-                        on ? "bg-[#E8F5E9] text-[#0A4A13]" : "text-[#14261A] hover:bg-[#F1EFE8]",
+                        on ? "bg-[#E8F5E9] text-[#105D1D]" : "text-[#24422D] hover:bg-[#F1EFE8]",
                         focus,
                       )}
                     >
-                      <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#0A4A13] text-[#F4D27A] [&_svg]:h-[18px] [&_svg]:w-[18px]">
+                      <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#105D1D] text-[#F4D27A] [&_svg]:h-[18px] [&_svg]:w-[18px]">
                         {iconMap[item.icon] || <Shield className="h-5 w-5" />}
                       </span>
                       {item.label}
@@ -314,7 +314,7 @@ export default function Header() {
                                 aria-current={location.pathname === link.href ? "page" : undefined}
                                 className={cn(
                                   "flex min-h-11 items-center rounded-xl px-3 text-base",
-                                  location.pathname === link.href ? "font-semibold text-[#0A4A13]" : "text-gray-700 hover:bg-[#F1EFE8] hover:text-[#0A4A13]",
+                                  location.pathname === link.href ? "font-semibold text-[#105D1D]" : "text-gray-700 hover:bg-[#F1EFE8] hover:text-[#105D1D]",
                                   focus,
                                 )}
                               >

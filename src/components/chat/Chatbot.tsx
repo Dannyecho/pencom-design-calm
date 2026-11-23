@@ -6,7 +6,7 @@ import {
   MessageCircle, X, Send, Bot, User, Sparkles,
   ThumbsUp, ThumbsDown, ChevronRight, Loader2
 } from "lucide-react";
-import { chatbotFAQs } from "@/lib/data";
+import { fallbackAnswer, findAnswer, suggestedPrompts } from "./answers";
 
 interface Message {
   id: string;
@@ -15,43 +15,6 @@ interface Message {
   source?: string;
   timestamp: Date;
 }
-
-function findAnswer(input: string): { answer: string; source: string } | null {
-  const query = input.toLowerCase();
-  for (const faq of chatbotFAQs) {
-    for (const keyword of faq.keywords) {
-      if (query.includes(keyword.toLowerCase())) {
-        return { answer: faq.answer, source: faq.source };
-      }
-    }
-  }
-  // Check for partial word matches
-  const words = query.split(/\s+/);
-  for (const faq of chatbotFAQs) {
-    let matchCount = 0;
-    for (const keyword of faq.keywords) {
-      const kwWords = keyword.toLowerCase().split(/\s+/);
-      for (const kw of kwWords) {
-        if (words.some((w) => w.includes(kw) || kw.includes(w))) {
-          matchCount++;
-        }
-      }
-    }
-    if (matchCount >= 2) {
-      return { answer: faq.answer, source: faq.source };
-    }
-  }
-  return null;
-}
-
-const suggestedPrompts = [
-  "What is the Contributory Pension Scheme?",
-  "How do I open an RSA?",
-  "How can I transfer my RSA?",
-  "What is Pension Clearance Certificate?",
-  "How do I access my pension?",
-  "What is Personal Pension Plan?",
-];
 
 export default function Chatbot() {
   const [open, setOpen] = useState(false);
@@ -114,7 +77,7 @@ export default function Chatbot() {
       role: "assistant",
       content: result
         ? result.answer
-        : "I don't have specific information on that topic yet. For detailed assistance, please contact PenCom directly at info@pencom.gov.ng or visit our FAQ page for more comprehensive answers.",
+        : fallbackAnswer,
       source: result ? result.source : "PenCom General Knowledge",
       timestamp: new Date(),
     };
@@ -141,7 +104,7 @@ export default function Chatbot() {
             exit={{ y: reduce ? 0 : 16, opacity: 0 }}
             id="chat-trigger"
             onClick={() => setOpen(true)}
-            className="fixed bottom-6 right-4 z-50 flex h-14 min-w-14 items-center justify-center gap-2 rounded-full bg-[#0A4A13] px-4 text-white shadow-[0_16px_36px_-14px_rgba(10,74,19,0.9)] ring-2 ring-white transition hover:bg-[#117F21] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D] sm:right-6 sm:pr-5 print:hidden"
+            className="fixed bottom-6 right-4 z-50 flex h-14 min-w-14 items-center justify-center gap-2 rounded-full bg-[#105D1D] px-4 text-white shadow-[0_16px_36px_-14px_rgba(16,93,29,0.9)] ring-2 ring-white transition hover:bg-[#14892A] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D] sm:right-6 sm:pr-5 print:hidden"
             aria-label="Open AI Chat Assistant"
           >
             <MessageCircle className="h-6 w-6 text-[#F4D27A]" aria-hidden="true" />
@@ -160,12 +123,12 @@ export default function Chatbot() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: reduce ? 0 : 24 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed bottom-4 right-4 z-50 flex h-[600px] max-h-[calc(100svh-6.5rem)] w-[420px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-3xl bg-white text-[#14261A] shadow-[0_30px_70px_-20px_rgba(10,74,19,0.55)] ring-1 ring-black/10 sm:bottom-6 sm:right-6"
+            className="fixed bottom-4 right-4 z-50 flex h-[600px] max-h-[calc(100svh-6.5rem)] w-[420px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-3xl bg-white text-[#24422D] shadow-[0_30px_70px_-20px_rgba(16,93,29,0.55)] ring-1 ring-black/10 sm:bottom-6 sm:right-6"
           >
             {/* Header */}
             <div className="flex shrink-0 items-center justify-between gap-3 border-b border-black/10 bg-[#FBF8F1] px-4 py-3">
               <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#0A4A13]">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#105D1D]">
                   <Bot className="h-5 w-5 text-[#F4D27A]" aria-hidden="true" />
                 </div>
                 <div>
@@ -182,7 +145,7 @@ export default function Chatbot() {
                   setOpen(false);
                   window.setTimeout(() => document.getElementById("chat-trigger")?.focus(), 50);
                 }}
-                className="inline-flex min-h-11 items-center gap-1.5 rounded-full px-3 text-base font-semibold text-[#14261A] ring-1 ring-black/15 transition hover:bg-[#0A4A13] hover:text-white focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
+                className="inline-flex min-h-11 items-center gap-1.5 rounded-full px-3 text-base font-semibold text-[#24422D] ring-1 ring-black/15 transition hover:bg-[#105D1D] hover:text-white focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
                 aria-label="Close chat"
               >
                 <X className="h-5 w-5" aria-hidden="true" />
@@ -202,7 +165,7 @@ export default function Chatbot() {
                   <div
                     className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${
                       msg.role === "assistant"
-                        ? "bg-[#0A4A13]"
+                        ? "bg-[#105D1D]"
                         : "bg-[#F1EFE8]"
                     }`}
                   >
@@ -215,8 +178,8 @@ export default function Chatbot() {
                   <div
                     className={`max-w-[82%] rounded-2xl px-4 py-3 text-base leading-relaxed ${
                       msg.role === "assistant"
-                        ? "rounded-tl-md bg-[#FBF8F1] text-[#14261A] ring-1 ring-black/10"
-                        : "rounded-tr-md bg-[#0A4A13] text-white"
+                        ? "rounded-tl-md bg-[#FBF8F1] text-[#24422D] ring-1 ring-black/10"
+                        : "rounded-tr-md bg-[#105D1D] text-white"
                     }`}
                   >
                     <p>{msg.content}</p>
@@ -245,7 +208,7 @@ export default function Chatbot() {
                   animate={{ opacity: 1 }}
                   className="flex gap-2.5"
                 >
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#0A4A13]">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#105D1D]">
                     <Bot className="h-4 w-4 text-[#F4D27A]" aria-hidden="true" />
                   </div>
                   <div className="rounded-2xl rounded-tl-md bg-[#FBF8F1] px-4 py-3 ring-1 ring-black/10">
@@ -261,14 +224,14 @@ export default function Chatbot() {
                   animate={{ opacity: 1 }}
                   className="pt-2"
                 >
-                  <p className="mb-2 text-base font-semibold text-[#14261A]">Suggested questions:</p>
+                  <p className="mb-2 text-base font-semibold text-[#24422D]">Suggested questions:</p>
                   <div className="flex flex-col gap-2">
                     {suggestedPrompts.map((prompt) => (
                       <button
                         key={prompt}
                         type="button"
                         onClick={() => handleSend(prompt)}
-                        className="group flex min-h-11 items-center justify-between gap-2 rounded-2xl bg-white px-4 py-2 text-left text-base text-[#14261A] ring-1 ring-[#117F21]/30 transition-colors hover:bg-[#0A4A13] hover:text-white focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
+                        className="group flex min-h-11 items-center justify-between gap-2 rounded-2xl bg-white px-4 py-2 text-left text-base text-[#24422D] ring-1 ring-[#14892A]/30 transition-colors hover:bg-[#105D1D] hover:text-white focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
                       >
                         {prompt}
                         <ChevronRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" aria-hidden="true" />
